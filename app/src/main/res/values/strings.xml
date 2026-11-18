@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">실시간 팁 비서</string>
+    <string name="tab_live_tips">실시간 팁</string>
+    <string name="tab_tip_history">팁 히스토리</string>
+    <string name="tab_knowledge_base">지식 베이스</string>
+    <string name="tab_settings">세부 설정</string>
+</resources>

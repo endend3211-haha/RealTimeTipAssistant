@@ -1,0 +1,72 @@
+# Built application files
+*.apk
+*.aar
+*.aab
+*.ap_
+
+# Files for the ART/Dalvik VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+bin/
+gen/
+out/
+build/
+app/build/
+.cxx/
+app/.cxx/
+.externalNativeBuild/
+
+# Gradle files
+.gradle/
+buildOutputCleanup/
+
+# Android Studio navigation editor temp files
+.navigation/
+
+# Local configuration file (sdk path, personal user info)
+local.properties
+
+# Log Files
+*.log
+
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+
+# Keystore files & Secrets
+*.jks
+*.keystore
+*.key
+*.pem
+*.p12
+*.env
+credentials.json
+google-services.json
+
+# Local databases & history
+*.db
+*.sqlite
+*.sqlite3
+*.db-wal
+*.db-shm
+*.db-journal
+
+# Large AI Model weights
+*.gguf
+*.bin
+*.onnx
+*.safetensors
+*.pt
+*.pth
+
+# OS generated files
+.DS_Store
+Thumbs.db
