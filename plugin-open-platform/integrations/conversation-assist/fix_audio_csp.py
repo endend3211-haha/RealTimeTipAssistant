@@ -1,0 +1,8 @@
+from pathlib import Path
+import json,shutil
+r=Path('PhoneSDK/examples/conversation-assist');p=r/'index.html';s=p.read_text(encoding='utf-8').replace('connect-src http://127.0.0.1:18772;', 'connect-src http://127.0.0.1:18772 ws://127.0.0.1:*;');p.write_text(s,encoding='utf-8')
+p=r/'manifest.json';m=json.loads(p.read_text(encoding='utf-8'));m['version']='0.1.1';m['name']='Memo 대화 도우미 0.1.1';p.write_text(json.dumps(m,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+p=r/'plugin.js';s=p.read_text(encoding='utf-8');s=s.replace("capture=await gm.audio.openCapture", "setStatus('안경 녹음 채널을 여는 중');capture=await gm.audio.openCapture")
+s=s.replace("async function safe(fn){try{await fn();}catch(e){setStatus(e.message);}}", "async function safe(fn){try{await fn();}catch(e){const message=e?.message||String(e);setStatus(/NS_ERROR_CONTENT_BLOCKED|content was blocked/i.test(message)?'녹음 채널 차단 · 폰 플러그인 0.1.1 업데이트 확인':message);}}")
+p.write_text(s,encoding='utf-8')
+p=r/'core.test.mjs';s=p.read_text(encoding='utf-8');s+='''\n// Gecko host creates a page-realm WebSocket on a dynamically allocated loopback port.\ntest('CSP allows native audio loopback while keeping internet sockets excluded',async()=>{const {readFile}=await import('node:fs/promises');const html=await readFile(new URL('./index.html',import.meta.url),'utf8');const connect=html.match(/connect-src ([^;]+)/)?.[1].split(/\\s+/);assert.ok(connect.includes('http://127.0.0.1:18772'));assert.ok(connect.includes('ws://127.0.0.1:*'));assert.ok(!connect.includes('*'));assert.ok(!connect.includes('ws:'));assert.ok(!connect.includes('https:'));});\n''';p.write_text(s,encoding='utf-8')

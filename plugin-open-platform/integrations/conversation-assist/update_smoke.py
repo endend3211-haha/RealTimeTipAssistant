@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/debug/ServiceSmoke.java');s=p.read_text(encoding='utf-8');s=s.replace('Thread.sleep(1500);out.putString', 'Thread.sleep(1500);java.io.File stop=new java.io.File(getTargetContext().getFilesDir(),"smoke.done");stop.delete();Bundle started=new Bundle();started.putString("service","running");sendStatus(1,started);long until=System.currentTimeMillis()+240000;while(!stop.exists()&&System.currentTimeMillis()<until)Thread.sleep(200);out.putString');p.write_text(s,encoding='utf-8')

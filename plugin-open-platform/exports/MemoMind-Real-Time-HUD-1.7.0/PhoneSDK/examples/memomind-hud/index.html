@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src http://127.0.0.1:18772 ws://127.0.0.1:*; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>MemoMind One Real-Time HUD (560 × 320)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>MemoMind One 스마트글래스 560 × 320 HUD v1.7.0</h1>
+    <p class="sub">Open Platform SDK · com.mcnex.memomind.hud v1.7.0 · 실시간 비서 플러그인</p>
+  </header>
+
+  <div class="viewport-box">
+    <canvas id="preview" width="560" height="320"></canvas>
+  </div>
+
+  <div class="controls">
+    <div class="status-bar">
+      <span class="status-label" id="bridgeStatus">호스트 브릿지 연결 대기 중...</span>
+      <span class="status-badge" id="connStatus">청취 중 (ON)</span>
+    </div>
+    <div class="button-row">
+      <button type="button" id="btnDemo1">1. 웹 검색 롤업</button>
+      <button type="button" id="btnDemo2">2. 이메일 롤업</button>
+      <button type="button" id="btnDemo3">3. 주식 롤업</button>
+      <button type="button" class="toggle-btn" id="btnToggle">실시간 청취 ON/OFF</button>
+    </div>
+  </div>
+
+  <script type="module" src="plugin.js"></script>
+</body>
+</html>

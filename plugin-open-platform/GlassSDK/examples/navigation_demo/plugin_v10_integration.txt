@@ -1,0 +1,21 @@
+
+Navigation HUD V10
+
+Integration:
+
+Navigation Parser
+        |
+        v
+HUD Canvas Controller
+        |
+        v
+LVGL Arrow Draw Layer
+        |
+        v
+Glass Display
+
+
+Added:
+- Arrow drawing interface
+- Canvas render pipeline
+- Direction rendering preparation

@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self' https://generativelanguage.googleapis.com; object-src 'none'; base-uri 'none'">
+<title>Lens+ 번역</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<main>
+  <h1>🌐 Lens+ 번역 <small>사진 속 외국어를 번역해요</small></h1>
+
+  <section class="card">
+    <label>🌐 번역 대상 언어</label>
+    <select id="lang">
+      <option value="한국어">한국어</option>
+      <option value="English">English</option>
+      <option value="日本語">日本語</option>
+      <option value="中文">中文</option>
+    </select>
+  </section>
+
+  <div class="row">
+    <button id="btnGallery" class="big alt">🖼️ 사진 선택</button>
+    <button id="btnAnalyze" class="big" disabled>🔍 분석 시작</button>
+  </div>
+
+  <p class="note">▼ 화면 테스트용 샘플 (실제 결과 아님)</p>
+  <div class="preset-bar">
+    <button id="btnPresetMenu" class="preset-btn">🍔 영어 메뉴</button>
+    <button id="btnPresetSign" class="preset-btn">🗾 일본어 표지</button>
+  </div>
+
+  <img id="thumb" alt="" hidden>
+
+  <section class="card">
+    <div id="keyText" class="key idle">사진을 선택한 뒤 [분석 시작]을 누르세요</div>
+    <pre id="detail"></pre>
+  </section>
+
+  <section class="card">
+    <canvas id="hud" width="600" height="350"></canvas>
+    <div class="row">
+      <button id="btnPrev" class="sm">◀ 이전</button>
+      <span id="page">1 / 1</span>
+      <button id="btnNext" class="sm">다음 ▶</button>
+      <button id="btnBriDown" class="sm">➖ 어둡게</button>
+      <span id="briBadge">50%</span>
+      <button id="btnBriUp" class="sm">➕ 밝게</button>
+      <button id="btnTts" class="sm">🔊 낭독</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <label>Gemini API 키 <a class="hint" href="https://aistudio.google.com" target="_blank">(aistudio.google.com 무료 발급)</a></label>
+    <input type="password" id="apiKey" placeholder="AIzaSy... 입력 시 자동 저장" autocomplete="off">
+    <label>AI 모델 (⚡ 초고속 추천)</label>
+    <select id="model">
+      <option value="gemini-2.5-flash-lite">gemini-2.5-flash-lite (⚡ 1초 초고속 추천)</option>
+      <option value="gemini-2.5-flash">gemini-2.5-flash (표준 플래시)</option>
+      <option value="gemini-2.0-flash">gemini-2.0-flash (초저지연)</option>
+      <option value="gemini-flash-latest">gemini-flash-latest</option>
+    </select>
+    <label class="chk" hidden><input type="checkbox" id="precise"> 정밀 풀이 (느리지만 더 정확 · 어려운 문제용)</label>
+  </section>
+
+  <p id="status">준비 완료 · 사진을 선택하세요</p>
+</main>
+<script type="module" src="plugin.js"></script>
+</body>
+</html>

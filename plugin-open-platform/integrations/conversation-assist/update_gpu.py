@@ -1,0 +1,4 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/src/com/mcnex/conversation/LiteAi.java');s=p.read_text(encoding='utf-8').replace('new Backend.CPU(2,null)','new Backend.GPU()');p.write_text(s,encoding='utf-8')
+p=Path('integrations/conversation-assist/android/build.gradle');s=p.read_text(encoding='utf-8');s+='\ntasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }\n';p.write_text(s,encoding='utf-8')
+p=Path('integrations/conversation-assist/android/AndroidManifest.xml');s=p.read_text(encoding='utf-8').replace('<activity android:name=', '<uses-native-library android:name="libOpenCL.so" android:required="false"/><uses-native-library android:name="libvndksupport.so" android:required="false"/>\n  <activity android:name=',1);p.write_text(s,encoding='utf-8')

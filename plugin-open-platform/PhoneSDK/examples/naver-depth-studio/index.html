@@ -1,0 +1,8 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'"><title>Naver Depth Arrow Preview</title><link rel="stylesheet" href="style.css"></head><body>
+<main><h1>네이버 화살표 미리보기</h1><p>Studio 시연 · 실제 네이버 알림 아님</p>
+<canvas id="preview" width="560" height="272"></canvas><p id="status" role="status">브리지 연결 대기</p>
+<label>방향 <select id="direction"><option>우회전</option><option>좌회전</option><option>직진</option><option>유턴</option></select></label>
+<label>남은 거리 <strong id="distance">300m</strong><input id="meters" type="range" min="0" max="500" value="300"></label>
+<button id="demo">500 → 0m 시연</button><button id="retry">글라스 화면 다시 표시</button>
+<p id="metrics"></p><p>네이버 입체 길안내 APK 1.1.0의 디자인과 소멸 효과를 Studio에서 확인하는 폰 플러그인입니다. 실제 알림·BLE 검증은 Android 앱에서 진행합니다.</p></main>
+<script type="module" src="plugin.js"></script></body></html>

@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/src/com/mcnex/conversation/MainActivity.java');s=p.read_text(encoding='utf-8').replace('dialog.show();w.setLayout(-1,-1);','dialog.show();w.setLayout(-1,-1);page.setOnApplyWindowInsetsListener((v,insets)->{android.graphics.Insets bars=insets.getInsets(WindowInsets.Type.systemBars());v.setPadding(dp(12),bars.top+dp(8),dp(12),bars.bottom+dp(8));return insets;});page.requestApplyInsets();');p.write_text(s,encoding='utf-8')

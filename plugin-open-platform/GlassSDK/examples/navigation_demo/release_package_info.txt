@@ -1,0 +1,15 @@
+Navigation HUD V34
+
+Release Package
+
+Target:
+navigation_hud_plugin.mmpkg
+
+Validation:
+- Plugin ID
+- Permission
+- Version
+- Metadata
+- Build Result
+
+Ready for install verification.

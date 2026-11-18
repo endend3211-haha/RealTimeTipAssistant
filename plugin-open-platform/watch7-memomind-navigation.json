@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "rules": [
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 82,
+      "application": 65542,
+      "rid": 1,
+      "key": 0
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 81,
+      "application": 65542,
+      "rid": 1,
+      "key": 1
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 80,
+      "application": 65542,
+      "rid": 1,
+      "key": 2
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 79,
+      "application": 65542,
+      "rid": 1,
+      "key": 3
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 40,
+      "application": 65542,
+      "rid": 1,
+      "key": 4
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 41,
+      "application": 65542,
+      "rid": 1,
+      "key": 5
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 74,
+      "application": 65542,
+      "rid": 1,
+      "key": 6
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 101,
+      "application": 65542,
+      "rid": 1,
+      "key": 7
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 75,
+      "application": 65542,
+      "rid": 1,
+      "key": 54
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 78,
+      "application": 65542,
+      "rid": 1,
+      "key": 55
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 64,
+      "application": 65542,
+      "rid": 1,
+      "key": 56
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 65,
+      "application": 65542,
+      "rid": 1,
+      "key": 57
+    },
+    {
+      "type": "usage_key",
+      "page": 7,
+      "usage": 66,
+      "application": 65542,
+      "rid": 1,
+      "key": 58
+    }
+  ]
+}

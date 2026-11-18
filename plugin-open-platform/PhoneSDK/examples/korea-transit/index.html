@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>전국 실시간 대중교통 HUD (부산/전국 버스 & 지하철)</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&family=Outfit:wght@600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+<header class="app-header">
+<div class="header-left">
+<span class="logo-icon">🕶️</span>
+<div>
+<h1 class="logo-title">전국 대중교통 HUD</h1>
+<p class="logo-subtitle">부산 및 전국 어디서나 실시간 도착 안내</p>
+</div>
+</div>
+<div class="header-actions">
+<button id="btn-open-settings" class="icon-btn" title="설정">⚙️</button>
+</div>
+</header>
+<section class="location-bar">
+<div class="location-info">
+<span class="gps-pulse-dot"></span>
+<span id="location-text" class="location-text">📍 부산광역시 부산진구 (GPS 자동감지)</span>
+</div>
+<div class="mode-toggles">
+<button id="btn-mode-auto" class="mode-btn active">🌐 GPS 자동</button>
+<button id="btn-mode-fav" class="mode-btn">⭐ 즐겨찾기</button>
+</div>
+</section>
+<section class="hud-preview-wrapper">
+<div class="preview-header">
+<span class="preview-title">🕶️ 안경 HUD 실시간 투사 화면 (600x350)</span>
+<span id="hud-connection-status" class="badge-status">Studio 런타임 연결 중...</span>
+</div>
+<div class="hud-screen" id="hud-screen">
+<div class="hud-top-meta">
+<span class="hud-station-tag" id="hud-station-name">🚌 서면역 7번 출구 (부산 05032)</span>
+<span class="hud-city-badge" id="hud-city-badge">부산광역시</span>
+</div>
+<div class="hud-main-body">
+<div class="hud-route-badge-box">
+<span class="route-type-tag" id="hud-route-type">급행버스</span>
+<span class="route-number" id="hud-route-number">1001</span>
+<span class="route-dest" id="hud-route-dest">청강리 ↔ 하단역</span>
+</div>
+<div class="hud-eta-box">
+<div class="eta-time-row">
+<span class="eta-label">도착 예정</span>
+<span class="eta-timer" id="hud-eta-timer">02분 40초</span>
+</div>
+<div class="eta-sub-row">
+<span class="stops-remaining" id="hud-stops-remaining">🚩 2번째 전 (여유)</span>
+<span class="next-bus-time" id="hud-next-bus">다음 버스: 12분 후</span>
+</div>
+</div>
+</div>
+<div class="hud-bottom-bar">
+<span class="hint-key">👆 안경 버튼 딸깍 / 고개 까딱</span>
+<span class="hint-text">다음 경유 버스/지하철 노선으로 전환</span>
+<span class="hud-live-tag">LIVE ●</span>
+</div>
+</div>
+</section>
+<section class="control-panel">
+<div class="panel-row">
+<button id="btn-prev-route" class="ctrl-btn secondary">◀ 이전 노선</button>
+<button id="btn-toggle-sim" class="ctrl-btn primary">
+<span id="sim-icon">▶️</span>
+<span id="sim-text">실시간 카운트다운 시작</span>
+</button>
+<button id="btn-next-route" class="ctrl-btn secondary">다음 노선 ▶</button>
+</div>
+<p class="ctrl-help">※ 안경 착용 시에는 <strong>안경 물리 버튼을 딸깍(Click)</strong> 누르거나 <strong>고개를 살짝 까딱(Nod)</strong>하면 다음 노선으로 슥 넘어갑니다!</p>
+</section>
+<section class="section-card">
+<div class="card-header">
+<h2 class="card-title">🚌 현재 정류장 경유 노선 (클릭 시 안경 고정)</h2>
+<span class="station-id-tag" id="panel-station-info">서면역 7번 출구 (05032)</span>
+</div>
+<div class="routes-list" id="routes-list">
+</div>
+</section>
+<section class="section-card">
+<div class="card-header">
+<h2 class="card-title">⭐ 부산 & 전국 주요 정류장 퀵 프리셋</h2>
+<span class="card-desc">원터치로 바로 조회</span>
+</div>
+<div class="preset-chips-container" id="preset-chips">
+</div>
+</section>
+<div id="settings-modal" class="modal-overlay hidden">
+<div class="modal-card">
+<div class="modal-header">
+<h3>대중교통 데이터 설정</h3>
+<button id="btn-close-modal" class="modal-close-btn">&times;</button>
+</div>
+<div class="modal-body">
+<label for="tago-api-key">국토교통부 TAGO 버스정보 API Key (선택)</label>
+<input type="text" id="tago-api-key" placeholder="공공데이터포털 일반 인증키 (미입력시 정밀 시뮬레이터 구동)">
+<p class="modal-help">※ API 키가 없어도 부산/전국 노선 모의 시뮬레이터가 100% 정상 작동합니다.</p>
+<label for="auto-refresh-sec" style="margin-top: 14px;">실시간 자동 갱신 주기</label>
+<select id="auto-refresh-sec" class="styled-select">
+<option value="15">15초마다 (권장)</option>
+<option value="30">30초마다</option>
+<option value="60">1분마다</option>
+</select>
+</div>
+<div class="modal-footer">
+<button id="btn-save-settings" class="modal-action-btn">저장하기</button>
+</div>
+</div>
+</div>
+</div>
+<script src="main.js"></script>
+<footer class="newtype-signature-bar">
+<span class="nt-badge">MEMOMIND ONE</span>
+<span class="nt-author">Crafted by <b>Newtype(잘생긴아)</b></span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,30 @@
+plugins {
+ id 'com.android.application' version '8.7.3'
+}
+android {
+ namespace 'com.mcnex.conversation'
+ compileSdk 35
+ ndkVersion '26.3.11579264'
+ externalNativeBuild { cmake { path file('native/CMakeLists.txt'); version '3.22.1' } }
+ defaultConfig { applicationId 'com.mcnex.conversation'; minSdk 33; targetSdk 35; versionCode 28; versionName '0.16.0'; ndk { abiFilters 'arm64-v8a' } }
+ sourceSets { main { manifest.srcFile 'AndroidManifest.xml'; java.srcDirs=['src']; res.srcDirs=['res']; assets.srcDirs=['assets']; jniLibs.srcDirs=['libs'] } }
+ compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+ androidResources { noCompress += ['bin','litertlm'] }
+ packaging { jniLibs { useLegacyPackaging=true; excludes += ["**/libOpenCL.so"] } }
+}
+dependencies { implementation 'com.google.ai.edge.litertlm:litertlm-android:0.19.0' }
+
+android.sourceSets.debug { manifest.srcFile 'debug/AndroidManifest.xml'; java.srcDirs=['debug']; assets.srcDirs=['debug/assets'] }
+
+tasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }
+
+// Device test audio and instrumentation are opt-in; never ship them in the normal APK.
+if (!project.hasProperty('includeDeviceProbes')) {
+ android.sourceSets.debug.manifest.srcFile 'debug/EmptyManifest.xml'
+ android.sourceSets.debug.java.setSrcDirs([])
+ android.sourceSets.debug.assets.setSrcDirs([])
+}
+
+dependencies { testImplementation "junit:junit:4.13.2"; testImplementation "org.json:json:20240303" }
+
+android.sourceSets.test.java.srcDirs=['tests']

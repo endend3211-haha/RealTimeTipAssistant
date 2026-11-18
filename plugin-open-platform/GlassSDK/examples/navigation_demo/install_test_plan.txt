@@ -1,0 +1,15 @@
+Navigation HUD Install Test
+
+1. Generate mmpkg
+2. Install plugin
+3. Launch navigation demo
+4. Send test navigation event
+5. Verify HUD output
+
+Expected:
+
+RIGHT
+50m
+우회전
+
+displayed on HUD.

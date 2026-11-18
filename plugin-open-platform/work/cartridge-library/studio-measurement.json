@@ -1,0 +1,31 @@
+{
+  "build": "1.4.1",
+  "environment": "Desktop Studio software simulator; no physical BLE measurement",
+  "verified": [
+    "smooth transition forward and reverse",
+    "intermediate 3D poses observed",
+    "primary button selects deck",
+    "full-range head-motion joystick navigates",
+    "OS preference reports reduced motion; explicit smooth mode enabled"
+  ],
+  "lastImuRun": [
+    "\t\t\t\t\t\t\t\t\t26 콤보 상자 (settable, string) 휴대폰 플러그인 작업 공간 / 패키지 · 선택 사항 Value: Pocket — Cartridge Library 1.4.1",
+    "\t\t\t\t\t\t\t\t\t\t4280 텍스트 Pocket — Cartridge Library 1.4.1",
+    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t6354 텍스트 FRAME 30 · ACK 133 ms",
+    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t6029 텍스트 System setting: reduced motion",
+    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t6355 텍스트 9 ACK frames · 8.9 frames/s · render 20 ms · encode 3 ms · transfer 91 ms · p95 156 ms · 12.8 KiB/frame",
+    "\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t6053 제목 Sunset Circuit ID: title",
+    "FRAME 30 · ACK 133 ms",
+    "System setting: reduced motion",
+    "9 ACK frames · 8.9 frames/s · render 20 ms · encode 3 ms · transfer 91 ms · p95 156 ms · 12.8 KiB/frame"
+  ],
+  "reverseRun": {
+    "ackFrames": 9,
+    "ackFps": 9.6,
+    "renderMeanMs": 18,
+    "encodeMeanMs": 2,
+    "transferMeanMs": 84,
+    "totalP95Ms": 161,
+    "imageKiBPerFrame": 12.8
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "fixture": "600x350 seeded RGB; 30 timed frames after 6 warmups; excludes canvas readback/render/transport",
+  "previous": {
+    "medianMs": 4.946,
+    "p95Ms": 6.083
+  },
+  "updated": {
+    "medianMs": 0.425,
+    "p95Ms": 1.906
+  }
+}

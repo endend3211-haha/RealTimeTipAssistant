@@ -1,0 +1,42 @@
+{
+  "id": "com.memomind.companion.phone",
+  "name": "Memo One Messenger",
+  "version": "1.7.6",
+  "entry": "index.html",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "network",
+      "required": true
+    },
+    {
+      "name": "storage",
+      "required": true
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": {
+        "channels": [
+          20051
+        ]
+      }
+    },
+    {
+      "name": "audio.capture",
+      "required": true
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.memomind.companion.messenger-glass",
+    "requiredPluginId": "com.memomind.companion.messenger-glass",
+    "protocols": [
+      {
+        "id": "gm.memo-messenger-card",
+        "minVersion": "6.0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "id": "com.mcnex.naver-navigation-glass",
+  "name": "Naver Navigation HUD",
+  "version": 1,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "mcnex.naver-nav", "version": "1.0" }
+    ]
+  }
+}

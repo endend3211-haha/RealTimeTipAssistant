@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="#050805">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="4dp">
+  <Button android:id="@+id/reader_close" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/back_to_titles" />
+  <Button android:id="@+id/reader_previous" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/previous_page" />
+  <Button android:id="@+id/reader_next" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/next_unread" />
+  <Button android:id="@+id/reader_sync" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="@string/pause_sync" />
+ </LinearLayout>
+ <TextView android:id="@+id/reader_status" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="8dp" android:textSize="12sp" android:textColor="#E5EEDB" android:text="@string/reader_loading" />
+ <FrameLayout android:id="@+id/reader_surface" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+  <WebView android:id="@+id/reader_web" android:layout_width="match_parent" android:layout_height="match_parent" android:contentDescription="@string/official_reader" />
+ </FrameLayout>
+</LinearLayout>

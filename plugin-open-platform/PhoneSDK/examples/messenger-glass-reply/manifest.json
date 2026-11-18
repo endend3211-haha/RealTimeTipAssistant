@@ -1,0 +1,30 @@
+{
+  "id": "com.memomind.demo.messenger-glass-reply",
+  "name": "Messenger Glass Reply",
+  "version": "1.1.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": {
+        "channels": [
+          20051
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.memomind.demo.messenger-glass-reply-glass",
+    "requiredPluginId": "com.memomind.demo.messenger-glass-reply-glass",
+    "protocols": [
+      {
+        "id": "gm.messenger-glass-reply",
+        "minVersion": "2.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

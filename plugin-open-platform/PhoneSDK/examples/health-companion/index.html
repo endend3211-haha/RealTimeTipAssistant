@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'none'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'">
+    <title>MemoMind Health Companion</title>
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="plugin.js"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div class="brand-mark" aria-hidden="true">♥</div>
+        <div>
+          <p class="eyebrow">MEMOMIND HEALTH</p>
+          <h1>건강 정보를 안경으로</h1>
+          <p class="subtitle">Health Connect 요약을 MemoMind Glass에 표시합니다.</p>
+        </div>
+      </header>
+
+      <section class="connection card">
+        <div>
+          <span class="label">GLASS 연결</span>
+          <strong id="connection">연결 확인 중</strong>
+        </div>
+        <span id="badge" class="badge">대기</span>
+      </section>
+
+      <section class="card">
+        <div class="section-title">
+          <div>
+            <span class="label">HEALTH SNAPSHOT</span>
+            <h2>오늘의 건강 정보</h2>
+          </div>
+          <button id="sample" class="secondary" type="button">예제값</button>
+        </div>
+        <div class="grid">
+          <label>수면 시간<input id="sleep" value="7시간 20분" maxlength="40"></label>
+          <label>평균 심박수<input id="heart" value="72 bpm" maxlength="40"></label>
+          <label>걸음 수<input id="steps" value="3,855" maxlength="40"></label>
+          <label>이동 거리<input id="distance" value="5,917.0 m" maxlength="40"></label>
+          <label>소모 칼로리<input id="calories" value="1,198.4 kcal" maxlength="40"></label>
+        </div>
+        <button id="send" class="primary" type="button">안경으로 건강 정보 전송</button>
+        <p id="status" class="status" aria-live="polite">준비 중…</p>
+      </section>
+
+      <section class="card help">
+        <span class="label">NATIVE BRIDGE</span>
+        <h2>Health Connect 연동</h2>
+        <p>네이티브 Companion 앱이 <code>health.update</code>를 주입하면 선택된 정보가 자동으로 안경에 전송됩니다. 버튼으로도 전송을 테스트할 수 있습니다.</p>
+      </section>
+    </main>
+  </body>
+</html>

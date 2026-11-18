@@ -1,0 +1,14 @@
+Navigation HUD Release Candidate
+
+Target:
+navigation_hud_plugin.mmpkg
+
+Included:
+
+- Navigation Runtime
+- HUD Widgets
+- Studio Preview Scene
+- Validation Layer
+
+Status:
+Release Candidate Ready

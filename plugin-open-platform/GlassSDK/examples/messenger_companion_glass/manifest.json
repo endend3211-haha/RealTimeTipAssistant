@@ -1,0 +1,14 @@
+{
+  "id": "com.memomind.companion.messenger-glass",
+  "name": "Memo Messenger Glass 14",
+  "version": 14,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      {
+        "id": "gm.memo-messenger-card",
+        "version": "6.0"
+      }
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseBasic,parseHistory,parseIntraday,parseSearch,naverURL,linePoints,symbol} from '../../PhoneSDK/examples/stock-watch/core.mjs';
+const basic=(extra={})=>({itemCode:'005930',stockName:'삼성전자',closePrice:'72,000',compareToPreviousClosePrice:'1,000',fluctuationsRatio:'1.41',localTradedAt:'2026-11-02T15:30:00+09:00',compareToPreviousPrice:{code:'2'},delayTime:0,...extra});
+test('쉼표 가격과 공급자 등락률을 해석',()=>{const q=parseBasic(basic());assert.equal(q.price,72000);assert.equal(q.change,1000);assert.equal(q.percent,1.41);assert.equal(q.previous,71000);assert.equal(q.delay,0);});
+test('하락 코드에서 양수 절대값도 음수로 처리',()=>{const q=parseBasic(basic({compareToPreviousPrice:{code:'5'}}));assert.equal(q.change,-1000);assert.equal(q.percent,-1.41);});
+test('누락 필드는 0으로 만들지 않음',()=>{const q=parseBasic(basic({compareToPreviousClosePrice:null,fluctuationsRatio:''}));assert.equal(q.change,null);assert.equal(q.percent,null);assert.throws(()=>parseBasic(basic({closePrice:''})));});
+test('시세의 기준 시각 검증',()=>{assert.equal(parseBasic(basic()).time,Date.parse('2026-11-02T15:30:00+09:00')/1000);assert.throws(()=>parseBasic(basic({localTradedAt:'bad'})));});
+test('네이버 Python 스타일 일별 배열을 eval 없이 파싱',()=>{assert.deepEqual(parseHistory("[['날짜','시가','고가','저가','종가'],['20261102',1,2,0,12],['20261030',1,2,0,10],]" ).map(p=>p.p),[10,12]);assert.throws(()=>parseHistory('globalThis.pwned=true'));assert.equal(globalThis.pwned,undefined);});
+test('당일 차트는 lastPriceInfos를 섞지 않음',()=>{const p=parseIntraday({priceInfos:[{localDateTime:'20261102090100',currentPrice:20},{localDateTime:'20261102090000',currentPrice:10},{localDateTime:'20261102090200',currentPrice:null}],lastPriceInfos:[{localDateTime:'20261030153000',currentPrice:999}]});assert.deepEqual(p.map(p=>p.p),[10,20]);});
+test('구 관심코드 마이그레이션과 국내코드 검증',()=>{assert.equal(symbol('005930.KS'),'005930');assert.equal(symbol('247540.kq'),'247540');assert.throws(()=>symbol('AAPL'));assert.throws(()=>symbol('../bad'));});
+test('검색결과의 국내 종목만 등록 후보로 반환하고 중복 제거',()=>{const w={code:'005930',name:'삼성전자',typeCode:'KOSPI',typeName:'코스피'};assert.deepEqual(parseSearch({items:[w,w,{code:'AAPL.O',name:'애플',typeCode:'NASDAQ'},{code:'bad',name:'잘못된 항목',typeCode:'KOSPI'}]}),[{name:'삼성전자',symbol:'005930',market:'코스피'}]);assert.deepEqual(parseSearch({items:[]}),[]);assert.throws(()=>parseSearch({}));});
+test('한글 검색어는 고정된 검색 도메인에 URL 인코딩',()=>{assert.equal(naverURL('search','삼성전자'),`https://ac.stock.naver.com/ac?q=${encodeURIComponent('삼성전자')}&target=stock`);assert.throws(()=>naverURL('search',''));});
+test('고정 upstream과 날짜 범위',()=>{assert.match(naverURL('basic','005930'),/^https:\/\/m.stock.naver.com/);assert.match(naverURL('history','005930','1mo',new Date('2026-11-02T00:00:00Z')),/startTime=20261002&endTime=20261102/);assert.throws(()=>naverURL('http://evil','005930'));});
+test('동일가격·단일점 차트 좌표가 화면 안에 있음',()=>{for(const p of [[],[{p:100}],[{p:100},{p:100}],[{p:-10},{p:20}]])for(const [x,y] of linePoints(p,0,0,400,100)){assert.ok(Number.isFinite(x)&&Number.isFinite(y));assert.ok(x>=0&&x<=400&&y>=0&&y<=100);}});

@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/native/CMakeLists.txt');s=p.read_text(encoding='utf-8-sig').replace('project(conversation LANGUAGES C CXX)','set(CMAKE_BUILD_TYPE Release CACHE STRING "" FORCE)\nproject(conversation LANGUAGES C CXX)');p.write_text(s,encoding='utf-8')
+p=Path('integrations/conversation-assist/android/src/com/mcnex/conversation/MeetingManager.java');s=p.read_text(encoding='utf-8').replace('try{createMinutes(id);}catch(Exception e)', 'try{createMinutes(id);}catch(Exception|LinkageError e)');s=s.replace('append("\\n\\nAI가 저장된 자막 전체를', 'append("\\nAI 모델: ").append(m.optString("aiModel",modelName())).append("\\n\\nAI가 저장된 자막 전체를');p.write_text(s,encoding='utf-8')

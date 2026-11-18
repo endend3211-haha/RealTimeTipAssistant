@@ -1,0 +1,17 @@
+plugins { id 'com.android.application' version '8.12.1' }
+android {
+    namespace 'com.mcnex.conversation'
+    compileSdk 36
+    defaultConfig {
+        applicationId 'com.mcnex.localmeeting'
+        minSdk 33
+        targetSdk 34
+        versionCode 3
+        versionName '1.2.0'
+    }
+    packaging { jniLibs { useLegacyPackaging = true } }
+}
+tasks.withType(JavaCompile).configureEach { options.encoding = 'UTF-8' }
+android.compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+
+

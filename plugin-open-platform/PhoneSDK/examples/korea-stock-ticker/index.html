@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>스텔스 국장 & 코인 HUD 티커 (Korea Stock & Crypto)</title>
+<link rel="stylesheet" href="style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;600;700;800;900&family=Outfit:wght@600;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="app-container">
+<header class="app-header">
+<div class="header-left">
+<span class="logo-icon">📈</span>
+<div>
+<h1 class="logo-title">스텔스 국장 & 코인 HUD</h1>
+<p class="logo-subtitle">국내주식(KOSPI/KOSDAQ) · 업비트 코인 · 미장 실시간</p>
+</div>
+</div>
+<div class="header-right">
+<span id="market-status-badge" class="badge-status open">실시간 가동</span>
+</div>
+</header>
+<section class="market-bar">
+<div class="market-pill" id="pill-kospi">
+<span class="pill-label">코스피</span>
+<span class="pill-val" id="bar-kospi-val">--</span>
+<span class="pill-rate" id="bar-kospi-rate">--%</span>
+</div>
+<div class="market-pill" id="pill-kosdaq">
+<span class="pill-label">코스닥</span>
+<span class="pill-val" id="bar-kosdaq-val">--</span>
+<span class="pill-rate" id="bar-kosdaq-rate">--%</span>
+</div>
+<div class="market-pill" id="pill-btc">
+<span class="pill-label">BTC</span>
+<span class="pill-val" id="bar-btc-val">--</span>
+<span class="pill-rate" id="bar-btc-rate">--%</span>
+</div>
+</section>
+<section class="hud-preview-wrapper">
+<div class="preview-header">
+<div style="display:flex;align-items:center;gap:8px;">
+<span class="preview-title">🕶️ 안경 HUD 투사 화면 (Micro-OLED 560×272)</span>
+<span id="hud-connection-status" class="badge-status" style="font-size:11px;padding:3px 10px;border-radius:12px;background:#14532d;color:#4ade80;cursor:pointer;font-weight:700;" title="터치 시 안경 화면 즉시 강제 전송">🟢 실시간 HUD 전송 중</span>
+</div>
+<div class="view-toggles">
+<button id="btn-view-single" class="tab-btn active">단독 스텔스</button>
+<button id="btn-view-quad" class="tab-btn">4종목 종합</button>
+</div>
+</div>
+<div class="hud-screen" id="hud-screen">
+<div id="hud-single-view" class="hud-view active">
+<div class="hud-top-meta">
+<div class="meta-left">
+<span class="hud-category-tag" id="hud-cat-tag">국내주식</span>
+<span class="hud-code-tag" id="hud-code-tag">005930</span>
+</div>
+<span class="hud-watermark">NT(잘생긴아) Ed.</span>
+</div>
+<div class="hud-main-ticker">
+<div class="ticker-title-row">
+<h2 class="hud-stock-name" id="hud-stock-name">삼성전자</h2>
+<span class="hud-market-badge" id="hud-market-badge">KOSPI</span>
+</div>
+<div class="ticker-price-row">
+<div class="price-box">
+<span class="hud-price" id="hud-price">78,500</span>
+<span class="hud-currency" id="hud-currency">KRW</span>
+</div>
+<div class="change-box up" id="hud-change-box">
+<span class="hud-arrow" id="hud-arrow">▲</span>
+<span class="hud-change-pct" id="hud-change-pct">+2.48%</span>
+<span class="hud-change-diff" id="hud-change-diff">+1,900</span>
+</div>
+</div>
+</div>
+<div class="hud-chart-box">
+<canvas id="hud-sparkline" width="380" height="42"></canvas>
+<div class="chart-meta">
+<span class="range-low" id="hud-range-low">저: 76,500원</span>
+<span class="chart-label">실시간 체결 추이</span>
+<span class="range-high" id="hud-range-high">고: 78,500원</span>
+</div>
+</div>
+<div class="hud-bottom-bar">
+<span class="hint-text">👆 템플 딸깍/고개 까딱: <b>다음 종목</b></span>
+<span class="hint-sub">더블 클릭: <b>종합 뷰 전환</b></span>
+</div>
+</div>
+<div id="hud-quad-view" class="hud-view">
+<div class="hud-top-meta quad">
+<span class="hud-category-tag">스텔스 4대 관심종목 쿼드 브리핑</span>
+<span class="hud-watermark">NT(잘생긴아)</span>
+</div>
+<div class="quad-grid" id="hud-quad-grid">
+</div>
+<div class="hud-bottom-bar">
+<span class="hint-text">👆 템플 더블클릭: <b>단독 모드로 복귀</b></span>
+<span class="hint-sub" id="quad-refresh-timer">갱신: 실시간</span>
+</div>
+</div>
+</div>
+</section>
+<section class="control-panel">
+<div class="panel-row">
+<button id="btn-prev-ticker" class="ctrl-btn secondary">◀ 이전 종목</button>
+<button id="btn-toggle-view" class="ctrl-btn primary">
+<span id="view-mode-icon">🔄</span>
+<span id="view-mode-text">4종목 종합 뷰로 전환</span>
+</button>
+<button id="btn-next-ticker" class="ctrl-btn secondary">다음 종목 ▶</button>
+</div>
+<div class="options-bar">
+<div class="opt-group">
+<span class="opt-label">등락 색상:</span>
+<button id="btn-color-kr" class="opt-btn active">한국형 (빨강▲/파랑▼)</button>
+<button id="btn-color-us" class="opt-btn">글로벌 (초록▲/빨강▼)</button>
+</div>
+<div class="opt-group">
+<span class="opt-label">갱신 주기:</span>
+<select id="select-interval" class="opt-select">
+<option value="1000">1초 (초고속)</option>
+<option value="3000" selected>3초 (권장)</option>
+<option value="5000">5초 (배터리절약)</option>
+</select>
+</div>
+</div>
+</section>
+<section class="section-card">
+<div class="quad-slots-panel">
+<div class="slots-header">
+<span class="slots-title">👓 안경 4분할 지정 슬롯 (1~4번)</span>
+<span class="slots-hint">슬롯 터치 시 종목 변경</span>
+</div>
+<div class="slots-grid" id="quad-slots-grid">
+</div>
+</div>
+<div class="card-header" style="margin-top: 14px;">
+<div>
+<h3 class="card-title">내 관심종목 리스트</h3>
+<p class="card-desc">종목 터치: 안경 단독 투사 | 📌: 4분할 등록 | 🗑️: 삭제</p>
+</div>
+<div style="display:flex;gap:6px;">
+<button id="btn-reset-defaults" class="btn-sm btn-ghost" title="기본 10개 종목 복원">기본값 복원</button>
+<button id="btn-add-ticker" class="btn-sm">+ 종목 추가</button>
+</div>
+</div>
+<div class="watchlist-container" id="watchlist-container">
+</div>
+</section>
+<div id="add-modal" class="modal-overlay">
+<div class="modal-card">
+<h3 class="modal-title">관심 종목 추가</h3>
+<p class="modal-desc">국내 종목코드(005930), 코인(BTC, ETH), 미국 티커(TSLA, NVDA)를 입력하거나 아래 인기 종목을 원클릭으로 추가하세요.</p>
+<div class="preset-section">
+<span class="preset-title">⚡ 빠른 종목 추가 (원클릭)</span>
+<div class="preset-group">
+<span class="preset-label">🇰🇷 국장:</span>
+<div class="preset-chips">
+<button type="button" class="preset-chip kr" data-id="005930" data-name="삼성전자" data-type="kr" data-market="KOSPI">+ 삼성전자</button>
+<button type="button" class="preset-chip kr" data-id="000660" data-name="SK하이닉스" data-type="kr" data-market="KOSPI">+ SK하이닉스</button>
+<button type="button" class="preset-chip kr" data-id="005380" data-name="현대차" data-type="kr" data-market="KOSPI">+ 현대차</button>
+<button type="button" class="preset-chip kr" data-id="035420" data-name="NAVER" data-type="kr" data-market="KOSPI">+ NAVER</button>
+<button type="button" class="preset-chip kr" data-id="035720" data-name="카카오" data-type="kr" data-market="KOSPI">+ 카카오</button>
+<button type="button" class="preset-chip kr" data-id="068270" data-name="셀트리온" data-type="kr" data-market="KOSPI">+ 셀트리온</button>
+</div>
+</div>
+<div class="preset-group">
+<span class="preset-label">🪙 코인:</span>
+<div class="preset-chips">
+<button type="button" class="preset-chip crypto" data-id="KRW-BTC" data-name="비트코인" data-type="crypto" data-market="Upbit">+ BTC</button>
+<button type="button" class="preset-chip crypto" data-id="KRW-ETH" data-name="이더리움" data-type="crypto" data-market="Upbit">+ ETH</button>
+<button type="button" class="preset-chip crypto" data-id="KRW-XRP" data-name="리플" data-type="crypto" data-market="Upbit">+ XRP</button>
+<button type="button" class="preset-chip crypto" data-id="KRW-SOL" data-name="솔라나" data-type="crypto" data-market="Upbit">+ SOL</button>
+<button type="button" class="preset-chip crypto" data-id="KRW-DOGE" data-name="도지코인" data-type="crypto" data-market="Upbit">+ DOGE</button>
+</div>
+</div>
+<div class="preset-group">
+<span class="preset-label">🗽 미장:</span>
+<div class="preset-chips">
+<button type="button" class="preset-chip us" data-id="TSLA.O" data-name="테슬라" data-type="us" data-market="NASDAQ">+ 테슬라</button>
+<button type="button" class="preset-chip us" data-id="NVDA.O" data-name="엔비디아" data-type="us" data-market="NASDAQ">+ 엔비디아</button>
+<button type="button" class="preset-chip us" data-id="AAPL.O" data-name="애플" data-type="us" data-market="NASDAQ">+ 애플</button>
+<button type="button" class="preset-chip us" data-id="MSFT.O" data-name="마이크로소프트" data-type="us" data-market="NASDAQ">+ MSFT</button>
+</div>
+</div>
+</div>
+<div class="modal-inputs" style="margin-top:10px;">
+<input type="text" id="input-ticker-code" class="modal-input" placeholder="직접 입력: 예) 005930 또는 DOGE 또는 TSLA">
+<select id="select-ticker-type" class="modal-select">
+<option value="kr">국내주식 (코스피/코스닥 종목코드)</option>
+<option value="crypto">암호화폐 (업비트 KRW 코인)</option>
+<option value="us">해외주식 (미국 티커 심볼)</option>
+</select>
+</div>
+<div class="modal-actions">
+<button id="btn-modal-cancel" class="ctrl-btn secondary">취소</button>
+<button id="btn-modal-save" class="ctrl-btn primary">추가하기</button>
+</div>
+</div>
+</div>
+<div id="slot-modal" class="modal-overlay">
+<div class="modal-card">
+<h3 class="modal-title" id="slot-modal-title">📌 4분할 슬롯 종목 선택</h3>
+<p class="modal-desc">안경 4분할 화면에 표시할 종목을 내 관심종목 중에서 선택하세요.</p>
+<div class="slot-select-list" id="slot-select-list">
+</div>
+<div class="modal-actions" style="margin-top:10px;">
+<button id="btn-slot-modal-cancel" class="ctrl-btn secondary">닫기</button>
+</div>
+</div>
+</div>
+<footer class="newtype-signature-bar">
+<span class="nt-badge">MEMOMIND ONE</span>
+<span class="nt-author">Crafted by <b>Newtype(잘생긴아)</b></span>
+</footer>
+</div>
+<script src="main.js"></script>
+</body>
+</html>

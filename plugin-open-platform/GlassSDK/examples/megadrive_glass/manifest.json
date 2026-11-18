@@ -1,0 +1,13 @@
+{
+  "id": "com.memomind.demo.megadrive-glass-display",
+  "name": "Mega Drive Glass Display",
+  "version": 2,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "gm.scene", "version": "1.0" },
+      { "id": "gm.scene-atomic-frame", "version": "1.0" },
+      { "id": "gm.megadrive-display", "version": "1.1" }
+    ]
+  }
+}

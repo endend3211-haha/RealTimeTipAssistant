@@ -1,0 +1,14 @@
+{
+  "id": "com.memomind.demo.messenger-glass-reply-glass",
+  "name": "Messenger Glass Reply Glass",
+  "version": 2,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      {
+        "id": "gm.messenger-glass-reply",
+        "version": "2.0"
+      }
+    ]
+  }
+}

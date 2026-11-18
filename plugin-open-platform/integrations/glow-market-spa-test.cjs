@@ -1,0 +1,101 @@
+const {chromium}=require('C:/Users/MCNEX/.cache/codex-runtimes/codex-primary-runtime/dependencies/node/node_modules/playwright-core');
+const http=require('http'),fs=require('fs'),path=require('path'),assert=require('assert');
+const root=path.resolve('PhoneSDK/examples/glow-market'),out=path.resolve('output/glow-market');
+const host=`<!doctype html><iframe id="plugin" style="width:680px;height:920px" src="/index.html"></iframe><script>
+const store=new Map();window.methods=[];window.framesSent=0;window.messengerModes=[];window.nativeGame=false;window.videoPackets=0;window.emit=(name,data)=>{if(nativeGame&&name==='device.button'&&['long','very_long'].includes(data.action)){nativeGame=false;name='plugin.message';data={channel:0x4742,dataBase64:'AA=='};}plugin.contentWindow.postMessage({type:'gm-plugin:event',event:{runtimeGeneration:1,name,data}},location.origin);};
+addEventListener('message',e=>{if(e.source!==plugin.contentWindow)return;const m=e.data;if(m.type==='gm-plugin:bootstrap-request')return e.source.postMessage({type:'gm-plugin:bootstrap',bootstrap:{sessionToken:'test-only',runtimeGeneration:1}},location.origin);if(m.type!=='gm-plugin:request')return;const r=m.request;methods.push(r.method);if(r.method==='plugin.sendMessage'&&r.params.channel===0x4d46){window.videoPackets++;const packet=atob(r.params.dataBase64);const ack=packet.slice(0,5)+String.fromCharCode(0);setTimeout(()=>emit('plugin.message',{channel:0x4d47,dataBase64:btoa(ack)}),0);}if(r.method==='plugin.sendMessage'&&r.params.channel===0x4741){window.nativeGame=r.params.dataBase64==='AQ==';setTimeout(()=>emit('plugin.message',{channel:0x4742,dataBase64:nativeGame?'AQ==':'AA=='}),10);}if(r.method==='location.getCurrentPosition'&&window.denyLocation)return e.source.postMessage({type:'gm-plugin:response',response:{requestId:r.requestId,runtimeGeneration:r.runtimeGeneration,ok:false,error:{code:'SYSTEM_PERMISSION_DENIED',message:'test denial'}}},location.origin);let result={};if(r.method==="plugin.sendMessage"&&r.params.channel===0x4752){messengerModes.push(atob(r.params.dataBase64).charCodeAt(0));result={sent:true};}if(r.method==="plugin.sendMessage"&&r.params.channel===20051)result={sent:true};if(r.method==='location.getCurrentPosition')result={latitude:37.5665,longitude:126.978,accuracy:10,timestamp:Date.now()};if(r.method==='runtime.getCapabilities')result={display:['atomic-framed-lz4']};if(r.method==='storage.get')result={value:store.get(r.params.key)??null};if(r.method==='storage.set')store.set(r.params.key,r.params.value);if(r.method==='storage.remove')store.delete(r.params.key);if(r.method==='device.subscribeEvents')result={subscriptionId:'test'};if(r.method==='display.beginFrame')framesSent++;e.source.postMessage({type:'gm-plugin:response',response:{requestId:r.requestId,runtimeGeneration:r.runtimeGeneration,ok:true,result}},location.origin);});</script>`;
+const server=http.createServer((req,res)=>{if(req.url==='/host'){res.setHeader('Content-Type','text/html');return res.end(host);}const p=path.resolve(root,'.'+new URL(req.url,'http://local').pathname);if(!p.startsWith(root+path.sep))return res.writeHead(403).end();try{res.setHeader('Content-Type',p.endsWith('.html')?'text/html; charset=utf-8':/\.(js|mjs)$/.test(p)?'text/javascript':p.endsWith('.css')?'text/css':'application/octet-stream');res.end(fs.readFileSync(p));}catch{res.writeHead(404).end();}});
+(async()=>{let browser;try{
+ await new Promise(r=>server.listen(0,'127.0.0.1',r));browser=await chromium.launch({headless:true,executablePath:'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe'});const page=await browser.newPage({viewport:{width:730,height:1000}}),errors=[];await page.addInitScript(()=>{window.q=s=>{const active=[...document.querySelectorAll('#homeRoot,#newsRoot,#stocksRoot,#megadriveRoot,#mangaRoot,#naverRoot')].find(e=>!e.hidden);return (active?.shadowRoot||active||document).querySelector(s);};});page.on('pageerror',e=>errors.push(e.message));
+ await page.route('**/*',route=>{const u=new URL(route.request().url());if(u.protocol!=='https:')return route.continue();let body={};if(u.hostname.includes('open-meteo'))body=u.pathname.includes('forecast')?{current:{temperature_2m:20,apparent_temperature:20,relative_humidity_2m:50,weather_code:0,wind_speed_10m:2},hourly:{time:[],temperature_2m:[],weather_code:[],precipitation_probability:[]}}:{results:[]};else if(u.hostname.includes('memo-public-news'))body=u.pathname.endsWith('publishers')?{method:'https-html',publishers:[{id:'etnews',name:'전자신문'}]}:u.pathname.endsWith('headlines')?{method:'https-html',items:[{title:'삼성전자 반도체 주요 뉴스 시험',url:'https://www.etnews.com/20261104000001'}]}:{method:'https-html',body:'통합 뉴스 본문 표시 시험입니다. '.repeat(40)};else if(u.pathname==='/health')body={service:'Memo Naver Stock Relay'};else if(u.pathname==='/search')body={items:[]};else if(u.searchParams.get('resource')==='basic')body={stockName:'삼성전자',itemCode:'005930',closePrice:'70000',compareToPreviousClosePrice:'1000',fluctuationsRatio:'1.45',localTradedAt:'2026-11-04T15:30:00+09:00'};else body={priceInfos:[{localDateTime:'20261104090000',currentPrice:69000},{localDateTime:'20261104153000',currentPrice:70000}]};return route.fulfill({contentType:'application/json',headers:{'Access-Control-Allow-Origin':'*'},body:JSON.stringify(body)});});
+ await page.goto(`http://127.0.0.1:${server.address().port}/host`);const f=()=>page.frames().find(f=>f!==page.mainFrame());await f().waitForFunction(()=>window.q('#deviceState')?.textContent.includes('준비 완료'));fs.writeFileSync(out+'/home.png',Buffer.from((await f().locator('#deviceCanvas').evaluate(c=>c.toDataURL())).split(',')[1],'base64'));
+ 
+ await f().evaluate(()=>{window.arrowState=()=>{const ctx=document.querySelector('#deviceCanvas').getContext('2d');const count=x=>{const d=ctx.getImageData(x,235,12,22).data;let n=0;for(let i=0;i<d.length;i+=4)if(d[i]>0)n++;return n;};return {left:count(1),right:count(587)};};});
+ await f().waitForFunction(()=>arrowState().left===0&&arrowState().right>0);
+ async function vertical(button){await page.evaluate(button=>emit('plugin.message',{channel:0x4751,dataBase64:btoa(String.fromCharCode(0,button))}),button);}
+ async function tap(action){await page.evaluate(action=>emit('device.button',{action}),action);}
+ for(let i=0;i<4;i++)await vertical(3);
+ await tap('double');await tap('single');await tap('long');await f().waitForSelector('#mangaRoot h1');
+ await f().locator('#mangaRoot summary').click();await f().locator('#demo').click();
+ await f().waitForFunction(()=>window.q('#focused')?.textContent==='달빛 우체국');
+ await vertical(3);await f().waitForFunction(()=>window.q('#focused')?.textContent==='구름의 도서관');
+ await vertical(2);await f().waitForFunction(()=>window.q('#focused')?.textContent==='달빛 우체국');
+ await tap('single');await f().waitForFunction(()=>window.q('#reader-title')?.textContent.includes('달빛 우체국')&&window.q('#status')?.textContent.startsWith('1 / 5'));
+ await f().waitForFunction(()=>window.q('#screen').getContext('2d').getImageData(0,0,1,1).data[0]>100);
+ const firstPanel=await f().locator('#mangaRoot #screen').evaluate(c=>c.toDataURL());
+ await vertical(3);await f().waitForFunction(firstPanel=>window.q('#screen').toDataURL()!==firstPanel,firstPanel);
+ await vertical(2);await f().waitForFunction(firstPanel=>window.q('#screen').toDataURL()===firstPanel,firstPanel);
+ await tap('double');await f().waitForSelector('#mangaRoot #focused');
+ await tap('double');await f().waitForSelector('#openManga');
+ await f().locator('#openManga').click();await f().waitForSelector('#mangaRoot #focused');
+ await tap('long');await f().waitForSelector('#openManga');
+ for(let i=0;i<4;i++)await vertical(2);
+ for(const button of [3,7,9])await page.evaluate(button=>emit('plugin.message',{channel:0x4751,dataBase64:btoa(String.fromCharCode(0,button))}),button);
+ for(const button of ['down','page_down','scroll_down','down'])await page.evaluate(button=>emit('device.button',{button,action:'trigger'}),button);
+ await f().waitForFunction(()=>arrowState().left>0&&arrowState().right===0);
+ fs.writeFileSync(out+'/home-last.png',Buffer.from((await f().locator('#deviceCanvas').evaluate(c=>c.toDataURL())).split(',')[1],'base64'));
+ for(const button of [2,6])await vertical(button);
+ await tap('long');await f().waitForFunction(()=>window.q('#screenName').textContent==='게임 (에뮬)');
+ const beforeGame=await page.evaluate(()=>videoPackets);
+ await tap('single');
+ await f().waitForFunction(()=>window.q('#status')?.textContent.includes('안경 화면 표시 중'));
+ assert(await page.evaluate(before=>videoPackets>before,beforeGame));
+ await f().locator('#megadriveRoot [data-key="Enter"]').click();
+ await tap('long');await f().waitForSelector('#openMegaDrive');
+ await f().waitForFunction(()=>window.GENESIS_GAME_PAUSED===true);
+ await f().locator('#openMegaDrive').click();
+ await f().waitForFunction(()=>window.GENESIS_GAME_PAUSED===false&&window.q('#status')?.textContent.includes('안경 화면 표시 중'));
+ await tap('long');await f().waitForSelector('#openMegaDrive');
+ for(let i=0;i<5;i++)await page.evaluate(()=>emit('device.button',{button:'right',action:'trigger'}));
+ await f().waitForFunction(()=>arrowState().left===0&&arrowState().right>0);
+ 
+ let previous=0;for(const [index,label] of [[0,'날씨'],[7,'계산기']]){
+  for(let j=previous;j<index;j++)await page.evaluate(()=>emit('device.button',{button:'left',action:'trigger'}));
+  await tap('long');await f().waitForFunction(label=>window.q('#screenName').textContent===label,label);
+  await page.evaluate(()=>emit('device.button',{action:'double'}));assert.equal(await f().locator('#screenName').textContent(),label);
+  await page.evaluate(()=>emit('device.button',{action:'long'}));await f().waitForFunction(()=>window.q('#screenName').textContent==='홈');previous=index;
+ }
+ await f().locator('#openNaver').click();
+ await f().waitForSelector('#naverRoot h1');
+ assert.equal(await f().locator('#naverRoot h1').textContent(),'네이버 지도 길안내');
+ await f().locator('#demoRoute').click();
+ await f().waitForFunction(()=>window.q('#navStatus')?.textContent.startsWith('샘플 경로 ·'));
+ await tap('long');await f().waitForSelector('#openNaver');
+ const relayCalls=[];
+ const message={id:'mock-id',app:'카카오톡',sender:'테스트 보낸 사람',body:'테스트 메시지'};
+ await page.route('http://127.0.0.1:18769/**',route=>{
+  const req=route.request(),path=new URL(req.url()).pathname;
+  const headers={'Access-Control-Allow-Origin':'*','Access-Control-Allow-Methods':'GET, POST, OPTIONS','Access-Control-Allow-Headers':'Authorization, Content-Type','Access-Control-Allow-Private-Network':'true'};
+  if(req.method()==='OPTIONS')return route.fulfill({status:204,headers});
+  const payload=req.postDataJSON();relayCalls.push({path,type:payload?.type});
+  let data={connected:true,linkId:'test-link',capture:'idle',packets:[],messages:[message],activeId:message.id,status:'테스트 연결',draft:''};
+  if(path==='/pair/request')data={requestId:'pair-id',check:'1234'};
+  if(path==='/pair/result')data={approved:true,token:'test-token'};
+  if(path==='/host'&&!payload?.type)data.packets=[{id:1,data:'Ag=='}];
+  return route.fulfill({headers,contentType:'application/json',body:JSON.stringify(data)});
+ });
+ for(let i=0;i<4;i++)await vertical(2);
+ await tap('long');
+ await f().waitForSelector('#messengerRoot #reader');
+ assert.equal(await f().locator('#messengerRoot #sender').textContent(),message.sender);
+ await page.evaluate(()=>emit('plugin.message',{channel:20051,dataBase64:btoa('\0'.repeat(66))}));
+ await f().waitForFunction(()=>document.querySelector('#messengerRoot').shadowRoot.querySelector('#count').textContent==='1');
+ await page.evaluate(()=>emit('plugin.message',{channel:0x4752,dataBase64:'Ag=='}));
+ await f().waitForSelector('#openMessenger');
+ await f().waitForTimeout(500);
+ assert(relayCalls.some(c=>c.type==='hostEvent'));
+ assert(relayCalls.some(c=>c.type==='hostAway'));
+ assert.deepEqual(await page.evaluate(()=>messengerModes),[1,0]);
+ assert.equal(await f().locator('#memoInput').count(),0);
+ await f().locator('#openNews').click();await f().waitForSelector('.article',{timeout:12000}).catch(async e=>{console.error(await f().locator('body').innerText());console.error(await page.evaluate(()=>methods));throw e;});assert(new URL(f().url()).pathname==='/index.html');await f().locator('.article').first().click();await f().waitForFunction(()=>window.q('#detail .body')?.textContent.length>100);await f().locator('#news-preview > summary').click();await f().locator('#preview:visible').screenshot({path:out+'/news.png'});await f().evaluate(async()=>{const {fullFrameTiles}=await import('./full-frame.mjs');const ctx=document.querySelector('#newsRoot').shadowRoot.querySelector('#preview').getContext('2d');const tiles=fullFrameTiles(ctx);if(tiles.length!==7||tiles.some(t=>t.length!==15000))throw Error('Full frame geometry');for(let y=0;y<350;y++)for(let x=0;x<600;x++){if(x>=20&&x<580&&y>=15&&y<335)continue;const b=tiles[Math.floor(y/50)][Math.floor(((y%50)*600+x)/2)];if((x%2?b&15:b>>4)!==0)throw Error('Margin is not black');}});await page.evaluate(()=>emit('device.button',{action:'long'}));await page.evaluate(()=>emit('device.button',{action:'long'}));await f().waitForSelector('#openStocks');await f().waitForFunction(()=>window.q('#deviceState')?.textContent.includes('준비 완료'));
+ await f().locator('#openStocks').click();await f().waitForFunction(()=>window.q('#status')?.textContent.includes('관심 종목'));await f().locator('#stocksRoot details').first().locator('summary').click();await f().locator('#name').fill('삼성전자');await f().locator('#symbol').fill('005930');await f().locator('#add-form button').click();await f().waitForFunction(()=>window.q('#count')?.textContent==='1/20');await f().locator('#holding-editor > summary').click();await f().locator('#holding-quantity').fill('10');await f().locator('#holding-average').fill('60000');await f().locator('#holding-form button').click();await f().waitForFunction(()=>window.q('#portfolio-value').textContent.includes('700,000'),{},{timeout:18000}).catch(async e=>{console.error(await f().locator('body').innerText());throw e;});await f().locator('#stock-preview > summary').click();await f().locator('#preview:visible').screenshot({path:out+'/stocks.png'});
+ await f().locator('#name').fill('SK하이닉스');await f().locator('#symbol').fill('000660');await f().locator('#add-form button').click();await f().waitForFunction(()=>window.q('#count')?.textContent==='2/20');
+ await page.evaluate(()=>emit('plugin.message',{channel:0x4751,dataBase64:'AAM='}));await page.evaluate(()=>emit('device.button',{action:'single'}));
+ await f().waitForFunction(()=>window.q('#title')?.textContent==='SK하이닉스'&&window.q('#status')?.textContent.includes('수신 완료'));
+ await page.evaluate(()=>emit('device.button',{action:'double'}));await f().waitForFunction(()=>window.q('#title')?.textContent==='안경 관심 목록');
+ await page.evaluate(()=>emit('plugin.message',{channel:0x4751,dataBase64:'AAI='}));await page.evaluate(()=>emit('device.button',{action:'single'}));
+ await f().waitForFunction(()=>window.q('#title')?.textContent==='삼성전자'&&window.q('#status')?.textContent.includes('수신 완료'));await f().locator('#preview:visible').screenshot({path:out+'/chart.png'});
+ await Promise.all([page.waitForRequest(request=>new URL(request.url()).searchParams.get('resource')==='history'),page.evaluate(()=>emit('device.button',{action:'single'}))]);
+ await tap('long');await f().waitForSelector('#openStocks');await f().locator('#openStocks').click();await f().waitForFunction(()=>window.q('#count')?.textContent==='2/20');assert.equal(await f().locator('#holding-quantity').inputValue(),'10');await f().locator('#stocksRoot .glow-navigation a').click();await f().waitForSelector('#openNews');await f().waitForFunction(()=>window.q('#locationState')?.textContent.includes('현재 위치 ·'));await page.evaluate(()=>window.denyLocation=true);await f().locator('#homeRoot > main > details').first().locator(':scope > summary').click();await f().locator('#refreshLocation').click();await f().waitForFunction(()=>window.q('#locationState')?.textContent.includes('위치 확인 불가'));assert.deepEqual(errors,[]);
+ assert((await page.evaluate(()=>methods)).includes('location.getCurrentPosition'));const report={simplifiedPhoneUi:true,megaDriveVideoAndReturn:true,longPressHomeUnified:true,gameCategoryAndEdgeArrows:true,fullFrameBlackMargins:true,singleDocument:true,locationApi:true,locationDeniedFallback:true,ok:true,realSdk:true,hostAndNetwork:'simulated',originalsUnchanged:true,navigation:['home-news-article-home','home-stocks-chart-home','holdings persist across page changes'],frames:await page.evaluate(()=>framesSent),errors};fs.writeFileSync(out+'/browser-report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report));
+}catch(e){console.error(e.stack);process.exitCode=1;}finally{if(browser)await browser.close();server.close();}})();

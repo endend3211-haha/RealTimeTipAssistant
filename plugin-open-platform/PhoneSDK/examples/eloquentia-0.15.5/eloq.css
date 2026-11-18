@@ -1,0 +1,90 @@
+/* Eloquentia-only styles. Linked (not inline): the MemoMind app drops inline CSS. Look "3 Glasses mirror" (2026-11-11). */
+.ver { font-size: 0.8rem; font-weight: 400; color: var(--muted); }
+.pill { margin: 0; padding: 4px 12px; border-radius: 999px; font-size: 0.95rem; font-weight: 600; font-variant-numeric: tabular-nums; background: var(--card); border: 1px solid var(--line); color: var(--muted); }
+.pill.live { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+.status.line { font-size: 0.85rem; line-height: 1.3; margin: 2px 0; }
+.caprow { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin: 14px 2px 6px; }
+.cap { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.phase.live { color: var(--accent); font-weight: 600; }
+
+/* the mirror: a black box the shape of the glasses screen (600 x 350), green text like the glasses */
+.mirror { position: relative; aspect-ratio: 600 / 350; background: #000; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; color: #4fe04f; container-type: inline-size; font-size: 13px; font-size: 3.6cqw; line-height: 1.35; }
+.mhead { margin: 0; padding: 2.2cqw 3cqw 0; text-align: center; font-size: 1.3em; font-weight: 600; color: #6dff6d; }
+.mrows { padding: 2.6cqw 3cqw 0; }
+.mrows div { white-space: pre; overflow: hidden; text-overflow: clip; min-height: 1.35em; }
+.mrows.center div { text-align: center; }
+.mfoot { position: absolute; left: 0; right: 0; bottom: 0; margin: 0; padding: 0 3cqw 2.2cqw; text-align: center; font-size: 0.8em; letter-spacing: 0.04em; color: #3dbb3d; white-space: nowrap; overflow: hidden; }
+
+.controls { display: flex; gap: 10px; margin: 14px 0 10px; }
+#listen { flex: 1 1 auto; min-height: 52px; font-size: 1.05rem; border-radius: 12px; }
+.icon-btn { flex: none; width: 60px; min-height: 52px; padding: 4px 0; border-radius: 12px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; }
+.btnlabel { font-size: 0.72rem; font-weight: 600; line-height: 1.1; }
+.recent li { font-size: 1rem; }
+.recent li.newest { font-size: 1.15rem; font-weight: 650; }
+.recent li .text, #cues li .text { display: inline; }
+#cues { max-height: 50vh; overflow-y: auto; }
+h2 .count { font-size: 0.8rem; font-weight: 500; color: var(--muted); margin-left: 6px; }
+#listen:disabled { opacity: 0.5; }
+.modes { display: flex; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; margin: 0 0 4px; }
+.modes .mode { flex: 1 1 0; display: flex; flex-direction: column; justify-content: center; line-height: 1.2; min-height: 52px; padding: 6px 10px; border-radius: 0; background: transparent; color: var(--fg); }
+.modes .mode + .mode { border-left: 1px solid var(--line); }
+.modes .mode small { font-size: 0.75rem; font-weight: 400; color: var(--muted); }
+.modes .mode.on { background: var(--accent); color: var(--accent-fg); }
+.modes .mode.on small { color: var(--accent-fg); }
+
+.cue { font-size: 1.2rem; font-weight: 650; line-height: 1.3; min-height: 1.4em; margin: 0; }
+.heard { min-height: 3em; line-height: 1.45; margin: 0; }
+.cards { padding-left: 1.2em; margin: 0; }
+.cards li { margin-bottom: 10px; line-height: 1.35; }
+.cards .src { font-size: 0.8rem; color: var(--muted); display: block; }
+select { width: 100%; margin-top: 4px; padding: 10px; font-size: 16px; }
+section .check { margin-top: 12px; font-size: 0.95rem; }
+
+/* icons (Material Symbols Rounded, Apache 2.0, assets/ui), drawn by CSS so a label change keeps the icon */
+#listen::before,#check::before,#clear::before{content:"";display:inline-block;width:1.2em;height:1.2em;margin-right:.45em;vertical-align:-.24em;background:currentColor;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat}
+#check::before,#clear::before{margin-right:0;width:1.35em;height:1.35em}
+#listen::before{-webkit-mask-image:url(assets/ui/mic.svg);mask-image:url(assets/ui/mic.svg)}
+#listen.on::before{-webkit-mask-image:url(assets/ui/stop.svg);mask-image:url(assets/ui/stop.svg)} /* stop.svg: a plain rounded square, drawn here */
+#check::before{-webkit-mask-image:url(assets/ui/network_check.svg);mask-image:url(assets/ui/network_check.svg)}
+#clear::before{-webkit-mask-image:url(assets/ui/close.svg);mask-image:url(assets/ui/close.svg)}
+
+/* 0.3.0: notes before the talk + end summary */
+.notes-label { display: block; margin-top: 16px; }
+textarea { width: 100%; box-sizing: border-box; margin-top: 4px; padding: 10px; font: inherit; font-size: 16px; line-height: 1.4; color: var(--fg); background: var(--card); border: 1px solid var(--line); border-radius: 10px; resize: vertical; }
+.summary { white-space: pre-wrap; line-height: 1.45; margin: 0 0 6px; }
+#summake { width: 100%; min-height: 48px; border-radius: 12px; margin-top: 6px; }
+#summake::before{content:"";display:inline-block;width:1.2em;height:1.2em;margin-right:.45em;vertical-align:-.24em;background:currentColor;-webkit-mask:center/contain no-repeat;mask:center/contain no-repeat;-webkit-mask-image:url(assets/ui/summarize.svg);mask-image:url(assets/ui/summarize.svg)}
+
+/* 0.4.0: what kind of cue (Say, Ask, Fix, Word, Check) + OpenClaw memory card */
+.cards .kind { display: inline-block; margin-right: 6px; padding: 0 7px; border-radius: 999px; font-size: 0.72rem; font-weight: 650; letter-spacing: 0.02em; line-height: 1.5; border: 1px solid var(--line); color: var(--muted); vertical-align: 0.08em; }
+.cards .kind.k-fix { border-color: var(--fix); color: var(--fix); }
+.cards .kind.k-word, .cards .kind.k-check { border-color: var(--accent); color: var(--accent); }
+.cue[data-kind="fix"] { color: var(--fix); }
+/* 0.5.0: live notes (quiet) + AI tips (blue) */
+.cards .kind.k-note { border-color: var(--muted); color: var(--muted); }
+.cards .kind.k-tip { border-color: var(--tip); color: var(--tip); }
+.cue[data-kind="tip"] { color: var(--tip); }
+section h3 { margin: 20px 0 0; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.memory { white-space: pre-wrap; line-height: 1.45; margin: 4px 0 0; }
+label.check:has(#sw-web:disabled) { opacity: 0.55; }
+/* 0.8.0 her: the owner's own art (pet.css is GENERATED by art/make_pet.py and plays the moods). She sits left and her bubble holds the cue: she is the one saying it. */
+.petrow { display: flex; align-items: flex-start; gap: 0.7rem; margin: 0.5rem 0; }
+.pet { width: 96px; height: 120px; flex: none; }
+.bubble { position: relative; flex: 1 1 auto; min-width: 0; margin: 10px 0 0; padding: 10px 12px; border: 1px solid var(--line); border-radius: 4px 14px 14px 14px; background: var(--card); color: var(--muted); font-size: 0.9rem; line-height: 1.35; overflow-wrap: anywhere; }
+.bubble.says { color: var(--fg); border-color: var(--accent); font-size: 1.1rem; font-weight: 600; }
+/* 0.11.0: on the phone too she stands on the side her lean puts her; the bubble's square corner stays on her side */
+.petrow.right { flex-direction: row-reverse; }
+.petrow.right .bubble { border-radius: 14px 4px 14px 14px; }
+/* her in the copy of the glasses screen: bottom left like on the lens (12, 226; 96 x 120 of 600), green like the lens */
+.mirror .mpet { position: absolute; left: 2cqw; top: 37.7cqw; width: 16cqw; height: 20cqw; background: #4fe04f; isolation: isolate; }
+.mirror .mpet[hidden] { display: none; }
+.mirror .mpet .pet-face { border-radius: 0; mix-blend-mode: multiply; }
+/* 0.9.0: the rows are her speech bubble: it sits on her head, grows upward, and its tail points down at her */
+.mirror.beside .mrows { position: absolute; left: 2cqw; right: 2cqw; bottom: 23.7cqw; padding: 1.2cqw 2cqw; border: 2px solid #4fe04f; border-radius: 2.4cqw; }
+.mirror.beside .mrows::after { content: ""; position: absolute; left: 6cqw; bottom: -1.75cqw; width: 2.8cqw; height: 2.8cqw; background: #000; border-right: 2px solid #4fe04f; border-bottom: 2px solid #4fe04f; transform: rotate(45deg); }
+.mirror.beside.quiet .mrows { display: none; }
+.mirror.beside .mfoot { padding-left: 19.7cqw; }
+/* 0.10.0: she leans left, so she stands bottom right; the tail and the footer room follow her */
+.mirror.right .mpet { left: auto; right: 2cqw; }
+.mirror.beside.right .mrows::after { left: auto; right: 6cqw; }
+.mirror.beside.right .mfoot { padding-left: 3cqw; padding-right: 19.7cqw; }

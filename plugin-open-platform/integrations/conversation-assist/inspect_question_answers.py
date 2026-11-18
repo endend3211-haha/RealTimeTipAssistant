@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/debug/QuestionPolicyProbe.java');s=p.read_text(encoding='utf-8').replace('if(!help.optString("kind").equals("reply"))throw new IOException("Question help was not reply");','String plain=ai.minutes("질문에 한국어 한두 문장으로 답하세요. 알 수 없는 사실은 확인이 필요하다고 말하세요.",c,96);rows.put(new JSONObject().put("model","Qwen direct answer").put("text",plain));');p.write_text(s,encoding='utf-8')

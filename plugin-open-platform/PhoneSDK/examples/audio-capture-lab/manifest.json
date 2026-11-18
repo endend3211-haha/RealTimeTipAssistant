@@ -1,0 +1,51 @@
+{
+  "id": "com.memomind.demo.audio-capture-lab",
+  "name": "Audio Capture Lab",
+  "version": "0.1.8",
+  "entry": "index.html",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "audio.capture",
+      "required": true
+    },
+    {
+      "name": "audio.playback",
+      "required": false
+    },
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "connection"
+        ]
+      }
+    },
+    {
+      "name": "device.info",
+      "required": true
+    },
+    {
+      "name": "device.messaging",
+      "required": false,
+      "scope": {
+        "channels": [
+          16716
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.memomind.demo.audio-capture-lab",
+    "requiredPluginId": "com.memomind.demo.audio-capture-lab",
+    "minPluginVersion": "1",
+    "protocols": [
+      { "id": "gm.audio-lab", "minVersion": "1.0" },
+      { "id": "gm.device-events", "minVersion": "1.0" }
+    ]
+  }
+}

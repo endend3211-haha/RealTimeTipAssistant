@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/debug/DualEngineProbe.java');s=p.read_text(encoding='utf-8').replace('String original=manager.selectedModel();','String original="litertlm";').replace('long loaded=SystemClock.elapsedRealtime();String text=', 'long loaded=SystemClock.elapsedRealtime();Bundle stage=new Bundle();stage.putString("stage","EXAONE loaded");sendStatus(1,stage);String text=');p.write_text(s,encoding='utf-8')

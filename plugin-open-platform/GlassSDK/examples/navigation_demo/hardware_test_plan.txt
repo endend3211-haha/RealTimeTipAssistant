@@ -1,0 +1,19 @@
+Navigation HUD V36
+
+Hardware Validation Test
+
+1. Install mmpkg
+2. Launch plugin
+3. Receive real navigation event
+4. Verify callback
+5. Verify HUD rendering
+
+Check:
+
+[ ] SDK Event
+[ ] Callback
+[ ] Event Mapper
+[ ] View Model
+[ ] HUD Binding
+[ ] LVGL Output
+[ ] Runtime Stability

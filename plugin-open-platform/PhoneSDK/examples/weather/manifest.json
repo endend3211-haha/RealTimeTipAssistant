@@ -1,0 +1,37 @@
+{
+  "id": "com.memomind.demo.weather",
+  "name": "City Weather",
+  "version": "0.1.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "network",
+      "required": true,
+      "reason": "Fetch a public weather forecast"
+    },
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "device.info",
+      "required": false
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.gm.example.web-bridge",
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

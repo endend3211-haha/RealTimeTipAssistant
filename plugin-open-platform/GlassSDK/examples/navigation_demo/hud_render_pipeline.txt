@@ -1,0 +1,23 @@
+Navigation HUD V12
+
+Pipeline:
+
+JSON Navigation
+      |
+Parser
+      |
+HUD Renderer
+      |
+Arrow Geometry
+      |
+LVGL Draw API
+      |
+Glass Display
+
+
+Added:
+- Draw API abstraction
+- Arrow render connection layer
+
+Next:
+Bind actual MemoMind LVGL canvas functions.

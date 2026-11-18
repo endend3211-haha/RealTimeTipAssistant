@@ -1,0 +1,34 @@
+{
+  "id": "com.memomind.navernav",
+  "name": "네이버 지도 HUD 네비게이션 (도보 ⇄ 차량 듀얼 모드)",
+  "version": "1.0.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "description": "네이버 지도 경로 데이터를 기반으로 안경 시야(Micro-OLED)에 턴바이턴(TBT) 방향 화살표, 남은 거리, 주행 속도, 안전 경고를 실시간 투사하는 국내 전용 HUD 네비게이션입니다.",
+  "permissions": [
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "network",
+      "required": false
+    },
+    {
+      "name": "device.info",
+      "required": false
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.gm.example.web-bridge",
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "minVersion": "1.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "author": "Newtype (잘생긴아)"
+}

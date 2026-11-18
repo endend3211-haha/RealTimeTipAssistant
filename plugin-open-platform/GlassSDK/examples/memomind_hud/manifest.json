@@ -1,0 +1,12 @@
+{
+  "id": "com.mcnex.memomind.hud",
+  "name": "MemoMind One Real-Time Optical HUD",
+  "version": 1,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "gm.scene", "version": "1.0" },
+      { "id": "gm.device-events", "version": "1.0" }
+    ]
+  }
+}

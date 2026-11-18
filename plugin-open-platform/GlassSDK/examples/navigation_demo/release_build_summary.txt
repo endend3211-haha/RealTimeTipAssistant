@@ -1,0 +1,16 @@
+Navigation HUD V35
+
+Final Release Integration
+
+Included:
+
+- SDK Navigation Adapter
+- Event Pipeline
+- Navigation View Model
+- HUD Binding
+- LVGL HUD Widgets
+- Package Validation
+
+Release Target:
+
+navigation_hud_plugin.mmpkg

@@ -1,0 +1,32 @@
+{
+  "oneStepTransition": {
+    "before": {
+      "frames": 15,
+      "compressedBytes": 579741
+    },
+    "after": {
+      "frames": 10,
+      "compressedBytes": 358669
+    },
+    "reductionPercent": 38.1
+  },
+  "centerPixelDifferences": 0,
+  "fixture": "7 real Korean MangaDex covers; identical 21 poses; 600x350 GRAY_4; LZ4 changed rectangles; excludes network and glasses",
+  "before": {
+    "meanCompressedBytes": 39758,
+    "totalCompressedBytes": 795164,
+    "meanDrawMs": 13.53,
+    "maxCompressedBytes": 41834
+  },
+  "after": {
+    "meanCompressedBytes": 36699,
+    "totalCompressedBytes": 733971,
+    "meanDrawMs": 8.7,
+    "maxCompressedBytes": 38275
+  },
+  "compressedReductionPercent": 7.7,
+  "lateAckTransitionFrames": {
+    "before": 15,
+    "after": 10
+  }
+}

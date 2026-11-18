@@ -1,0 +1,16 @@
+{
+  "gguf": "Sudden, a loud thunder. Rainbow drops of rainbow",
+  "ggufMs": 145,
+  "missingRejected": true,
+  "litertlm": "HDR은 넓은 색 범위와 높은 명암비를 구현하여 더욱 사실적이고 생생한 이미지를 만드는 기술입니다.",
+  "litertlmMs": 5490,
+  "exaone": {
+    "kind": "reply",
+    "topic": "HDR 기술의 활용",
+    "text": "역광 촬영에서 HDR은 밝은 배경과 어두운 얼굴을 동시에 선명하게 표현해 얼굴의 세부 표현력을 높여줍니다."
+  },
+  "exaoneLoadMs": 1061,
+  "exaoneGenerateMs": 24453,
+  "exaoneMinutes": "회의에서 카메라 HDR 기능의 비교 시험을 오는 금요일까지 완료하기로 확정했습니다.",
+  "ok": true
+}

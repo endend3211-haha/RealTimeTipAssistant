@@ -1,0 +1,54 @@
+{
+  "id": "com.mcnex.conversation.phone",
+  "name": "Memo 회의 자막·자동 회의록 0.6.1",
+  "version": "0.6.1",
+  "entry": "index.html",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "network",
+      "required": true
+    },
+    {
+      "name": "storage",
+      "required": true
+    },
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "audio.capture",
+      "required": true
+    },
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "connection"
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.mcnex.conversation.glass",
+    "protocols": [
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "minVersion": "1.0"
+      }
+    ]
+  }
+}

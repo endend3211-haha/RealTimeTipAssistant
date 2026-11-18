@@ -1,0 +1,5 @@
+<?xml version='1.0' encoding='utf-8'?>
+<map>
+    <string name="name-gguf">EXAONE-3.5-2.4B-Instruct-Q4_K_M.gguf</string>
+    <string name="selected">litertlm</string>
+</map>

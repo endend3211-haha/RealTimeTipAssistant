@@ -1,0 +1,9 @@
+{
+  "file": "Qwen3-0.6B_dynamic_wi4b32_afp32.litertlm",
+  "phonePath": "/sdcard/Download/Qwen3-0.6B_dynamic_wi4b32_afp32.litertlm",
+  "bytes": 343490560,
+  "sha256": "bf1aba9ce8d963124407353c6aa4cbf72eba78db21ae133de983eac672ce83e0",
+  "phoneVerified": true,
+  "source": "https://huggingface.co/litert-community/Qwen3-0.6B",
+  "importedIntoApp": false
+}

@@ -1,0 +1,16 @@
+R08 Health Phone 0.1.1 Bluetooth diagnostics
+
+폰 플러그인 0.1.1만 업데이트합니다. 기존 Glass v1과 호환됩니다.
+
+1. MemoMind에 R08-Health-Phone-0.1.1.mmpkg를 설치하고 R08 Health를 엽니다.
+2. 블루투스 진단 > API 확인을 누릅니다.
+3. ENV 및 MEMOMIND_CAPABILITIES 로그를 확인합니다.
+   requestDevice=false: 이 실행 환경에서 직접 BLE 조회 불가. 링이 꺼졌다는 뜻이 아닙니다.
+4. requestDevice=true일 때만 링 선택이 활성화됩니다.
+5. 직접 연결·배터리 읽기는 폰에서 링으로 연결하는 별도 시험입니다. 안경과 링 연결에 영향을 줄 수 있습니다.
+   서비스 180F 검색, 특성 2A19 검색, 잔량 읽기 결과를 표시하고 자동 연결 해제합니다.
+
+안경↔링 무선 패킷 캡처, RSSI 측정, 건강 조회 GATT Bridge는 구현된 기능이 아닙니다.
+현재 공개 MemoMind SDK의 GATT Bridge가 없어 건강 조회 버튼은 기존 대기 상태입니다.
+이 버전은 실제 MemoMind WebView에서 Bluetooth API가 제공되는지 확인하기 위한 진단본입니다.
+빌드/정적 문법 검사/기존 데이터·메시지 테스트/API 감지 테스트 통과. 실제 설치 및 동작 미검증.

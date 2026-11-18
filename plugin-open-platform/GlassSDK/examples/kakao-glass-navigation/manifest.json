@@ -1,0 +1,11 @@
+{
+  "id": "com.mcnex.kakao-glass-navigation",
+  "name": "카카오 길찾기 HUD (글라스)",
+  "version": 1,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "mcnex.kakao-nav", "version": "1.0" }
+    ]
+  }
+}

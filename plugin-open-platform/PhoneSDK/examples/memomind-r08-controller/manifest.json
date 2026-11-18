@@ -1,0 +1,27 @@
+{
+  "id": "com.example.memomind.r08.controller",
+  "name": "MemoMind R08 Controller",
+  "version": "0.1.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "permissions": [
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": { "channels": [19794, 19795] },
+      "reason": "Send R08 controller commands to the paired MemoMind glasses plugin"
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.memomind.r08.control",
+    "requiredPluginId": "com.memomind.r08.control",
+    "minPluginVersion": "1",
+    "protocols": [
+      { "id": "gm.r08-control", "minVersion": "1.0" }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

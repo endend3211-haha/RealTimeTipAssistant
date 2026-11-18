@@ -1,0 +1,103 @@
+{
+  "id": "com.newtype.glassos",
+  "name": "Newtype Glass OS (통합 스마트 글래스 플랫폼)",
+  "version": "1.0.2",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "description": "K-Way 길안내, 대중교통, 주식/가상자산, 피트니스, AI 통역, 음성 메모리, 비전, 유튜브를 안경 렌즈(Micro-OLED)에서 템플 버튼 하나로 자유롭게 넘나드는 차세대 통합 글래스 OS입니다.",
+  "permissions": [
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "connection",
+          "imuGesture",
+          "rawImu"
+        ]
+      }
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": {
+        "channels": [
+          18256
+        ]
+      }
+    },
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "location.foreground",
+      "required": true
+    },
+    {
+      "name": "network",
+      "required": true
+    },
+    {
+      "name": "storage",
+      "required": true
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.mcnex.glow-market.glass",
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.glow-battery",
+        "minVersion": "1.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "author": "Newtype (잘생긴아)",
+  "files": {
+    "core/dirty_renderer.mjs": "sha256:a85030af37bc5dcfc4cf665188dc6a70c3d1e1cf5853030c4483864e2574f50b",
+    "core/lz4.mjs": "sha256:7e17db8304a4c5d45c92306448fe04c1d0342f1d1d15a8f6ccd9e48c5208991c",
+    "core/vault.mjs": "sha256:aa6a3efc8238b77d445461889425839dd9cc2ee5709b895c0cbab5f7ed70a571",
+    "core/weather.mjs": "sha256:eed367ac420d55b45e75c8386a5e47d467535fc227457b2ee509003d6ebdd0c4",
+    "desktop/home_hud.mjs": "sha256:8355fbf2f3d3581c0952b46991f9c5ec27966099a0746078bbf69b614452e1af",
+    "hub.mjs": "sha256:aa89dc3c5a5bfce8ef7595542f964518c85d64c7c34640be3499bd7ee37c5c96",
+    "index.html": "sha256:c5d904cf716b63ba6c0e258084118d832bab89c29a112787d816676146b45bbd",
+    "modules/ai_copilot/plugin.js": "sha256:df1db68c04d99c899188bbd4be5fe58348ae7bda1a86f12e3590ee0fc265b755",
+    "modules/ai_copilot/template.mjs": "sha256:f21c69220a899a6a1adf8e220bb3a5c82831ab363d11711fe03a2bf4c8ceb219",
+    "modules/fitness_pacer/plugin.js": "sha256:2b5af9850b6f02a13dbb25690824484c4d739058c608c0eefd0cfae243d75eea",
+    "modules/fitness_pacer/template.mjs": "sha256:19761ccf3e38239a71e22f4c33c878be95aa60c303d255e66a1e204f13fdbbbf",
+    "modules/k_way_nav/plugin.js": "sha256:4114584e5327d7007e6d8f2c42beaa3f2aa3303b5aeade28648407b2d5eaee89",
+    "modules/k_way_nav/template.mjs": "sha256:d4fcf97a25c375cf3b7464cf927f2685cfe92d6639790e4e7ec1b51d53b164ac",
+    "modules/korea_transit/plugin.js": "sha256:c75c44466123ae9644b83c89de72e09ca4e2b50c6f9d9c7623ef98e56dcc88ed",
+    "modules/korea_transit/template.mjs": "sha256:a9b69647c1d9f4072f41be1c6759b3a54ce265c761d37e742e9371951bda8abb",
+    "modules/open_memory/plugin.js": "sha256:e8f42aa8230e33c07d2042399b0843a4b28b3301497c4b0e9130ed11d71e9114",
+    "modules/open_memory/template.mjs": "sha256:d0ba1af8cc45d660c35fdbcf9549f83577c3ceb1a20886f45fe995230869a6df",
+    "modules/stock_ticker/plugin.js": "sha256:64d61f6d9c8e9e4d5395bf8f66301bfc25ba79ba7eb488039432a0ac473ade7a",
+    "modules/stock_ticker/template.mjs": "sha256:9177dd1ae5d1d24fd3f4a894350bb251706e09d573fc33a5067b4ba7adf634b6",
+    "modules/vision_companion/plugin.js": "sha256:d932b32799591ca09501e7ce7ea4e0e2d0120782a6801602a4cf47bae6654ee0",
+    "modules/vision_companion/template.mjs": "sha256:438d7b38188966fa6ff0cf337b853347fdc8cc578e078721c43deba86e6b8488",
+    "modules/youtube_streamer/plugin.js": "sha256:e0fd6f478e1f0a560253b73eec98c159e58f621b0325087b94649fd577df3973",
+    "modules/youtube_streamer/template.mjs": "sha256:daa1e93dda45e232e024396b9f2f2a9b8c87a1a163541ee0f7bf2512f13337de",
+    "shell.mjs": "sha256:d15d2ab33c55f7001ca2d1cce54965b294d98c17026b6749b5c07a5b3cf5d2a7",
+    "style.css": "sha256:f8db2a840a79cfbfcf30056a3287cbb2d39b8da34f14956ca7991035f25af732",
+    "vendor/gm-plugin-web-sdk.esm.js": "sha256:bd2dc22691060bbf4d636f47467353afc78fbedfd29918f09d8b902680cf1816"
+  }
+}

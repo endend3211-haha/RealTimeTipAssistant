@@ -1,0 +1,35 @@
+[hidden]{display:none!important}
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,Roboto,"Noto Sans KR",sans-serif}
+body{background:#0b0e17;color:#f0f4f8;padding:12px}
+main{max-width:520px;margin:0 auto;display:flex;flex-direction:column;gap:10px}
+h1{font-size:19px;text-align:center}h1 small{display:block;font-size:12px;color:#8b99ad;font-weight:500}
+.row{display:flex;gap:8px;align-items:center;justify-content:center}
+.tabs{display:flex;gap:6px;background:#141926;padding:4px;border-radius:12px;border:1px solid #232b3e}
+.tab{flex:1;background:none;border:0;color:#8b99ad;padding:10px;border-radius:8px;font-size:14px;font-weight:700}
+.tab.on{background:#1e2638;color:#00e5ff}
+button{cursor:pointer;border:0;border-radius:10px;color:#fff;font-weight:700}
+.big{flex:1;padding:15px 8px;font-size:15px;background:#1f8f4a}.big.alt{background:#2b5fd9}
+.sm{padding:8px 12px;font-size:14px;background:#25334d}
+.preset-bar{display:flex;gap:5px;width:100%}
+.preset-btn{flex:1;padding:8px 4px;font-size:12px;background:#1e293b;border:1px solid #334155;border-radius:8px;color:#cbd5e1;white-space:nowrap}
+.preset-btn:hover{background:#334155;color:#38bdf8}
+button:disabled{opacity:.4;cursor:not-allowed}
+.card{background:#141926;border:1px solid #232b3e;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.key{font-size:26px;font-weight:800;color:#79f29d;word-break:keep-all;line-height:1.3}
+.key.ok{border-left:5px solid #79f29d;padding-left:10px}
+.key.ok::before{content:"정답";display:block;font-size:12px;font-weight:700;color:#8b99ad;letter-spacing:1px}
+.key.busy{color:#8b99ad;font-size:20px}
+.key.err{color:#ff9d9d;font-size:20px}
+.key.idle{color:#8b99ad;font-size:16px;font-weight:600}
+.note{font-size:11px;color:#6b7a90;text-align:center;margin-bottom:-4px}
+label.chk{justify-content:flex-start;gap:8px;color:#cbd5e1;font-size:13px}
+label.chk input{width:auto}
+pre{white-space:pre-wrap;word-break:keep-all;font-size:14px;line-height:1.55;color:#d5e3f0}
+canvas{width:100%;background:#000;border-radius:8px}
+#thumb{width:100%;max-height:180px;object-fit:contain;background:#000;border-radius:10px}
+label{font-size:12px;color:#8b99ad;display:flex;justify-content:space-between;align-items:center}
+.hint{color:#38bdf8;text-decoration:none}
+input,select{width:100%;padding:10px;border-radius:8px;border:1px solid #28354c;background:#0f1522;color:#fff;font-size:14px}
+#status{font-size:12px;color:#38bdf8;text-align:center;min-height:18px;font-weight:600}
+#page{font-size:13px;color:#8b99ad;min-width:56px;text-align:center}
+#briBadge{background:#1e293b;border:1px solid #38bdf8;color:#38bdf8;padding:6px 10px;border-radius:8px;font-size:13px;font-weight:700}

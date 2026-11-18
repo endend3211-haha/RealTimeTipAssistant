@@ -1,0 +1,19 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.mcnex.conversation" android:versionCode="1" android:versionName="0.1.0">
+ <uses-sdk android:minSdkVersion="26" android:targetSdkVersion="35"/>
+ <uses-permission android:name="android.permission.INTERNET"/>
+ <uses-permission android:name="android.permission.WAKE_LOCK"/>
+ <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+ <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE"/>
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE"/>
+ <queries><intent><action android:name="android.speech.RecognitionService"/></intent></queries>
+ <application android:label="Memo 회의" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:allowBackup="false" android:usesCleartextTraffic="true" android:extractNativeLibs="true">
+  <uses-native-library android:name="libOpenCL.so" android:required="false"/><uses-native-library android:name="libvndksupport.so" android:required="false"/>
+  <activity android:name=".MainActivity" android:exported="true" android:windowSoftInputMode="adjustResize"><intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter></activity>
+  <service android:name=".KakaoNotificationService" android:label="Memo 카카오톡 AI 기억" android:exported="true" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"><intent-filter><action android:name="android.service.notification.NotificationListenerService"/></intent-filter></service>
+  <service android:name=".KakaoMemoryJob" android:exported="false" android:permission="android.permission.BIND_JOB_SERVICE"/>
+  <provider android:name=".MeetingShareProvider" android:authorities="com.mcnex.conversation.meetings" android:exported="false" android:grantUriPermissions="true"/>
+  <service android:name=".AssistService" android:exported="false" android:foregroundServiceType="microphone|specialUse"><property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-started offline smart-glasses transcription and explanation through authenticated loopback"/></service>
+ </application>
+</manifest>

@@ -1,0 +1,7 @@
+#ifndef LVGL_THEME_CONFIG_H
+#define LVGL_THEME_CONFIG_H
+
+#define HUD_FONT_SIZE 24
+#define HUD_ARROW_SIZE 64
+
+#endif

@@ -1,0 +1,33 @@
+{
+  "id": "com.memomind.demo.megadrive-glass",
+  "name": "Mega Drive Glass Bridge",
+  "version": "0.3.7",
+  "entry": "index.html",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "audio.playback",
+      "required": true
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": { "channels": [19780, 19782, 19783] }
+    },
+    {
+      "name": "storage",
+      "required": true
+    }
+  ],
+  "deviceRequirements": {
+    "requiredPluginId": "com.memomind.demo.megadrive-glass-display",
+    "protocols": [
+      {
+        "id": "gm.megadrive-display",
+        "minVersion": "1.1"
+      }
+    ]
+  }
+}

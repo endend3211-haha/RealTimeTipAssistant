@@ -1,0 +1,22 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFile} from 'node:fs/promises';
+test('Pocket opens selected manga directly and routes hardware by screen',async()=>{
+ const listeners={},elements=new Map(),storage=new Map([['pocket-manga-gateway','http://127.0.0.1:18874']]);let raf;
+ const context=new Proxy({getImageData:()=>({data:new Uint8ClampedArray(600*350*4)}),createImageData:()=>({data:new Uint8ClampedArray(600*350*4)})},{get:(o,k)=>k in o?o[k]:(()=>{})});
+ const element=id=>{if(!elements.has(id))elements.set(id,{value:id==='language'?'ko':'',checked:true,hidden:false,textContent:'',getContext:()=>context,matches:()=>false});return elements.get(id);};
+ globalThis.document={getElementById:element,createElement:()=>({width:0,height:0,getContext:()=>context}),body:{classList:{add(){},remove(){}}}};
+ globalThis.window=new EventTarget();globalThis.localStorage={getItem:k=>storage.get(k)||null,setItem:(k,v)=>storage.set(k,v)};
+ globalThis.requestAnimationFrame=fn=>{raf=fn;};globalThis.createImageBitmap=async()=>({width:600,height:1050,close(){}});
+ const ids=Array.from({length:7},(_,i)=>`00000000-0000-4000-8000-${String(i+1).padStart(12,'0')}`),requests=[];
+ window.MemoWebtoonHost={mangaRequest(message){const r=JSON.parse(message);requests.push(r);let data;if(r.value.startsWith('/manga?'))data={result:'ok',total:7,data:ids.map((id,i)=>({id,type:'manga',attributes:{title:{ko:`만화 ${i+1}`}},relationships:[]}))};else if(r.value.includes('/feed?'))data={result:'ok',total:1,data:[{id:ids[0],attributes:{pages:2,chapter:'1',translatedLanguage:'ko'},relationships:[]}]};else if(r.value.startsWith('/at-home/'))data={result:'ok',baseUrl:'https://node.test',chapter:{hash:'abc',dataSaver:['1.jpg','2.jpg']}};window.dispatchEvent(new CustomEvent('memo-mangadex-response',{detail:{requestId:r.requestId,ok:true,...(r.operation==='image'?{image:'data:image/png;base64,AA=='}:{data})}}));}};
+ globalThis.__pocketTestGM={ready:async()=>{},on(){},close(){},device:{onButton:fn=>{listeners.button=fn;},onGesture:fn=>{listeners.gesture=fn;},onConnection(){},subscribeEvents:async()=>({subscriptionId:1}),unsubscribeEvents:async()=>{}},plugin:{onMessage:()=>()=>{},sendMessage:async()=>{}},display:{createPage:async()=>{},beginFrame:async()=>{},updateFrameImageLz4:async()=>{}}};
+ const root=new URL('../../PhoneSDK/examples/webtoon-reader/',import.meta.url);let source=await readFile(new URL('plugin.js',root),'utf8');source=source.replace(/from '([^']+)'/g,(_,path)=>`from '${path.includes('gm-plugin-web-sdk')?'data:text/javascript,export function createGMPlugin(){return globalThis.__pocketTestGM}':new URL(path,root).href}'`);
+ await import('data:text/javascript;base64,'+Buffer.from(source).toString('base64'));
+ const settle=async()=>{for(let i=0;i<8;i++)await new Promise(r=>setImmediate(r));};await settle();
+ assert.equal(element('gateway').value,'https://proxy.cors.dev');assert.equal(storage.get('pocket-manga-public-proxy-migrated'),'1');
+ assert.equal(element('focused').textContent,'만화 1');listeners.button({action:'single'});assert.equal(element('focused').textContent,'만화 2');listeners.button({action:'double'});assert.equal(element('focused').textContent,'만화 1');
+ listeners.button({action:'long'});await settle();assert.equal(element('reader-tools').hidden,false);assert.match(element('reader-title').textContent,/만화 1/);assert.ok(requests.some(r=>r.value.startsWith('/at-home/server/')));
+ raf(1000);await settle();listeners.button({action:'single'});raf(1100);await settle();assert.match(element('status').textContent,/1 \/ 2쪽/);
+ listeners.button({action:'double'});listeners.button({action:'long'});assert.equal(element('reader-tools').hidden,true);assert.equal(element('catalog-tools').hidden,false);
+ window.dispatchEvent(new Event('pagehide'));
+ delete globalThis.__pocketTestGM;
+});

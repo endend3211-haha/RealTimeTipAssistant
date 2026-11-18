@@ -1,0 +1,50 @@
+[
+  {
+    "case": "term",
+    "status": 200,
+    "wallMs": 6061,
+    "result": {
+      "kind": "term",
+      "topic": "HDR",
+      "text": "High Dynamic Range. 밝은 부분과 어두운 부분의 정보를 함께 표현하는 기술. 역광에서 얼굴과 배경의 세부를 살리는 데 활용한다.",
+      "source": "AI 자동 도움 · 확인 필요",
+      "timing": {
+        "cold": true,
+        "loadMs": 3833,
+        "generateMs": 2219
+      }
+    }
+  },
+  {
+    "case": "reply",
+    "status": 200,
+    "wallMs": 1644,
+    "result": {
+      "kind": "term",
+      "topic": "광학식/전자식 손떨림 보정",
+      "text": "광학식은 렌즈를 이용해 손떨림을 보정하고, 전자식은 센서 데이터를 이용해 보정합니다.",
+      "source": "AI 자동 도움 · 확인 필요",
+      "timing": {
+        "cold": false,
+        "loadMs": 0,
+        "generateMs": 1635
+      }
+    }
+  },
+  {
+    "case": "none",
+    "status": 200,
+    "wallMs": 878,
+    "result": {
+      "kind": "none",
+      "topic": "",
+      "text": "",
+      "source": "AI 자동 도움 · 확인 필요",
+      "timing": {
+        "cold": false,
+        "loadMs": 0,
+        "generateMs": 861
+      }
+    }
+  }
+]

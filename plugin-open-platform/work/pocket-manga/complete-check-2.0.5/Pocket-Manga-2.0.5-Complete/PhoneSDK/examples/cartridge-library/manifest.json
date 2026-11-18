@@ -1,0 +1,70 @@
+{
+  "id": "com.memomind.cartridge.library",
+  "name": "포켓 만화",
+  "version": "2.0.5",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "permissions": [
+    {
+      "name": "network",
+      "required": true,
+      "reason": "웹툰 목록과 표지를 불러옵니다."
+    },
+    {
+      "name": "storage",
+      "required": true,
+      "reason": "선택한 만화와 읽은 위치를 기억합니다."
+    },
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "connection"
+        ]
+      }
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": {
+        "channels": [
+          19782,
+          19783
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.memomind.cartridge.mirror",
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.pocket-fast-frame",
+        "minVersion": "1.0"
+      }
+    ]
+  }
+}

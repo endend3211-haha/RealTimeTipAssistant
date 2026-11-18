@@ -1,0 +1,20 @@
+{
+  "id": "com.mcnex.kakao-navigation",
+  "name": "카카오 지도 길안내",
+  "version": "0.4.0",
+  "entry": "index.html",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "bridgeVersion": "2.0",
+  "permissions": [
+    { "name": "device.messaging", "required": true, "scope": { "channels": [20054] }, "reason": "글라스 길안내 HUD에 방향과 거리 전송" },
+    { "name": "location.foreground", "required": true, "reason": "현재 위치 기준 길안내" },
+    { "name": "network", "required": true, "reason": "장소 검색 및 경로 탐색 프록시 호출" },
+    { "name": "display", "required": false },
+    { "name": "device.info", "required": false }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.mcnex.kakao-navigation-glass",
+    "protocols": [{ "id": "mcnex.kakao-nav", "minVersion": "1.0" }]
+  }
+}

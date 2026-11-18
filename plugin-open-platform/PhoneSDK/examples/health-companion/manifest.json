@@ -1,0 +1,28 @@
+{
+  "id": "com.memomind.health.companion.phone",
+  "name": "MemoMind Health Companion",
+  "version": "0.2.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": { "types": ["connection"] }
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": { "channels": [17991, 17992] }
+    }
+  ],
+  "deviceRequirements": {
+    "requiredPluginId": "com.memomind.health.companion.glass",
+    "minPluginVersion": "1",
+    "protocols": [
+      { "id": "gm.health-companion", "minVersion": "1.0" }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

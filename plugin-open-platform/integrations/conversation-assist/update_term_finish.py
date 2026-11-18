@@ -1,0 +1,11 @@
+from pathlib import Path
+p=Path('PhoneSDK/examples/conversation-assist/plugin.js');s=p.read_text(encoding='utf-8')
+s=s.replace("const old=candidates[candidateIndex];candidates=", "const old=candidates[candidateIndex],oldTerms=candidates.slice();candidates=")
+s=s.replace("candidateIndex=Math.max(0,candidates.indexOf(old));", "candidateIndex=Math.max(0,candidates.indexOf(old));if(oldTerms.includes($('term').value)&&!candidates.includes($('term').value))$('term').value=candidates[candidateIndex]||'';")
+s=s.replace("'선택 '+candidates[candidateIndex]+' · 한 번: 단어 · 두 번: 뜻 · 길게: 듣기/정지'", "'선택 '+(candidates[candidateIndex]||'자막 다음')+' · 한 번: 이동 · 두 번: 실행 · 길게: 듣기/정지'")
+s=s.replace("candidateIndex=(candidateIndex+1)%candidates.length;$('term').value=candidates[candidateIndex];", "candidateIndex=(candidateIndex+1)%(candidates.length+1);$('term').value=candidates[candidateIndex]||'';")
+s=s.replace("else if(answer&&answerTerm===", "else if(candidates.length&&candidateIndex===candidates.length){const n=draw();pageIndex=(pageIndex+1)%n;draw();}else if(answer&&answerTerm===")
+p.write_text(s,encoding='utf-8')
+p=Path('integrations/conversation-assist/device_smoke.py');s=p.read_text(encoding='utf-8').replace("'term':'이 대화에서 HDR의 뜻'", "'term':'HDR'")
+s=s.replace("assert result[0]==200 and result[1]['text']", "assert result[0]==200 and result[1]['text']\nassert result[1]['source']=='로컬 용어 사전'\nstarted=time.time()\ncode,unknown=req('/explain',{'context':'카메라 센서의 빛을 전기 신호로 읽는 CMOS 기술을 검토합니다.','term':'CMOS'})\nprint('Unknown-term AI:',json.dumps({'status':code,'seconds':round(time.time()-started,2),'result':unknown},ensure_ascii=True),flush=True)\nassert code==200 and unknown['text']\nreport['unknownTerm']=unknown\nPath(__file__).with_name('device-smoke.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')")
+p.write_text(s,encoding='utf-8')

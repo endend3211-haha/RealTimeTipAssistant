@@ -1,0 +1,1 @@
+{"id":"com.memomind.demo.button-diagnostics","name":"Memo Button Diagnostics","version":"1.0.0","entry":"index.html","schemaVersion":2,"permissionPolicyVersion":1,"bridgeVersion":"2.0","permissions":[{"name":"device.events","required":true,"scope":{"types":["button"]}}]}

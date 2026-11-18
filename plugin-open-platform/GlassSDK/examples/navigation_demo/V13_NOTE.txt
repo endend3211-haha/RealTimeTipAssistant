@@ -1,0 +1,13 @@
+Navigation HUD V13
+
+Connected to gm_plugin_lvgl_api.h.
+
+Used SDK concepts:
+- gm_plugin_lvgl_obj_t
+- obj_create
+- line_create
+- line_set_points
+- obj_invalidate
+
+Next:
+Complete plugin.c event integration.

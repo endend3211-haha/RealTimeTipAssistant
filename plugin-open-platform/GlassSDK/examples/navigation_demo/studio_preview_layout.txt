@@ -1,0 +1,27 @@
+Navigation HUD V39 Studio Preview Layout
+
+HUD Canvas
+
++----------------------+
+
+        Arrow Widget
+             ▶
+
+      Distance Widget
+             50m
+
+    Instruction Widget
+             우회전
+
++----------------------+
+
+
+Connected:
+
+Navigation View Model
+        |
+        v
+HUD Widget Binding
+        |
+        v
+Studio Scene

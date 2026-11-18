@@ -1,0 +1,48 @@
+{
+  "id": "com.mcnex.tetris.phone",
+  "name": "Memo 테트리스 · 폰 실행",
+  "version": "0.1.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "imuGesture",
+          "rawImu",
+          "connection"
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.mcnex.glow-market.glass",
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "minVersion": "1.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

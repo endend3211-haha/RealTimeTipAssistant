@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memo Button Diagnostics</title>
+<style>
+body { color: #edf6fa; background: #11191d; font: 16px system-ui; padding: 16px; }
+button, select { font: inherit; padding: 10px; }
+pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<h1>버튼 신호 비교</h1>
+<p id="status" role="status">MemoMind 연결 대기</p>
+<label>시험 대상 <select id="source"><option>안경 본체</option><option>워치 리모컨</option></select></label>
+<button id="clear" type="button">기록 지우기</button>
+<p>한 번, 두 번, 세 번, 길게 누르기를 각각 시험하세요. 각 조작 사이에 약 3초씩 기다려 주세요.</p>
+<pre id="events" aria-live="polite"></pre>
+<script type="module" src="./plugin.js"></script>
+</body>
+</html>

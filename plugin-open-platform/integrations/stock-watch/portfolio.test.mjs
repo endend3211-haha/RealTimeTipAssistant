@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseHolding,portfolioTotals,sanitizeHoldings} from '../../PhoneSDK/examples/stock-watch/portfolio.mjs';
+const watch=[{symbol:'005930'},{symbol:'000660'}],holdings={'005930':{quantity:'10',averagePrice:'70000'},'000660':{quantity:'2',averagePrice:'100000'}};
+const entries=()=>new Map([['005930',{quote:{price:80000},fetchedAt:1000}],['000660',{quote:{price:90000},fetchedAt:1000}]]);
+test('보유 수량·평균단가 검증과 0주 해제',()=>{assert.deepEqual(parseHolding('1,000','70,000.25'),{quantity:'1000',averagePrice:'70000.25'});assert.equal(parseHolding('0',''),null);for(const [q,p]of[['-1','1'],['1',''],['1','0'],['1e3','1'],['1000001','1'],['1','1.001'],['0.0000001','1']])assert.throws(()=>parseHolding(q,p));});
+test('전체 보유 종목 평가액·매입금액·손익·수익률',()=>{const t=portfolioTotals(watch,holdings,entries(),1000);assert.equal(t.cost,900000);assert.equal(t.value,980000);assert.equal(t.profit,80000);assert.equal(t.percent,80000/900000*100);assert.equal(t.positions[1].profit,-20000);assert.equal(t.complete,true);});
+test('시세 누락이면 부분 평가액을 전체 자산으로 표시하지 않음',()=>{const e=entries();e.delete('000660');const t=portfolioTotals(watch,holdings,e,1000);assert.equal(t.value,null);assert.equal(t.profit,null);assert.equal(t.percent,null);assert.equal(t.cost,900000);assert.equal(t.knownValue,800000);assert.equal(t.covered,1);assert.equal(t.count,2);});
+test('조회 실패·45초 초과 시세는 이전값으로 구분',()=>{const e=entries();assert.equal(portfolioTotals(watch,holdings,e,1000).stale,false);e.get('005930').error='offline';assert.equal(portfolioTotals(watch,holdings,e,1000).stale,true);delete e.get('005930').error;assert.equal(portfolioTotals(watch,holdings,e,47000).stale,true);});
+test('소수 수량·단가 계산을 정수 고정소수점으로 반올림',()=>{const t=portfolioTotals([watch[0]],{'005930':parseHolding('0.123456','100.25')},new Map([['005930',{quote:{price:110.5},fetchedAt:1000}]]),1000);assert.equal(t.cost,12.38);assert.equal(t.value,13.64);assert.equal(t.profit,1.26);});
+test('보유 없는 관심종목은 합계에서 제외',()=>{const t=portfolioTotals(watch,{},entries(),1000);assert.equal(t.value,0);assert.equal(t.count,0);assert.equal(t.percent,null);});
+test('저장된 보유정보 검증·마이그레이션',()=>{assert.deepEqual(sanitizeHoldings({...holdings,other:{quantity:'1',averagePrice:'1'}},watch),holdings);assert.deepEqual(sanitizeHoldings({'005930':{quantity:'-10',averagePrice:'1'}},watch),{});});

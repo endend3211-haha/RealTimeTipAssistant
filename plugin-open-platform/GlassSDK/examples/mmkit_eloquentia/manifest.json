@@ -1,0 +1,11 @@
+{
+  "id": "local.mmkit.eloquentia",
+  "name": "MM Eloquentia",
+  "version": 8,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "mm.hud", "version": "1.0" }
+    ]
+  }
+}

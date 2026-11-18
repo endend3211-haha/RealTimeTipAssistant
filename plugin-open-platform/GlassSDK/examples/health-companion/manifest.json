@@ -1,0 +1,11 @@
+{
+  "id": "com.memomind.health.companion.glass",
+  "name": "MemoMind Health Glass",
+  "version": 1,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "gm.health-companion", "version": "1.0" }
+    ]
+  }
+}

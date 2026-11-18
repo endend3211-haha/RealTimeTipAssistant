@@ -1,0 +1,16 @@
+{
+  "id": "com.memomind.navigation-demo-glass",
+  "name": "길찾기 데모 (글라스)",
+  "version": 1,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      {
+        "id": "com.memomind.navigation-demo-glass",
+        "version": "1.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

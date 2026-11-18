@@ -1,0 +1,2 @@
+export function navigate(path){window.dispatchEvent(new CustomEvent('glow:navigate',{detail:path.includes('messenger')?'messenger':path.includes('manga')?'manga':path.includes('megadrive')?'megadrive':path==='naver'?'naver':path.includes('stocks')?'stocks':path.includes('news')?'news':'home'}));}
+export function installHome(root){root.querySelector('.glow-navigation a')?.addEventListener('click',e=>{e.preventDefault();navigate('home');});}

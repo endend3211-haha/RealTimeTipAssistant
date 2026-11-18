@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; font-src 'self'; object-src 'none'; frame-src 'none'; worker-src 'none'; base-uri 'none'; form-action 'none'"
+    >
+    <title>틱택토</title>
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header>
+        <p class="eyebrow">APHRODITE WEB PLUGIN</p>
+        <h1>틱택토</h1>
+        <p id="bridge-status" class="bridge-status">Connecting to App…</p>
+      </header>
+
+      <div class="game-layout">
+        <aside class="guide-panel" aria-label="게임 규칙">
+          <div>
+            <p class="panel-label">GAME RULES</p>
+            <h2>한 줄로 3개를 놓으면 승리</h2>
+            <p>당신은 <strong>X</strong>, 컴퓨터는 <strong>O</strong>, 먼저 시작합니다.</p>
+          </div>
+          <dl class="controls-list">
+            <div><dt>위 / 아래 보기</dt><dd>위 / 아래 이동</dd></div>
+            <div><dt>고개를 왼쪽 / 오른쪽으로 돌리기</dt><dd>왼쪽 / 오른쪽 이동</dd></div>
+            <div><dt>메인 버튼 한 번 클릭</dt><dd>선택한 칸에 표시</dd></div>
+            <div><dt>메인 버튼 두 번 클릭</dt><dd>언제든 다시 시작</dd></div>
+          </dl>
+          <section class="input-monitor" aria-label="기기 입력 진단" aria-live="polite">
+            <p class="panel-label">DEVICE INPUT</p>
+            <p><span>Latest command</span><strong id="last-command">No device command received</strong></p>
+            <p><span>Result</span><strong id="last-operation">Waiting for input</strong></p>
+          </section>
+          <p class="guide-tip">빛나는 테두리가 선택된 빈 칸을 표시합니다. 가로, 세로 또는 대각선으로 3개를 먼저 연결하면 승리합니다.</p>
+        </aside>
+
+        <section id="game-card" class="game-card" aria-labelledby="game-status">
+          <p class="panel-label">CURRENT GAME</p>
+          <p id="game-status" class="game-status" aria-live="assertive">당신의 차례</p>
+          <div class="board-stage">
+            <div id="board" class="board" role="grid" aria-label="틱택토 보드"></div>
+            <div id="result-overlay" class="result-overlay" role="status" aria-live="assertive" hidden>
+              <span class="result-label">GAME OVER</span>
+              <strong id="result-title">승리했습니다!</strong>
+              <span>메인 버튼을 두 번 클릭하면 다시 시작합니다</span>
+            </div>
+          </div>
+          <p id="selection" class="selection">선택됨: 가운데</p>
+        </section>
+      </div>
+
+      <div class="actions">
+        <button id="up" type="button" disabled>Up</button>
+        <button id="down" type="button" disabled>Down</button>
+        <button id="left" type="button" disabled>Left</button>
+        <button id="right" type="button" disabled>Right</button>
+        <button id="place" type="button" class="primary" disabled>Place</button>
+        <button id="restart" type="button" class="danger" disabled>Restart</button>
+      </div>
+
+      <pre id="log" aria-live="polite"></pre>
+    </main>
+  </body>
+</html>
+

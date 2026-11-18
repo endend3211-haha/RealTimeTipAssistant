@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>MM Eloquentia</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="eloq.css">
+  <link rel="stylesheet" href="pet.css">
+</head>
+<body>
+  <main>
+    <header class="top">
+      <h1>Eloquentia <span id="ver" class="ver"></span></h1>
+      <p id="clock" class="pill" aria-label="청취 시간">0:00</p>
+    </header>
+    <p id="link" class="status line" role="status">안경 연결 대기 중…</p>
+    <section aria-label='로컬 연결 설정'>
+<label for="gemma-token">Memo 로컬 대화 연결 코드</label>
+      <input id="gemma-token" type="password" autocomplete="off" spellcheck="false" placeholder="Memo 로컬 대화 앱에서 복사한 코드">
+    </section>
+    <p id="ml" class="status line" role="status">Media Link 연결 확인 전</p>
+    <p id="mlfast" class="hint" hidden></p>
+
+    <div id="petrow" class="petrow">
+      <div id="pet" class="pet idle" role="img" aria-label="Eloquentia 대기 중"><span class="pet-face"></span></div>
+      <p id="petsay" class="bubble" aria-live="polite">대기 중</p>
+    </div>
+    <div class="caprow">
+      <p class="cap">현재 안경 화면</p>
+      <p id="state" class="cap phase" role="status">청취 중지</p>
+    </div>
+    <div id="mirror" class="mirror" aria-label="안경 화면 미리보기">
+      <div id="mpet" class="pet mpet idle" aria-hidden="true" hidden><span class="pet-face"></span></div>
+      <p id="mhead" class="mhead" hidden></p>
+      <div id="mrows" class="mrows center"></div>
+      <p id="mfoot" class="mfoot"></p>
+    </div>
+    <p id="status" class="hint"></p>
+
+    <div class="controls">
+      <button id="listen" type="button"><span id="listenlabel">청취 시작</span></button>
+      <button id="clear" type="button" class="secondary icon-btn" aria-label="도움말 지우기" data-i18n-aria="Clear cue"><span class="btnlabel">지우기</span></button>
+      <button id="check" type="button" class="secondary icon-btn" aria-label="Media Link 연결 확인" data-i18n-aria="Check Media Link"><span class="btnlabel">확인</span></button>
+    </div>
+    <p id="listenhint" class="hint">안경이 응답하면 청취를 시작할 수 있습니다. 안경에서 MM Eloquentia를 열거나 안경 버튼을 한 번 누르세요.</p>
+    <div class="modes" role="group" aria-label="도움말 생성 모델">
+      <button type="button" class="mode" data-mode="fast" aria-pressed="true">빠른 응답<small>Groq와 Cerebras 중 먼저 응답한 모델 사용</small></button>
+      <button type="button" class="mode" data-mode="careful" aria-pressed="false">신중한 응답<small>Claude Haiku</small></button>
+    </div>
+
+    <section>
+      <h2>인식된 대화</h2>
+      <p id="heard" class="heard">&hellip;</p>
+    </section>
+
+    <section>
+      <h2>최근 도움말 3개</h2>
+      <p id="recentempty" class="hint">아직 표시할 도움말이 없습니다.</p>
+      <ol id="recent" class="cards recent"></ol>
+    </section>
+
+    <section id="membox" hidden>
+      <h2>OpenClaw 기억</h2>
+      <p id="memstate" class="hint"></p>
+      <p id="memtext" class="memory" hidden></p>
+    </section>
+
+    <section id="sumbox" hidden>
+      <h2>대화 요약</h2>
+      <p id="sumtext" class="summary">요약 만들기를 누르면 대화의 핵심, 숫자, 남은 질문이 정리됩니다.</p>
+      <p id="sumvia" class="hint"></p>
+      <p id="sumsave" class="hint" hidden></p>
+      <button id="summake" type="button" class="secondary">요약 만들기</button>
+
+    </section>
+
+    <section id="earlier" hidden>
+      <h2>전체 대화 <span id="sessioncount" class="count"></span></h2>
+      <ol id="cues" class="cards"></ol>
+    </section>
+
+    <section>
+      <h2>설정</h2>
+      <label for="pickup">마이크 수음 범위</label>
+      <select id="pickup">
+        <option value="meetingAuto">주변 사람 모두</option>
+        <option value="nonWearerFocus">앞에 있는 사람</option>
+        <option value="frontBalanced">균형</option>
+        <option value="frontFocus">내 목소리만</option>
+      </select>
+      <label for="rate">도움말 표시 빈도</label>
+      <select id="rate">
+        <option value="calm">낮음 (20초 간격)</option>
+        <option value="normal">보통 (8초 간격)</option>
+        <option value="max">최대 (4초 간격)</option>
+      </select>
+      <label for="style">도움말 말투</label>
+      <select id="style">
+        <option value="character">캐릭터 · 재치 있는 친구 말투</option>
+        <option value="plain">기본 · 짧고 중립적인 말투</option>
+      </select>
+      <label class="check"><input id="micmode" type="checkbox"> 휴대폰 마이크로 백그라운드 청취 (Media Link 0.9.7)</label>
+      <p id="michint" class="hint" hidden>Media Link를 열고 마이크 준비를 누른 뒤 돌아와 청취를 시작하세요. Android에서 마이크를 시작하려면 앱을 먼저 화면에 열어야 합니다.</p>
+      <label class="check"><input id="showtx" type="checkbox"> 최근 인식한 말을 안경에도 표시</label>
+      <label class="check"><input id="gate" type="checkbox" checked> 중요한 대화에서만 도움말 요청</label>
+      <label class="check"><input id="keepsum" type="checkbox"> 요약을 이 휴대폰에 저장</label>
+      <label class="check"><input id="glasspet" type="checkbox" checked> 안경의 도움말 옆에 캐릭터 표시</label>
+      <label class="check"><input id="keepawake" type="checkbox" checked> 백그라운드에서 캐릭터 유지 (휴대폰 마이크 청취 중 무음을 재생하며 다른 음악이 멈출 수 있습니다)</label>
+      <h3>Eloquentia 기능</h3>
+      <label class="check"><input id="sw-live" type="checkbox" checked> 실시간 메모 · 문장이 끝날 때마다 현재 대화를 짧게 정리합니다. 표시 빈도 설정을 따릅니다.</label>
+      <label class="check"><input id="sw-tips" type="checkbox" checked> AI 도움말 · 대화나 방송에 관련된 사실, 관점, 질문을 제시합니다.</label>
+      <label class="check"><input id="sw-fact" type="checkbox" checked> 사실 확인 · 틀린 주장만 표시합니다.</label>
+      <label class="check"><input id="sw-web" type="checkbox"> 불확실한 주장을 웹에서 확인 (Claude 키 필요, 건당 약 1센트)</label>
+      <label class="check"><input id="sw-word" type="checkbox" checked> 단어 찾기 · 말이 막힐 때 관련 단어를 제안합니다.</label>
+      <label class="check"><input id="sw-recall" type="checkbox" checked> 청취 시작 시 OpenClaw에서 관련 기억 불러오기</label>
+      <label class="check"><input id="sw-save" type="checkbox"> 요약 후 요약문과 메모를 OpenClaw에 저장</label>
+      <h3>응답 속도 및 관련성 (Media Link 0.10.0)</h3>
+      <label class="check"><input id="sw-stream" type="checkbox" checked> 응답을 받는 즉시 첫 줄만 표시</label>
+      <label class="check"><input id="sw-race" type="checkbox" checked> Groq와 Cerebras 중 먼저 도착한 응답 사용</label>
+      <label class="check"><input id="sw-spec" type="checkbox" checked> 문장이 끝나기 전에 도움말 준비</label>
+      <label class="check"><input id="sw-speak" type="checkbox" checked> 잡담을 건너뛰고 필요한 때만 도움말 표시</label>
+      <label class="check"><input id="sw-factcheck" type="checkbox" checked> 사실에 관한 주장이 있을 때만 웹에서 확인</label>
+      <label class="check"><input id="sw-verify" type="checkbox" checked> 정정 도움말을 표시하기 전에 Haiku로 재확인</label>
+      <label class="check"><input id="sw-runsum" type="checkbox" checked> 도움말 정확도를 위해 대화 요약을 계속 갱신</label>
+      <label class="check"><input id="sw-turn" type="checkbox" checked> 화자가 말을 마칠 때까지 대기</label>
+      <label for="notes" class="notes-label">대화 전 메모</label>
+      <textarea id="notes" rows="4" maxlength="2000" placeholder="만날 사람, 대화 목표, 기억할 숫자"></textarea>
+      <p id="notescount" class="hint">도움말을 요청할 때마다 함께 전송됩니다. 0 / 2000</p>
+      <label for="about" class="notes-label">내 정보</label>
+      <textarea id="about" rows="3" maxlength="600" placeholder="이름, 직업, 관심 있는 대화 주제"></textarea>
+      <p id="aboutcount" class="hint">도움말을 요청할 때마다 함께 전송됩니다. 0 / 600</p>
+    </section>
+
+    <details>
+      <summary>통계 및 로그</summary>
+      <p id="stats" class="hint">아직 청취 데이터가 없습니다.</p>
+      <p class="hint">안경 마이크를 쓸 때는 이 화면을 열어 두세요. 휴대폰 마이크 옵션을 켜면 화면이 꺼져도 Media Link가 청취하며, 알림에서 중지할 수 있습니다. 안경 버튼을 두 번 누르면 청취를 시작하거나 중지하고, 한 번 누르면 도움말을 지웁니다. Media Link의 Kroko가 휴대폰에서 음성을 텍스트로 변환하며, 도움말 모델에는 최근 대화와 메모, 내 정보만 전송합니다. 휴대폰에 요약 저장을 켜면 최근 10개가 저장됩니다. OpenClaw 저장을 켜면 요약과 메모가 Tailscale을 통해 PC 에이전트로 전송됩니다.</p>
+      <pre id="log"></pre>
+    </details>
+  </main>
+  <script type="module" src="plugin.js"></script>
+</body>
+</html>
+

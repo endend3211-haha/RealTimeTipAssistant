@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'">
+  <title>Messenger Glass Reply</title>
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="plugin.js"></script>
+</head>
+<body>
+<main>
+  <header><div><h1>메신저 글라스 답장</h1><p>카카오톡 · Telegram · LINE · 뮤즈AI</p></div><span id="mode" class="badge">초기화</span></header>
+  <section class="card">
+    <h2>Studio 알림 시뮬레이터</h2>
+    <div class="grid">
+      <label>메신저<select id="app"><option value="kakaotalk">카카오톡</option><option value="telegram">Telegram</option><option value="line">LINE</option><option value="muse-ai">뮤즈AI</option></select></label>
+      <label>발신자<input id="sender" value="김철수" maxlength="80"></label>
+    </div>
+    <label>메시지<textarea id="message" maxlength="1000">오늘 회의는 몇 시야?</textarea></label>
+    <label class="check"><input id="canReply" type="checkbox" checked> 알림에 직접 답장(RemoteInput) 액션 있음</label>
+    <button id="notify" class="primary">안경에 알림 표시</button>
+  </section>
+  <section class="card">
+    <h2>통합 메시지 · <span id="inbox-count">0</span>개</h2><div class="actions"><button id="previous">이전 메시지</button><button id="next">다음 메시지</button></div><p id="current-message"></p><h2>음성 답장</h2>
+    <p class="help">실기기에서는 안경 버튼으로 기기 내 STT를 시작합니다. Studio에서는 아래 칸이 인식 결과를 대신합니다.</p>
+    <label>인식된 답장<input id="reply" placeholder="예: 오후 3시입니다" disabled maxlength="500"></label>
+    <div class="actions"><button id="select" disabled>답장 선택</button><button id="voice" disabled>🎙 음성 입력</button><button id="send" class="primary" disabled>최종 보내기</button><button id="cancel" disabled>취소</button></div>
+  </section>
+  <section class="status"><strong id="status">준비 중…</strong><small id="detail">Studio와 연결 중입니다.</small></section>
+  <details><summary>동작 로그</summary><pre id="log"></pre></details>
+</main>
+</body>
+</html>

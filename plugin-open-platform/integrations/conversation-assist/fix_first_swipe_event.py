@@ -1,0 +1,3 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/src/com/mcnex/conversation/SwipeMeetingCard.java');s=p.read_text(encoding='utf-8').replace('getParent().requestDisallowInterceptTouchEvent(true);return true;','getParent().requestDisallowInterceptTouchEvent(true);onTouchEvent(e);return true;');p.write_text(s,encoding='utf-8')
+p=Path('integrations/conversation-assist/android/debug/NavigationProbe.java');s=p.read_text(encoding='utf-8').replace('direction*150','direction*v.getWidth()*.75f').replace('((ImageButton)swipe[0].getTag()).performClick();','((ImageButton)swipe[0].getTag()).performClick();swipe[0].getChildAt(1).performClick();').replace('});}if(invoked','});Thread.sleep(350);}if(invoked');p.write_text(s,encoding='utf-8')

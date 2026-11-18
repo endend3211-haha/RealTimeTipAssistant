@@ -1,0 +1,52 @@
+{
+  "id": "com.mcnex.stock-watch.phone",
+  "name": "네이버 관심 주식 HTTPS",
+  "version": "1.4.2",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "permissions": [
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "network",
+      "required": true,
+      "reason": "HTTPS 중계를 통해 네이버 검색·시세·차트 조회"
+    },
+    {
+      "name": "storage",
+      "required": true,
+      "reason": "관심 종목과 순서 저장"
+    },
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "connection"
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.mcnex.stock-watch.glass",
+    "protocols": [
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "minVersion": "1.0"
+      }
+    ]
+  }
+}

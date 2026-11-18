@@ -1,0 +1,297 @@
+/* 0.8.23: Atkinson Hyperlegible (Braille Institute, SIL OFL 1.1, phone/fonts/OFL.txt), made to be easy to read; the
+   phone font stays as the fallback if the app does not load it. */
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/ah-400.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "Atkinson Hyperlegible"; src: url("fonts/ah-700.woff2") format("woff2"); font-weight: 600 700; font-display: swap; }
+body { font-family: "Atkinson Hyperlegible", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+.presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.presets button { flex: 1 1 auto; min-width: 0; }
+/* 0.8.14: the sources as one segmented bar (one row, slides sideways if it must) */
+/* 0.8.23 (owner: "I want it more user friendly"): the sources as five big tiles, icon over the word */
+.tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.tabs button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-height: 68px; padding: 8px 2px; border-radius: 14px; font-size: 0.8rem; white-space: nowrap; }
+.tabs button[aria-pressed="true"] { box-shadow: 0 2px 8px rgba(0, 0, 0, 0.22); }
+button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+h2.gap { margin-top: 14px; }
+.preview { display: block; width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 12px; image-rendering: pixelated; border: 5px solid #0a0d0b; box-shadow: 0 0 0 1px var(--line), 0 10px 28px rgba(0, 0, 0, 0.22); }
+body.playing .preview { box-shadow: 0 0 0 1px var(--accent), 0 0 36px rgba(76, 194, 127, 0.22); }
+.row { display: flex; gap: 8px; margin-top: 10px; }
+.row button { flex: 1 1 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+th, td { padding: 4px 6px; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+th:nth-child(-n+3), td:nth-child(-n+3) { text-align: left; }
+th { color: var(--muted); font-weight: 600; }
+#clear { margin-top: 10px; }
+.presets.glow { display: grid; grid-template-columns: repeat(6, 1fr); } /* 0.8.21: Auto + 1..5, then 6..10 */
+.presets.glow button { min-width: 0; padding-left: 0; padding-right: 0; }
+.presets[hidden] { display: none; } /* a .presets flex rule otherwise overrides the hidden attribute */
+.ytbox[hidden] { display: none; }
+.ytbox input { display: block; width: 100%; box-sizing: border-box; }
+.field { display: block; margin: 10px 0 4px; font-size: 0.85rem; color: var(--muted); }
+.clipfile { flex: 1 1 auto; min-width: 0; font-size: 0.85rem; }
+/* The clip <video> must stay RENDERED (composited) or the WebView stops producing frames and
+   drawImage() reads solid black. So: inside the viewport, a real size, opacity just above 0
+   (0 gets culled on GeckoView), behind everything. drawImage still samples the full video frame. */
+.offscreen { position: fixed; right: 0; bottom: 0; width: 48px; height: 27px; opacity: 0.02; pointer-events: none; }
+/* 0.8.0: simple page. Anything with the hidden attribute stays hidden, whatever its display rule says. */
+[hidden] { display: none !important; }
+.row input { flex: 2 1 0; min-width: 0; box-sizing: border-box; }
+.row button.small { flex: 0 0 auto; }
+.naslist { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; max-height: 46vh; overflow-y: auto; }
+.naslist button { text-align: left; overflow-wrap: anywhere; }
+.naslist button.dir { font-weight: 600; }
+.naslist .size { color: var(--muted); font-size: 0.8rem; margin-left: 6px; white-space: nowrap; }
+/* 0.8.3: Library. One card per film; the whole card is the play button. */
+.shows button { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; flex: 1 1 0; min-height: 60px; height: auto; border-radius: 14px; text-align: left; line-height: 1.2; padding: 8px 12px; }
+.shows .showname { font-weight: 700; font-size: 1rem; }
+.shows .showsub { color: var(--muted); font-size: 0.8rem; font-weight: 400; }
+.shows button[aria-pressed="true"] .showsub { color: inherit; opacity: 0.85; }
+.liblist { display: flex; flex-direction: column; gap: 8px; margin-top: 10px; max-height: 62vh; overflow-y: auto; }
+.liblist button.film { display: block; flex: 0 0 auto; height: auto; min-height: 0; white-space: normal; line-height: 1.3; text-align: left; overflow-wrap: anywhere; padding: 10px 12px; }
+.liblist .film span { display: block; }
+.liblist .name { font-weight: 600; font-size: 1rem; }
+.liblist .facts { color: var(--muted); font-size: 0.8rem; margin-top: 2px; }
+.liblist .film .plot { font-size: 0.8rem; font-weight: 400; margin-top: 6px; line-height: 1.35; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 4; overflow: hidden; }
+.liblist .state { color: var(--muted); font-size: 0.8rem; margin-top: 6px; }
+.liblist .film.ready .state { color: var(--accent); font-weight: 600; }
+/* 0.8.9: Live channel groups (News, Cartoons, ...) */
+.liblist .livegroup { flex: 0 0 auto; margin: 8px 0 0; font-size: 0.85rem; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); }
+.capline { min-height: 2.6em; margin: 8px 0 0; text-align: center; font-size: 0.9rem; white-space: pre-line; }
+.pos { margin: 10px 0 6px; text-align: center; font-variant-numeric: tabular-nums; }
+details.fold { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 0 14px; margin: 10px 0; }
+details.fold[open] { padding-bottom: 12px; }
+details.fold summary { padding: 12px 0; font-weight: 600; cursor: pointer; }
+details.fold input { display: block; width: 100%; box-sizing: border-box; }
+
+/* 0.8.8: the now-playing bar sticks to the top of the page while something plays or loads: title, Stop, Pick another. */
+.nowbar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 8px; margin: 0 0 10px; padding: 8px 10px; background: var(--card); border: 1px solid var(--accent); border-radius: 12px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18); }
+.nowbar .nowtitle { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 600; font-size: 0.9rem; }
+.nowbar button.small { flex: 0 0 auto; }
+/* 0.8.10 Live as a TV: the remote row (channel back / forward) and the group chips above the channel cards */
+.row.remote button { font-size: 1.05rem; min-height: 50px; border-radius: 14px; }
+.chips { display: flex; gap: 6px; overflow-x: auto; margin-top: 10px; padding-bottom: 4px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chips button { flex: 0 0 auto; height: auto; min-height: 0; padding: 6px 12px; font-size: 0.8rem; white-space: nowrap; border-radius: 999px; }
+.liblist .film.on { border-color: var(--accent); }
+.liblist .film.on .state { color: var(--accent); font-weight: 600; }
+/* 0.8.11: Edit mode on Live — cards hide instead of tune; the row under the remote offers Hide after a failed load */
+.liblist.editing .film { border-style: dashed; }
+.liblist .film.edit .state { color: var(--accent); font-weight: 600; }
+.row.remote button.small { font-size: 0.85rem; min-height: 36px; flex: 0 0 auto; border-radius: 10px; }
+/* 0.8.12: Favorites strip under the remote (star buttons, the playing one lit) and Edit-mode cards: star + Hide side by side */
+.chips.favs { margin-top: 8px; }
+.chips.favs button { font-size: 0.9rem; padding: 8px 12px; min-height: 36px; }
+.favhint { margin: 0; padding: 6px 2px; font-size: 0.8rem; color: var(--muted); white-space: nowrap; }
+.liblist .edit { display: flex; gap: 6px; align-items: stretch; flex: 0 0 auto; }
+.liblist .edit button.film { flex: 1 1 0; min-width: 0; }
+.liblist .edit button.hide { flex: 0 0 auto; height: auto; min-height: 0; white-space: nowrap; }
+/* 0.8.13: Touchpad remote — a full-screen pad like Desk's: bar (now playing + Done), the swipe area, favorites at the bottom */
+.touchpad { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; gap: 8px; padding: calc(8px + env(safe-area-inset-top)) 8px calc(8px + env(safe-area-inset-bottom)); background: var(--bg); touch-action: none; overscroll-behavior: none; }
+.touchpad[hidden] { display: none; }
+.touchpad-bar { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--muted); }
+.touchpad-bar .touchpad-now { flex: 1 1 0; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.touchpad-bar .touchpad-now b { color: var(--fg); }
+.touchpad-bar button.small { flex: 0 0 auto; }
+.touchpad-area { flex: 1 1 0; min-height: 0; touch-action: none; user-select: none; -webkit-user-select: none; border: 1px solid var(--line); border-radius: 22px; background: var(--card) radial-gradient(circle at 50% 40%, rgba(27, 122, 70, 0.12), transparent 65%); display: grid; place-items: center; padding: 16px; text-align: center; }
+.touchpad-area p { margin: 0; color: var(--muted); font-size: 1rem; pointer-events: none; }
+.touchpad-area.hit { border-color: var(--accent); }
+.touchpad .chips.favs { flex: 0 0 auto; margin: 0; }
+body.touchpad-on { overflow: hidden; overscroll-behavior: none; }
+/* 0.8.15: icons in the buttons (Lucide, ISC): one hidden sprite at the end of the page, <use> per button, stroked here */
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.ic { width: 1.15em; height: 1.15em; flex: 0 0 auto; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; vertical-align: -0.2em; pointer-events: none; }
+button > .ic { margin-right: 6px; }
+button > span + .ic { margin-right: 0; margin-left: 6px; }
+button > .ic:only-child { margin: 0; }
+summary > .ic { margin-right: 8px; }
+#start .ic { width: 1.3em; height: 1.3em; stroke-width: 2.4; }
+.tabs button .ic { width: 26px; height: 26px; margin: 0; }
+@media (max-width: 360px) { .tabs button { min-height: 58px; font-size: 0.72rem; } .tabs button .ic { width: 22px; height: 22px; } }
+
+/* 0.8.14: Touchpad in the header too; quieter folds; the pad squeezed for a small (folded) screen */
+header.top { flex-wrap: wrap; row-gap: 6px; }
+header.top .padbtn { order: 2; margin-left: auto; flex: 0 0 auto; min-height: 36px; padding: 0 12px; font-size: 0.85rem; border-radius: 10px; }
+header.top::after { content: ''; order: 2; flex-basis: 100%; height: 0; } /* line break after the button */
+header.top .status { order: 3; flex: 0 1 auto; max-width: none; } /* the glasses state gets its own line under the title, natural width: never squeezed to "Glasses..." (seen at 390 px) */
+details.fold .hint { font-size: 0.78rem; line-height: 1.35; margin-top: 6px; }
+details.fold h2.gap { margin-top: 16px; }
+details.fold .presets button { min-height: 38px; }
+.liblist .film.on { box-shadow: inset 3px 0 0 var(--accent); }
+@media (max-height: 600px) {
+  .touchpad { gap: 6px; padding: 6px; }
+  .touchpad-bar { font-size: 0.78rem; }
+  .touchpad-bar button.small { min-height: 32px; padding: 0 12px; }
+  .touchpad-area { border-radius: 16px; padding: 10px; }
+  .touchpad-area p { font-size: 0.85rem; }
+  .touchpad .chips.favs { margin: 0; padding-bottom: 0; }
+  .touchpad .chips.favs button { min-height: 32px; padding: 5px 10px; font-size: 0.78rem; }
+  .touchpad .favhint { font-size: 0.72rem; padding: 2px; }
+}
+/* 0.8.23: the everyday card (brightness, caption letters, picture style) right under the player */
+.quick .presets button { min-height: 48px; }
+.quick .glow button { min-width: 44px; }
+.fonts button, .styles button { display: flex; flex-direction: column; align-items: center; gap: 2px; min-height: 64px; flex: 1 1 0; }
+.styles button .ic { width: 22px; height: 22px; margin: 0; }
+.aa { font-size: 1.35rem; line-height: 1; font-weight: 700; }
+.aa0 { font-family: ui-monospace, "Courier New", monospace; letter-spacing: 0.06em; }
+.aa1 { font-family: ui-monospace, Consolas, monospace; font-weight: 400; font-size: 1.15rem; }
+.aa2 { font-family: ui-monospace, Consolas, monospace; font-size: 1.7rem; }
+/* 0.8.41 Favorite switch (iPhone style): grey track, white knob; green and knob right when on. */
+.favswitch { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; min-width: 64px; padding: 6px 4px; border: 0; background: transparent; color: inherit; cursor: pointer; }
+.favswitch .track { position: relative; display: block; width: 51px; height: 31px; border-radius: 16px; background: #8e8e93; transition: background 0.2s; }
+.favswitch .knob { position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); transition: transform 0.2s; }
+.favswitch[aria-checked="true"] .track { background: #34c759; }
+.favswitch[aria-checked="true"] .knob { transform: translateX(20px); }
+.favswitch .favword { font-size: 0.75rem; line-height: 1; opacity: 0.8; }
+.favswitch:disabled { opacity: 0.5; }
+
+/* 0.9.0 (owner: "simplicity so it feels like a Netflix"): always dark, Home rows, a bottom tab bar, Settings as a sheet. */
+:root { color-scheme: dark; --bg: #0b0f0c; --fg: #eef3ef; --muted: #98a69c; --card: #151c17; --line: #26312a; --accent: #4cc27f; --accent-fg: #07150d; }
+main { padding-bottom: calc(84px + env(safe-area-inset-bottom)); }
+section { border: 0; background: transparent; padding: 0; margin: 12px 0; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+header.top { flex-wrap: wrap; gap: 8px; }
+header.top h1 { flex: 1 1 auto; font-size: 1.5rem; font-weight: 700; }
+header.top .iconbtn { order: 1; flex: 0 0 auto; width: 44px; min-height: 44px; padding: 0; margin: 0; border-radius: 50%; display: grid; place-items: center; }
+header.top .iconbtn .ic { width: 22px; height: 22px; margin: 0; }
+header.top .padbtn { margin-left: 0; }
+header.top::after { order: 2; }
+header.top .status { order: 3; text-align: left; border: 0; background: transparent; padding: 0; }
+/* the hero: what plays now, big and first */
+.hero { position: relative; background: var(--card); border-radius: 18px; padding: 14px; box-shadow: 0 14px 40px rgba(0, 0, 0, 0.45); }
+.hero .herotitle { margin: 0 0 6px; font-size: 1.25rem; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--fg); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.hero #ytnote { margin: 0 0 10px; }
+.hero.idle .preview, .hero.idle .capline, .hero.idle #playbox { display: none; }
+body:not([data-view="home"]) .hero.idle { display: none; }
+.hero #start { min-height: 52px; font-size: 1.05rem; border-radius: 12px; }
+.capsrow { margin-top: 10px; }
+/* Home: a row of favorite channels (slides sideways) and big Browse tiles */
+.homeview { margin: 18px 0 0; }
+.rowtitle { margin: 18px 0 8px; font-size: 1rem; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--fg); }
+.rowscroll { gap: 10px; padding-bottom: 6px; scroll-snap-type: x mandatory; }
+.rowscroll button { scroll-snap-align: start; min-height: 64px; min-width: 132px; padding: 10px 14px; border-radius: 12px; font-size: 0.95rem; white-space: normal; text-align: left; background: var(--card); border: 1px solid var(--line); color: var(--fg); }
+.rowscroll button[aria-pressed="true"] { background: var(--accent); color: var(--accent-fg); border-color: var(--accent); }
+.rowscroll .favhint { white-space: normal; }
+.tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.tile { display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-end; gap: 8px; min-height: 96px; padding: 14px; border-radius: 16px; background: linear-gradient(150deg, #1d2a21, #121814); color: var(--fg); border: 1px solid var(--line); font-size: 1.05rem; text-align: left; }
+.tile .ic { width: 28px; height: 28px; margin: 0; color: var(--accent); }
+.tile:active { transform: scale(0.98); }
+body.pcoff .pconly { display: none !important; }
+/* Search tab: only the search box and its results of the Live screen */
+body.searchonly #livebox > :not(#livesearch) { display: none; }
+body.searchonly #livesearch #livesq { font-size: 1.05rem; min-height: 48px; }
+/* the bottom tab bar */
+.tabbar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); padding: 6px 4px calc(6px + env(safe-area-inset-bottom)); background: rgba(11, 15, 12, 0.96); border-top: 1px solid var(--line); }
+.tabbar button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-height: 52px; padding: 4px 0; background: transparent; color: var(--muted); border: 0; border-radius: 10px; font-size: 0.72rem; font-weight: 600; }
+.tabbar button .ic { width: 24px; height: 24px; margin: 0; }
+.tabbar button[aria-pressed="true"] { background: transparent; color: var(--accent); }
+body.touchpad-on .tabbar, body.sheetopen .tabbar { display: none; }
+/* the Settings sheet (gear): full screen, scrolls, Close at the top */
+.sheet { position: fixed; inset: 0; z-index: 40; overflow-y: auto; overscroll-behavior: contain; padding: calc(10px + env(safe-area-inset-top)) 14px calc(20px + env(safe-area-inset-bottom)); background: var(--bg); }
+.sheet-bar { position: sticky; top: calc(-10px - env(safe-area-inset-top)); z-index: 2; display: flex; align-items: center; justify-content: space-between; padding: 10px 0; background: var(--bg); }
+.sheet-bar h2 { margin: 0; font-size: 1.3rem; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--fg); }
+.sheet-bar button.small { flex: 0 0 auto; }
+.sheet .quick { background: var(--card); border-radius: 16px; padding: 12px 14px; }
+body.sheetopen { overflow: hidden; }
+details.fold details.fold { background: var(--bg); }
+/* 0.9.1 icons instead of words: the glasses state is an icon with a dot, the main buttons are round icons */
+header.top::after { content: none; }
+header.top .glassdot { order: 1; position: relative; flex: 0 0 auto; display: flex; align-items: center; gap: 6px; min-width: 44px; min-height: 44px; justify-content: center; padding: 0; color: var(--muted); }
+header.top .glassdot .ic { width: 24px; height: 24px; margin: 0; }
+header.top .glassdot::after { content: ''; position: absolute; right: 6px; bottom: 8px; width: 9px; height: 9px; border-radius: 50%; background: var(--muted); box-shadow: 0 0 0 2px var(--bg); animation: glasspulse 1.2s ease-in-out infinite; }
+header.top .glassdot.ok { color: var(--accent); }
+header.top .glassdot.ok::after { background: var(--accent); animation: none; }
+header.top .glassdot.bad { color: #e5534b; }
+header.top .glassdot.bad::after { background: #e5534b; animation: none; }
+header.top .glassdot.say .sr { position: static; width: auto; height: auto; clip: auto; font-size: 0.8rem; }
+@keyframes glasspulse { 50% { opacity: 0.3; } }
+@media (prefers-reduced-motion: reduce) { header.top .glassdot::after { animation: none; } }
+.nowbar .iconbtn, .sheet-bar .iconbtn { width: 44px; min-height: 44px; padding: 0; border-radius: 50%; display: grid; place-items: center; }
+.nowbar .iconbtn .ic, .sheet-bar .iconbtn .ic { width: 22px; height: 22px; margin: 0; }
+.row:has(> #start.playbtn) { justify-content: center; }
+#start.playbtn { flex: 0 0 64px; width: 64px; height: 64px; min-height: 64px; padding: 0; border-radius: 50%; display: grid; place-items: center; }
+#start.playbtn .ic { width: 28px; height: 28px; margin: 0; }
+
+/* 0.9.2 covers: initials on one of 8 colours; a picture laid over it fades in once it loads (no inline style anywhere). */
+.cover { position: relative; flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 10px; overflow: hidden; color: #fff; font-weight: 700; font-size: 0.95rem; letter-spacing: 0.02em; }
+.cover.wide { width: 96px; height: 54px; }
+.cover img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.25s; background: #0b0f0c; }
+.cover.pic img { opacity: 1; }
+.cover.pic .ini { visibility: hidden; }
+.cv0 { background: #2f6b4f; } .cv1 { background: #6b3f2f; } .cv2 { background: #2f4f6b; } .cv3 { background: #5b2f6b; }
+.cv4 { background: #6b5d2f; } .cv5 { background: #2f6b68; } .cv6 { background: #6b2f45; } .cv7 { background: #46536b; }
+.film > .cover { float: left; margin: 0 12px 4px 0; }
+.film.hascov { min-height: 70px; }
+.liblist .film span.cover { display: flex; }   /* beats .liblist .film span (block), keeps the letters centred */
+.liblist .film .cover span.ini { display: inline; }
+.chips.favs button { display: inline-flex; align-items: center; gap: 8px; }
+.cover.chipcov { width: 26px; height: 26px; border-radius: 50%; font-size: 0.62rem; }
+.tile { position: relative; overflow: hidden; }
+.tile > .tilecov { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 0; font-size: 1.6rem; opacity: 0.55; }
+.tile > .tilecov .ini { display: none; }   /* a tile shows the colour (and the picture when there is one), not letters over its label */
+.tile.haspic > :not(.tilecov) { position: relative; text-shadow: 0 1px 3px #000; }
+.chips.favs button, .tile { -webkit-touch-callout: none; user-select: none; }
+.favask { position: fixed; left: 16px; right: 16px; bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 50; padding: 16px; border-radius: 16px; background: #151c17; border: 1px solid var(--line); box-shadow: 0 8px 30px #000a; }
+.favask p { margin: 0 0 12px; font-size: 1.05rem; }
+
+/* 0.9.3 switches (owner: "Anything that's on or of make it a switch"): a pill with a knob; the row is the label. */
+.setrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+.setrow h2 { margin: 0; flex: 1; }
+.setrow + .hint { margin-top: 4px; }
+button.switch { position: relative; flex: 0 0 auto; width: 56px; min-width: 56px; height: 34px; min-height: 34px; padding: 0; margin: 5px 0; border-radius: 17px; background: var(--line); border: 1px solid #3a473e; transition: background 0.18s, border-color 0.18s; }
+button.switch::after { content: ''; position: absolute; top: 3px; left: 3px; width: 26px; height: 26px; border-radius: 50%; background: #c9d3cc; box-shadow: 0 1px 3px #0008; transition: transform 0.18s; }
+button.switch[aria-checked="true"] { background: var(--accent); border-color: var(--accent); }
+button.switch[aria-checked="true"]::after { transform: translateX(22px); background: #fff; }
+button.switch:disabled { opacity: 0.45; }
+button.switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { button.switch, button.switch::after { transition: none; } }
+.playbox .capsrow { margin-top: 8px; }
+/* 0.9.3 glasses brightness slider: dim sun left, bright sun right */
+.slide { display: flex; align-items: center; gap: 10px; margin: 6px 0 2px; color: var(--muted); }
+.slide .ic { flex: 0 0 auto; width: 20px; height: 20px; margin: 0; }
+.slide .ic.big { width: 26px; height: 26px; color: var(--accent); }
+.slide input[type="range"] { flex: 1; min-width: 0; height: 44px; margin: 0; accent-color: var(--accent); background: transparent; }
+/* 0.9.3 YouTube tab: add a channel */
+.addrow { display: flex; gap: 8px; margin: 6px 0 4px; }
+.addrow input { flex: 1; min-width: 0; }
+.addrow .iconbtn { flex: 0 0 48px; width: 48px; min-height: 44px; padding: 0; display: grid; place-items: center; }
+.addrow .iconbtn .ic { width: 22px; height: 22px; margin: 0; }
+#ytchanbox[hidden] { display: none; }
+.ytchans button { min-width: 0; }
+.ytchans .cover.chipcov { width: 34px; height: 34px; }
+/* 0.9.3 real photos on the Browse tiles: full strength picture, a dark fade at the bottom keeps the label readable */
+.tile.haspic > .tilecov { opacity: 1; }
+.tile.haspic::before { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(180deg, #0000 25%, #000c 100%); pointer-events: none; }
+.tile.haspic > :not(.tilecov) { z-index: 2; }
+.tile.haspic .ic { color: #fff; }
+
+/* 0.9.4 (UI review, owner: "fix all of them"): Movies stays Movies, 44px touch targets, plain Settings labels, a ringed glasses icon, a solid tab bar. */
+body.moviesearch #liveskind { display: none; }
+.homeview:not(:has(#homefavs button)) > .rowtitle:first-child, .homeview:not(:has(#homefavs button)) > #homefavs { display: none; }
+.hero.idle:not(.testpat) .row:has(> #start) { display: none; }
+.tile { min-height: clamp(96px, 16vh, 150px); }
+.chips button { min-height: 44px; padding: 8px 14px; font-size: 0.85rem; }
+.chips.favs button { min-height: 44px; }
+details.fold .presets button { min-height: 44px; }
+.row.remote button.small { min-height: 44px; }
+button.switch::before { content: ''; position: absolute; inset: -6px -4px; }
+.tabbar { background: #0b0f0c; }
+.tabbar button { font-size: 0.8rem; }
+.setrow h2, details.fold h2 { text-transform: none; letter-spacing: 0; font-size: 0.95rem; font-weight: 600; color: var(--fg); }
+details.fold details.fold { border: 0; border-top: 1px solid var(--line); border-radius: 0; padding: 0; margin: 0; background: transparent; }
+header.top .glassdot { border: 1px solid var(--line); background: var(--card); border-radius: 22px; }
+header.top .glassdot.say { padding: 0 12px; }
+@media (max-height: 600px) {
+  .touchpad .chips.favs button { min-height: 32px; padding: 5px 10px; font-size: 0.78rem; }
+}
+#settingsheet section h2 { text-transform: none; letter-spacing: 0; font-size: 0.95rem; font-weight: 600; color: var(--fg); }
+/* 0.9.6 (owner: "Can those be icons"): play-box controls icon-only */
+.presets .jumpic { display: inline-flex; align-items: center; justify-content: center; gap: 5px; min-height: 48px; padding: 0 6px; }
+.presets .jumpic .ic { width: 22px; height: 22px; margin: 0; }
+.presets .jumpic small { font-size: 0.8rem; font-weight: 700; opacity: 0.85; }
+.row.jumprow { flex-wrap: nowrap; align-items: stretch; }
+.jumprow #jumpmin { flex: 1 1 auto; width: auto; min-width: 0; margin: 0; }
+#jumpgo.iconbtn { flex: 0 0 48px; width: 48px; min-height: 48px; padding: 0; display: grid; place-items: center; }
+#jumpgo.iconbtn .ic { width: 22px; height: 22px; margin: 0; }
+.capsic { display: flex; align-items: center; }
+.capsic .ic { width: 26px; height: 26px; }

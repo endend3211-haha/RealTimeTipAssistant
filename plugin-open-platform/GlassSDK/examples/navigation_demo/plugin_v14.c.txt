@@ -1,0 +1,27 @@
+
+Navigation HUD V14
+
+Plugin Runtime Flow
+
+plugin on_start
+        |
+        v
+hud_manager_init()
+        |
+        v
+Navigation Event
+        |
+        v
+navigation_event_receive()
+        |
+        v
+hud_manager_update()
+        |
+        v
+LVGL HUD Update
+
+
+Added:
+- Runtime HUD manager
+- Navigation event bridge
+- Plugin execution structure

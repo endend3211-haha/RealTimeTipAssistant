@@ -1,0 +1,97 @@
+{
+  "id": "com.mcnex.glow-market.phone",
+  "name": "GLOW OS Plus",
+  "version": "1.1.24",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "device.events",
+      "required": true,
+      "scope": {
+        "types": [
+          "button",
+          "connection"
+        ]
+      }
+    },
+    {
+      "name": "storage",
+      "required": true
+    },
+    {
+      "name": "network",
+      "required": true
+    },
+    {
+      "name": "location.foreground",
+      "required": false
+    },
+    {
+      "name": "audio.capture",
+      "required": false
+    },
+    {
+      "name": "audio.playback",
+      "required": true
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": {
+        "channels": [
+          18256,
+          18257,
+          18258,
+          19782,
+          19783,
+          20051
+        ]
+      }
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.mcnex.glow-market.glass",
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-lz4",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.glow-battery",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.glow-direction-buttons",
+        "minVersion": "1.1"
+      },
+      {
+        "id": "gm.pocket-fast-frame",
+        "minVersion": "1.0"
+      },
+      {
+        "id": "gm.glow-messenger",
+        "minVersion": "1.0"
+      }
+    ]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}
+

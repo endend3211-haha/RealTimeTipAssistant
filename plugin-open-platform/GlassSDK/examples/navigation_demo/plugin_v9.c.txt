@@ -1,0 +1,24 @@
+
+/*
+ V9 Integration Flow
+
+ Bluetooth Message
+        |
+        v
+ Navigation Parser
+        |
+        v
+ HUD Renderer
+        |
+        +--> hud_canvas_update_arrow()
+        |
+        +--> hud_canvas_update_distance()
+        |
+        v
+ LVGL HUD
+
+
+This version connects the renderer modules.
+The exact LVGL canvas API calls should match
+the MemoMind SDK header available in the project.
+*/

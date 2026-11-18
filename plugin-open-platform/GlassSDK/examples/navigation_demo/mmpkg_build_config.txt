@@ -1,0 +1,12 @@
+Navigation HUD V33
+
+Package Validation
+
+Required:
+- Plugin ID validation
+- Permission validation
+- Version check
+- Package metadata check
+
+Output:
+navigation_hud_plugin.mmpkg

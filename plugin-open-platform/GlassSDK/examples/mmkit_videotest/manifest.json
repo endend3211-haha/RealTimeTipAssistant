@@ -1,0 +1,11 @@
+{
+  "id": "local.mmkit.videotest",
+  "name": "MM Video",
+  "version": 15,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "mm.videotest", "version": "1.0" }
+    ]
+  }
+}

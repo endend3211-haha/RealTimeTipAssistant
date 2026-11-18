@@ -1,0 +1,63 @@
+{
+  "id": "local.mmkit.eloquentia",
+  "name": "MM Eloquentia",
+  "version": "0.15.5",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "permissions": [
+    {
+      "name": "audio.capture",
+      "required": true,
+      "reason": "Listens to the conversation through the glasses microphone so Media Link on this phone can turn it into text."
+    },
+    {
+      "name": "audio.playback",
+      "required": false,
+      "reason": "Plays silence while you listen with the phone mic, so the phone keeps the page running and the glasses keep getting cues."
+    },
+    {
+      "name": "device.events",
+      "required": false,
+      "reason": "Stops listening with a plain message when the glasses disconnect.",
+      "scope": {
+        "types": [
+          "connection"
+        ]
+      }
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "reason": "Shows short text cues on the glasses and receives your taps.",
+      "scope": {
+        "channels": [
+          21021
+        ]
+      }
+    },
+    {
+      "name": "network",
+      "required": true,
+      "reason": "Talks to Media Link on this phone (127.0.0.1). Media Link sends the recent words to Cerebras (Fast) or Claude (Careful) for the cue."
+    },
+    {
+      "name": "storage",
+      "required": false,
+      "reason": "Saves your settings and, if you tick it, summaries on this phone."
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "local.mmkit.eloquentia",
+    "requiredPluginId": "local.mmkit.eloquentia",
+    "minPluginVersion": "1",
+    "protocols": [
+      {
+        "id": "mm.hud",
+        "minVersion": "1.0"
+      }
+    ]
+  }
+}
+

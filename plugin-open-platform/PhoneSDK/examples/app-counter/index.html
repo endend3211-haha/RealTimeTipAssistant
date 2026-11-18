@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'">
+  <title>Memo Plugin Demo</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main>
+    <p class="badge">TRUSTED LOCAL DEBUG ASSET</p>
+    <h1>Plugin Runtime Demo</h1>
+    <p id="runtime">Waiting for the App to inject the Bridge…</p>
+    <div class="counter"><span id="counter">0</span><small>seconds running</small></div>
+    <div class="actions">
+      <button id="subscribe">Subscribe to device events</button>
+      <button id="persist">Save count</button>
+      <button id="draw">Draw on device</button>
+    </div>
+    <pre id="log"></pre>
+  </main>
+  <script src="plugin.js"></script>
+</body>
+</html>

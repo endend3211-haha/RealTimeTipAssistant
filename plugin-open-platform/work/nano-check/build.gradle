@@ -1,0 +1,4 @@
+plugins { id 'com.android.application' version '8.12.1' }
+android { namespace 'com.mcnex.nanocheck'; compileSdk 36
+defaultConfig { minSdk 26; targetSdk 35 } }
+dependencies { implementation 'com.google.mlkit:genai-prompt:1.0.0-beta4' }

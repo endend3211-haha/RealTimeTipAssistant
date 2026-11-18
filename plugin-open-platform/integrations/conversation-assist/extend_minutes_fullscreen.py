@@ -1,0 +1,2 @@
+from pathlib import Path
+p=Path('integrations/conversation-assist/android/debug/MinutesUiProbe.java');s=p.read_text(encoding='utf-8').replace('Thread.sleep(7000);finish','Thread.sleep(1500);runOnMainSync(()->{try{java.lang.reflect.Field field=MainActivity.class.getDeclaredField("loadedDocument");field.setAccessible(true);field.set(a,"## 핵심 요약\\n- 전체 화면 글자 확대 확인용입니다.\\n## 실행 과제\\nHDR 비교 시험 | 김민수 | 11월 6일\\n## 확인 필요 사항\\n- 실제 회의 내용이 아닌 고정 예제입니다.");a.fullMinutes();}catch(Exception e){throw new RuntimeException(e);}});Thread.sleep(7000);finish');p.write_text(s,encoding='utf-8')

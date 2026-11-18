@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'none'; connect-src http://localhost:8788; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>카카오 지도 길안내</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+    <h1>카카오 길안내</h1>
+    <p id="status" role="status">글라스 연결 대기 중...</p>
+
+    <div class="search" role="search">
+      <input id="query" type="search" placeholder="목적지를 검색하세요 (예: 인천공항)" autocomplete="off" enterkeyhint="search" aria-label="목적지 검색">
+      <button id="search-btn" type="button">검색</button>
+    </div>
+
+    <ul id="results" aria-label="검색 결과"></ul>
+
+    <section class="card" aria-live="polite">
+      <p id="dest-name">목적지를 선택하세요</p>
+      <p id="dest-addr"></p>
+      <div class="nav"><span id="turn" aria-hidden="true"></span><p id="distance">-</p></div>
+      <button id="start-btn" type="button" disabled>안내 시작</button>
+      <button id="stop-btn" type="button" class="secondary" hidden>안내 종료</button>
+      <button id="demo-btn" type="button" class="secondary">데모 시연 (샘플 경로)</button>
+    </section>
+
+    <section class="map-wrap" aria-label="위치 지도">
+      <canvas id="map" role="img" aria-label="목적지와 현재 위치를 보여주는 간이 지도"></canvas>
+      <p class="map-note" id="map-note">간이 지도 (배경 지도 없음) · 탭하면 전체 경로/내 주변 전환</p>
+    </section>
+  </main>
+  <script src="boot.js"></script>
+  <script src="config.js"></script>
+  <script type="module" src="plugin.js"></script>
+</body>
+</html>

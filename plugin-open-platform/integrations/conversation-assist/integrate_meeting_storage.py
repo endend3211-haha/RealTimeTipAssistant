@@ -1,0 +1,20 @@
+from pathlib import Path
+r=Path('integrations/conversation-assist/android/src/com/mcnex/conversation')
+p=r/'NativeKoreanSpeech.java';s=p.read_text(encoding='utf-8').replace('final class NativeKoreanSpeech implements AutoCloseable {','final class NativeKoreanSpeech implements AutoCloseable {\n interface TextSink {void partial(String id,String text);void confirmed(String id,String text);}\n private final TextSink sink;')
+s=s.replace('NativeKoreanSpeech(Context c)throws Exception{context=c;start();}', 'NativeKoreanSpeech(Context c)throws Exception{this(c,null);}\n NativeKoreanSpeech(Context c,TextSink sink)throws Exception{context=c;this.sink=sink;start();}')
+s=s.replace('partial=next;revision++;','partial=next;revision++;if(sink!=null)sink.partial(session+":"+segment,partial);')
+s=s.replace('lastFinal=text;partial="";segment++;','if(sink!=null)sink.confirmed(session+":"+segment,text);lastFinal=text;partial="";segment++;')
+p.write_text(s,encoding='utf-8')
+p=r/'AssistService.java';s=p.read_text(encoding='utf-8').replace('private final ReentrantLock speechLock=new ReentrantLock(),aiLock=new ReentrantLock();','private final ReentrantLock speechLock=new ReentrantLock(),aiLock=MeetingManager.AI_LOCK;private MeetingManager meetings;')
+s=s.replace('@Override public void onCreate(){super.onCreate();','@Override public void onCreate(){super.onCreate();meetings=MeetingManager.get(this);')
+s=s.replace('liveSpeech.snapshot());return;}','liveSpeech.snapshot().put("meeting",meetings.state()));return;}',1)
+s=s.replace('liveSpeech=new NativeKoreanSpeech(this);','liveSpeech=new NativeKoreanSpeech(this,meetings.begin());')
+s=s.replace('  if(path.equals("/cancel")', '''  if(path.equals("/meetings")&&method.equals("GET")){respond(s,200,new JSONObject().put("items",meetings.list()).put("state",meetings.state()));return;}
+  if(path.equals("/meeting/complete")&&method.equals("POST")){speechLock.lock();try{if(liveOpus!=null){liveOpus.finish();liveOpus.close();liveOpus=null;}if(liveSpeech!=null){long until=System.currentTimeMillis()+2000;while(liveSpeech.snapshot().optBoolean("running")&&System.currentTimeMillis()<until)Thread.sleep(50);}String id=meetings.complete();respond(s,200,new JSONObject().put("meetingId",id).put("minutesStatus","queued"));}catch(Exception e){respond(s,500,obj("error",e.getMessage()));}finally{speechLock.unlock();}return;}
+  if(path.equals("/cancel")''')
+s=s.replace('if(liveSpeech!=null){Thread.sleep(500);respond', 'meetings.pause();if(liveSpeech!=null){Thread.sleep(500);respond')
+s=s.replace('if(ai==null)ai=new LiteAi(model,getCacheDir());','if(ai==null)ai=meetings.engine();')
+s=s.replace('if(ai!=null)ai.close();if(whisper!=null)whisper.close();','if(whisper!=null)whisper.close();')
+s=s.replace('.put("version","0.4.0")','.put("version","0.5.0")');p.write_text(s,encoding='utf-8')
+p=r/'MeetingManager.java';s=p.read_text(encoding='utf-8').replace('chunks(transcript,900)','chunks(transcript,750)').replace('length()>1000','length()>800').replace('),900)', '),750)');p.write_text(s,encoding='utf-8')
+p=Path('integrations/conversation-assist/android/build.gradle');s=p.read_text(encoding='utf-8').replace("versionCode 6; versionName '0.4.0'", "versionCode 7; versionName '0.5.0'");s+='\ndependencies { testImplementation "junit:junit:4.13.2"; testImplementation "org.json:json:20240303" }\n';p.write_text(s,encoding='utf-8')

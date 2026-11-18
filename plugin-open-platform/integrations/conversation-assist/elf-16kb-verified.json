@@ -1,0 +1,92 @@
+[
+  {
+    "library": "lib/arm64-v8a/libconversation.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  },
+  {
+    "library": "lib/arm64-v8a/libggml-base.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  },
+  {
+    "library": "lib/arm64-v8a/libggml-cpu.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  },
+  {
+    "library": "lib/arm64-v8a/libggml-opencl.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  },
+  {
+    "library": "lib/arm64-v8a/libggml.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  },
+  {
+    "library": "lib/arm64-v8a/liblitertlm_jni.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  },
+  {
+    "library": "lib/arm64-v8a/libllama.so",
+    "loadAlignments": [
+      16384,
+      16384,
+      16384,
+      16384
+    ],
+    "relroRemainders": [
+      0
+    ],
+    "ok": true
+  }
+]

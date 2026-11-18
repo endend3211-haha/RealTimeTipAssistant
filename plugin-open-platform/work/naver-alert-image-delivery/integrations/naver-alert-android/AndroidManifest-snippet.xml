@@ -1,0 +1,10 @@
+<!-- Merge inside the existing Android Host application's <application>. -->
+<service xmlns:android="http://schemas.android.com/apk/res/android"
+    android:name="com.mcnex.naveralert.NaverNotificationListener"
+    android:label="네이버 지도 안내 수신"
+    android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.service.notification.NotificationListenerService" />
+    </intent-filter>
+</service>

@@ -1,0 +1,1 @@
+{"id":"com.memomind.r08.health","name":"R08 Health","version":1,"abi_version":256,"provides":{"protocols":[{"id":"gm.r08-health","version":"1.0"}]}}

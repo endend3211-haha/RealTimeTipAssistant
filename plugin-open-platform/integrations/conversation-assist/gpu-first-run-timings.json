@@ -1,0 +1,9 @@
+{
+  "device": "QUALCOMM Adreno(TM) 830",
+  "samePrompt": true,
+  "cpuLoadMs": 604,
+  "cpuGenerateMs": 18884,
+  "openclLoadMs": 41809,
+  "openclGenerateMs": 6473,
+  "openclWarmMs": 4358
+}

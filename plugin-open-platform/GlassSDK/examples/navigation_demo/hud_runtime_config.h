@@ -1,0 +1,8 @@
+#ifndef HUD_RUNTIME_CONFIG_H
+#define HUD_RUNTIME_CONFIG_H
+
+#define HUD_RUNTIME_VERSION "V30"
+
+#define HUD_REFRESH_ENABLED 1
+
+#endif

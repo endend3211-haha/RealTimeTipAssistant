@@ -1,0 +1,26 @@
+{
+  "id": "com.mcnex.glow-market.glass",
+  "name": "Glow 뉴스 주식 Glass",
+  "version": 3,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      {
+        "id": "gm.scene",
+        "version": "1.0"
+      },
+      {
+        "id": "gm.scene-lz4",
+        "version": "1.0"
+      },
+      {
+        "id": "gm.scene-atomic-frame",
+        "version": "1.0"
+      },
+      {
+        "id": "gm.device-events",
+        "version": "1.0"
+      }
+    ]
+  }
+}

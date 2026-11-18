@@ -1,0 +1,6 @@
+package com.mcnex.conversation;
+import android.app.*;import android.os.*;import android.widget.*;
+public class MinutesUiProbe extends Instrumentation {
+ public void onCreate(Bundle b){super.onCreate(b);start();}
+ public void onStart(){try{MainActivity a=(MainActivity)startActivitySync(new android.content.Intent(getTargetContext(),MainActivity.class).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK));runOnMainSync(()->{a.screen();LinearLayout page=(LinearLayout)((android.view.ViewGroup)a.findViewById(android.R.id.content)).getChildAt(0);android.webkit.WebView web=a.minutesBrowser();page.addView(web,new LinearLayout.LayoutParams(-1,-1));String html=MinutesDocument.html("카메라 화질 개선 검토","2026년 11월 3일  ·  15:00–16:00  ·  60분","## 핵심 요약\n- 역광 촬영 시 얼굴 밝기 개선 방안을 검토했습니다.\n- HDR 비교 시험 후 적용안을 결정합니다.\n## 결정 사항\n- 다음 시제품에서 A/B 비교 시험을 진행합니다.\n## 실행 과제\nHDR 비교 시험 | 김민수 | 11월 6일\n전력 측정 | 이서연 | 미정\n## 확인 필요 사항\n- 최종 일정은 시험 결과 확인 후 결정합니다.");web.loadDataWithBaseURL(null,html,"text/html","UTF-8",null);try{MeetingStore.atomic(new java.io.File(a.getFilesDir(),"minutes-document-example.html"),html);}catch(Exception e){throw new RuntimeException(e);}});Thread.sleep(16000);finish(-1,new Bundle());}catch(Exception e){Bundle b=new Bundle();b.putString("error",e.toString());finish(0,b);}}
+}

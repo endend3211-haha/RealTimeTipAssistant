@@ -1,0 +1,9 @@
+Navigation HUD Deployment Checklist
+
+[ ] Build SDK
+[ ] Validate manifest
+[ ] Validate permission
+[ ] Generate mmpkg
+[ ] Install plugin
+[ ] Runtime test
+[ ] HUD output check

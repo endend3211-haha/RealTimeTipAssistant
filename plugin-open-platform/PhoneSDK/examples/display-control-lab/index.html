@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#07131b">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'">
+    <title>내 스마트 안경 디스플레이 제어기</title>
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">MEMOMIND DISPLAY SDK</p>
+          <h1>내 스마트 안경 제어기</h1>
+          <p class="summary">안경 화면 전원과 광학 디스플레이 설정을 제어합니다.</p>
+        </div>
+        <button id="language-toggle" class="language-toggle" type="button">KO / 한국어</button>
+      </header>
+
+      <section class="runtime-strip" aria-label="Runtime status">
+        <span><small>호스트(스마트폰)</small><strong id="host-status">연결 중...</strong></span>
+        <span><small>스마트 안경</small><strong id="device-status">—</strong></span>
+        <span><small>동작 모드</small><strong id="runtime-mode">—</strong></span>
+      </section>
+
+      <p id="notice" class="notice" role="status">플러그인 호스트 연결을 대기하고 있습니다...</p>
+
+      <section class="panel power-panel">
+        <div class="panel-heading">
+          <div><h2>화면 전원</h2><p>안경 본체 전원이 아닌 렌즈 디스플레이만 끕니다.</p></div>
+          <strong id="screen-value">—</strong>
+        </div>
+        <div class="power-actions">
+          <button type="button" data-screen="1">화면 켜기</button>
+          <button type="button" data-screen="0">화면 끄기</button>
+        </div>
+      </section>
+
+      <section class="control-grid">
+        <label class="panel range-control" for="brightness">
+          <span class="control-heading"><span><strong>밝기 조절</strong><small>단계 1–10</small></span><output id="brightness-value">6</output></span>
+          <input id="brightness" type="range" min="1" max="10" step="1" value="6">
+          <span class="limits"><span>1</span><span>10</span></span>
+        </label>
+
+        <label class="panel range-control" for="height">
+          <span class="control-heading"><span><strong>표시 높이(상하 위치)</strong><small>수직 광학 레벨 0–8</small></span><output id="height-value">4</output></span>
+          <input id="height" type="range" min="0" max="8" step="1" value="4">
+          <span class="limits"><span>0</span><span>8</span></span>
+        </label>
+
+        <label class="panel range-control" for="distance">
+          <span class="control-heading"><span><strong>초점 거리(원근감)</strong><small>가상 거리 레벨 0–8</small></span><output id="distance-value">4</output></span>
+          <input id="distance" type="range" min="0" max="8" step="1" value="4">
+          <span class="limits"><span>0</span><span>8</span></span>
+        </label>
+      </section>
+
+      <button id="restore" class="restore" type="button" disabled>초기 설정으로 복원</button>
+
+      <section class="safety">
+        <strong>안전 복구 안내</strong>
+        <p>실제 렌즈 화면이 꺼진 경우 이 휴대폰 페이지에서 다시 켤 수 있습니다. 안경 본체의 물리 버튼을 길게 누르고 있어도 화면이 켜지며 데모가 종료됩니다.</p>
+      </section>
+
+      <footer>스튜디오 화면에서 명령과 값을 검증합니다. 실제 밝기, 높이, 거리는 실물 안경에서 확인하세요.</footer>
+    </main>
+    <script type="module" src="./plugin.js"></script>
+  </body>
+</html>

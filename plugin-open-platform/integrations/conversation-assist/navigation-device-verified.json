@@ -1,0 +1,8 @@
+{
+  "pageSwipe": true,
+  "tabs": true,
+  "phoneTip": true,
+  "swipeDeleteCallback": 1,
+  "swipeShareCallback": 1,
+  "ok": true
+}

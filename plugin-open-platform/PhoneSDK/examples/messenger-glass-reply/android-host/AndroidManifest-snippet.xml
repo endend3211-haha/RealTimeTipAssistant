@@ -1,0 +1,9 @@
+<service
+    android:name="com.memomind.host.messengerreply.MessengerNotificationListener"
+    android:label="MemoMind Messenger Reply"
+    android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+    android:exported="true">
+    <intent-filter>
+        <action android:name="android.service.notification.NotificationListenerService" />
+    </intent-filter>
+</service>

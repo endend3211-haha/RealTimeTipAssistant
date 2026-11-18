@@ -1,0 +1,11 @@
+{
+  "id": "com.memomind.r08.control",
+  "name": "MemoMind R08 Control",
+  "version": 1,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "gm.r08-control", "version": "1.0" }
+    ]
+  }
+}

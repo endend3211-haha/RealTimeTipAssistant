@@ -1,0 +1,32 @@
+:root { --bg:#0b0d10; --panel:#161a20; --line:#2a313b; --text:#f2f5f7; --sub:#98a2ad; --kakao:#03c75a; }
+* { box-sizing: border-box; }
+body { margin:0; background:var(--bg); color:var(--text); font:16px/1.5 -apple-system,"Noto Sans KR",sans-serif; padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom); }
+#app { max-width:520px; margin:0 auto; padding:16px; }
+h1 { font-size:20px; margin:8px 0 4px; }
+#status { color:var(--sub); font-size:14px; margin:0 0 16px; }
+.search { display:flex; gap:8px; }
+.search input { flex:1; min-width:0; padding:12px 14px; font-size:16px; color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:10px; }
+.search input:focus-visible, button:focus-visible, .result:focus-visible { outline:2px solid var(--kakao); outline-offset:2px; }
+button { padding:0 18px; font-size:16px; font-weight:600; color:#04140a; background:var(--kakao); border:0; border-radius:10px; }
+button:disabled { opacity:.5; }
+#results { list-style:none; margin:12px 0; padding:0; }
+.result { display:block; width:100%; text-align:left; padding:12px 14px; margin-bottom:8px; color:var(--text); background:var(--panel); border:1px solid var(--line); border-radius:10px; font-weight:400; }
+.result strong { display:block; }
+.result span { color:var(--sub); font-size:14px; }
+.empty { color:var(--sub); padding:8px 2px; }
+.card { margin-top:16px; padding:16px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
+.card p { margin:0; }
+#dest-name { font-size:18px; font-weight:700; }
+#dest-addr { color:var(--sub); font-size:14px; }
+.nav { display:flex; align-items:center; gap:14px; margin-top:8px; }
+#turn { font-size:44px; line-height:1; }
+#distance { margin:0 !important; font-size:28px; font-weight:700; color:var(--kakao); }
+@media (prefers-reduced-motion:no-preference) { button { transition:opacity .15s; } }
+
+#start-btn, #stop-btn { width:100%; margin-top:14px; padding:14px; }
+.secondary { color:var(--text); background:transparent; border:1px solid var(--line); }
+[hidden] { display:none !important; }
+#demo-btn { width:100%; margin-top:10px; padding:12px; }
+.map-wrap { margin-top:16px; }
+#map { display:block; width:100%; height:220px; border:1px solid var(--line); border-radius:12px; background:#10151b; touch-action:manipulation; }
+.map-note { margin:6px 2px 0; color:var(--sub); font-size:12px; }

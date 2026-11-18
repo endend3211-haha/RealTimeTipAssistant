@@ -1,0 +1,34 @@
+
+Navigation HUD V15
+
+Plugin Lifecycle
+
+on_start()
+    |
+    +-- hud_manager_init()
+    |
+    +-- navigation_callback_register()
+
+
+Navigation Event
+
+    |
+    v
+
+navigation_callback_on_route()
+
+    |
+    v
+
+hud_manager_update()
+
+    |
+    v
+
+LVGL HUD Refresh
+
+
+Added:
+- plugin lifecycle connection
+- navigation callback bridge
+- runtime update flow

@@ -1,0 +1,7 @@
+{
+  "id": "com.memomind.demo.notification-reply-glass",
+  "name": "Notification Reply Glass",
+  "version": 2,
+  "abi_version": 256,
+  "provides": { "protocols": [{ "id": "gm.notification-reply", "version": "1.0" }] }
+}

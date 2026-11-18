@@ -1,0 +1,195 @@
+{
+  "samples": [
+    {
+      "block": 0,
+      "model": "Gemma GPU",
+      "case": "HDR 도움",
+      "generateMs": 2423,
+      "characters": 130,
+      "raw": "```json\n{\n\"kind\": \"term\",\n\"topic\": \"HDR\",\n\"text\": \"HDR은 밝은 부분과 어두운 부분의 정보를 함께 표현하여 역광 상황에서 얼굴과 배경의 세부를 개선하는 데 도움을 줄 수 있습니다.\"\n}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "term",
+        "topic": "HDR",
+        "text": "HDR은 밝은 부분과 어두운 부분의 정보를 함께 표현하여 역광 상황에서 얼굴과 배경의 세부를 개선하는 데 도움을 줄 수 있습니다."
+      }
+    },
+    {
+      "block": 0,
+      "model": "Gemma GPU",
+      "case": "양자화 도움",
+      "generateMs": 1767,
+      "characters": 130,
+      "raw": "```json\n{\n\"kind\": \"term\",\n\"topic\": \"양자화\",\n\"text\": \"양자화는 모델의 가중치나 연산 값을 더 적은 비트로 표현하는 기법으로, 용량과 연산 부담을 줄이지만 정확도가 달라질 수 있습니다.\"\n}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "term",
+        "topic": "양자화",
+        "text": "양자화는 모델의 가중치나 연산 값을 더 적은 비트로 표현하는 기법으로, 용량과 연산 부담을 줄이지만 정확도가 달라질 수 있습니다."
+      }
+    },
+    {
+      "block": 0,
+      "model": "Gemma GPU",
+      "case": "도움 불필요 판단",
+      "generateMs": 1258,
+      "characters": 86,
+      "raw": "```json\n{\n\"kind\": \"none\",\n\"topic\": \"\",\n\"text\": \"오늘 점심 식사와 오후 산책에 대한 일상적인 대화입니다.\"\n}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "none",
+        "topic": "",
+        "text": "오늘 점심 식사와 오후 산책에 대한 일상적인 대화입니다."
+      }
+    },
+    {
+      "block": 1,
+      "model": "EXAONE OpenCL GPU",
+      "case": "HDR 도움",
+      "generateMs": 6355,
+      "characters": 131,
+      "raw": "```json\n{\"kind\":\"reply\",\"topic\":\"질문 요점\",\"text\":\"네, HDR 기능을 사용하면 역광 상황에서 얼굴의 세부와 밝은 배경을 동시에 선명하게 표현할 수 있어 문제 해결에 도움이 될 수 있습니다.\"}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "reply",
+        "topic": "질문 요점",
+        "text": "네, HDR 기능을 사용하면 역광 상황에서 얼굴의 세부와 밝은 배경을 동시에 선명하게 표현할 수 있어 문제 해결에 도움이 될 수 있습니다."
+      }
+    },
+    {
+      "block": 1,
+      "model": "EXAONE OpenCL GPU",
+      "case": "양자화 도움",
+      "generateMs": 4430,
+      "characters": 196,
+      "raw": "```json\n{\"kind\":\"reply\",\"topic\":\"양자화의 영향\",\"text\":\"양자화는 메모리 사용량을 줄이고 연산 속도를 높일 수 있지만, 모델의 정확도가 떨어질 수 있습니다. INT4 양자화는 특히 가중치를 더 작은 범위의 값으로 표현하여 메모리 효율성을 크게 향상시키지만, 이 과정에서 일부 정보 손실이 발생할 수 있습니다.\"}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "reply",
+        "topic": "양자화의 영향",
+        "text": "양자화는 메모리 사용량을 줄이고 연산 속도를 높일 수 있지만, 모델의 정확도가 떨어질 수 있습니다. INT4 양자화는 특히 가중치를 더 작은 범위의 값으로 표현하여 메모리 효율성을 크게 향상시키지만, 이 과정에서 일부 정보 손실이 발생할 수 있습니다."
+      }
+    },
+    {
+      "block": 1,
+      "model": "EXAONE OpenCL GPU",
+      "case": "도움 불필요 판단",
+      "generateMs": 2450,
+      "characters": 87,
+      "raw": "```json\n{\"kind\":\"reply\",\"topic\":\"산책 계획\",\"text\":\"좋아요, 비가 오지 않으면 내일도 함께 산책하시면 좋겠네요!\"}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "reply",
+        "topic": "산책 계획",
+        "text": "좋아요, 비가 오지 않으면 내일도 함께 산책하시면 좋겠네요!"
+      }
+    },
+    {
+      "block": 2,
+      "model": "EXAONE OpenCL GPU",
+      "case": "HDR 도움",
+      "generateMs": 7004,
+      "characters": 131,
+      "raw": "```json\n{\"kind\":\"reply\",\"topic\":\"질문 요점\",\"text\":\"네, HDR 기능을 사용하면 역광 상황에서 얼굴의 세부와 밝은 배경을 동시에 선명하게 표현할 수 있어 문제 해결에 도움이 될 수 있습니다.\"}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "reply",
+        "topic": "질문 요점",
+        "text": "네, HDR 기능을 사용하면 역광 상황에서 얼굴의 세부와 밝은 배경을 동시에 선명하게 표현할 수 있어 문제 해결에 도움이 될 수 있습니다."
+      }
+    },
+    {
+      "block": 2,
+      "model": "EXAONE OpenCL GPU",
+      "case": "양자화 도움",
+      "generateMs": 9003,
+      "characters": 196,
+      "raw": "```json\n{\"kind\":\"reply\",\"topic\":\"양자화의 영향\",\"text\":\"양자화는 메모리 사용량을 줄이고 연산 속도를 높일 수 있지만, 모델의 정확도가 떨어질 수 있습니다. INT4 양자화는 특히 가중치를 더 작은 범위의 값으로 표현하여 메모리 효율성을 크게 향상시키지만, 이 과정에서 일부 정보 손실이 발생할 수 있습니다.\"}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "reply",
+        "topic": "양자화의 영향",
+        "text": "양자화는 메모리 사용량을 줄이고 연산 속도를 높일 수 있지만, 모델의 정확도가 떨어질 수 있습니다. INT4 양자화는 특히 가중치를 더 작은 범위의 값으로 표현하여 메모리 효율성을 크게 향상시키지만, 이 과정에서 일부 정보 손실이 발생할 수 있습니다."
+      }
+    },
+    {
+      "block": 2,
+      "model": "EXAONE OpenCL GPU",
+      "case": "도움 불필요 판단",
+      "generateMs": 4749,
+      "characters": 87,
+      "raw": "```json\n{\"kind\":\"reply\",\"topic\":\"산책 계획\",\"text\":\"좋아요, 비가 오지 않으면 내일도 함께 산책하시면 좋겠네요!\"}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "reply",
+        "topic": "산책 계획",
+        "text": "좋아요, 비가 오지 않으면 내일도 함께 산책하시면 좋겠네요!"
+      }
+    },
+    {
+      "block": 3,
+      "model": "Gemma GPU",
+      "case": "HDR 도움",
+      "generateMs": 4015,
+      "characters": 130,
+      "raw": "```json\n{\n\"kind\": \"term\",\n\"topic\": \"HDR\",\n\"text\": \"HDR은 밝은 부분과 어두운 부분의 정보를 함께 표현하여 역광 상황에서 얼굴과 배경의 세부를 개선하는 데 도움을 줄 수 있습니다.\"\n}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "term",
+        "topic": "HDR",
+        "text": "HDR은 밝은 부분과 어두운 부분의 정보를 함께 표현하여 역광 상황에서 얼굴과 배경의 세부를 개선하는 데 도움을 줄 수 있습니다."
+      }
+    },
+    {
+      "block": 3,
+      "model": "Gemma GPU",
+      "case": "양자화 도움",
+      "generateMs": 3509,
+      "characters": 130,
+      "raw": "```json\n{\n\"kind\": \"term\",\n\"topic\": \"양자화\",\n\"text\": \"양자화는 모델의 가중치나 연산 값을 더 적은 비트로 표현하는 기법으로, 용량과 연산 부담을 줄이지만 정확도가 달라질 수 있습니다.\"\n}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "term",
+        "topic": "양자화",
+        "text": "양자화는 모델의 가중치나 연산 값을 더 적은 비트로 표현하는 기법으로, 용량과 연산 부담을 줄이지만 정확도가 달라질 수 있습니다."
+      }
+    },
+    {
+      "block": 3,
+      "model": "Gemma GPU",
+      "case": "도움 불필요 판단",
+      "generateMs": 2114,
+      "characters": 86,
+      "raw": "```json\n{\n\"kind\": \"none\",\n\"topic\": \"\",\n\"text\": \"오늘 점심 식사와 오후 산책에 대한 일상적인 대화입니다.\"\n}\n```",
+      "validJson": true,
+      "help": {
+        "kind": "none",
+        "topic": "",
+        "text": "오늘 점심 식사와 오후 산책에 대한 일상적인 대화입니다."
+      }
+    }
+  ],
+  "loads": [
+    {
+      "block": 0,
+      "model": "Gemma GPU",
+      "loadMs": 4241
+    },
+    {
+      "block": 1,
+      "model": "EXAONE OpenCL GPU",
+      "loadMs": 6775
+    },
+    {
+      "block": 2,
+      "model": "EXAONE OpenCL GPU",
+      "loadMs": 8892
+    },
+    {
+      "block": 3,
+      "model": "Gemma GPU",
+      "loadMs": 5750
+    }
+  ],
+  "ok": true
+}

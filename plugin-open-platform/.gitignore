@@ -1,0 +1,26 @@
+/.build/
+/PhoneSDK/.build/
+**/node_modules/
+/PhoneSDK/examples/**/dist/
+/Studio/logs/
+
+# Local stock relay access key & secrets
+integrations/stock-watch/connection-key.txt
+*.key
+*.token
+*.env
+*.pem
+*.p12
+credentials.json
+
+# Device vendor library is a local build-time link reference only.
+/integrations/conversation-assist/gpu-build/libOpenCL.so
+
+# Build & temp outputs
+.ppt-build/
+dist/
+output/
+outputs/
+*.log
+.DS_Store
+Thumbs.db

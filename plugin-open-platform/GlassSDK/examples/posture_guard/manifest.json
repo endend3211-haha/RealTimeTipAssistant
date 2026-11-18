@@ -1,0 +1,11 @@
+{
+    "id": "com.memomind.demo.posture-guard",
+    "name": "Posture Guard",
+    "version": 3,
+    "abi_version": 256,
+    "provides": {
+        "protocols": [
+            { "id": "gm.posture-guard", "version": "1.0" }
+        ]
+    }
+}

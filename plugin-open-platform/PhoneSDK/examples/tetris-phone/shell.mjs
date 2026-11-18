@@ -1,0 +1,1 @@
+import {activate} from './hub.mjs';import {mount} from './tetris/plugin.js';import template from './tetris/template.mjs';const root=document.getElementById('tetrisRoot').attachShadow({mode:'open'});root.innerHTML=template;activate('tetris');void mount(root);

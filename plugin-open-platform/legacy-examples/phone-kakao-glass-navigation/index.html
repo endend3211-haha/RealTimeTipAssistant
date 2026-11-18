@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Kakao Glass Navigation</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">SMART GLASS NAVIGATION</p>
+        <h1>카카오맵 길 안내</h1>
+      </div>
+      <span id="bridgeBadge" class="badge">연결 중</span>
+    </header>
+
+    <section class="panel search-panel">
+      <div class="location-row">
+        <div>
+          <span class="label">현재 위치</span>
+          <strong id="currentLocation">위치 권한 대기 중</strong>
+        </div>
+        <button id="locateButton" class="ghost" type="button">현재 위치</button>
+      </div>
+
+      <form id="searchForm" class="search-form">
+        <input id="searchInput" type="search" autocomplete="off" placeholder="목적지를 검색하세요" aria-label="목적지 검색" />
+        <button class="primary" type="submit">검색</button>
+      </form>
+      <div id="searchResults" class="results" aria-live="polite"></div>
+    </section>
+
+    <section class="panel nav-panel">
+      <div class="nav-head">
+        <div>
+          <span class="label">목적지</span>
+          <h2 id="destinationName">선택 안 됨</h2>
+          <p id="destinationAddress" class="muted">장소를 검색한 뒤 선택하세요.</p>
+        </div>
+        <button id="openKakaoMapButton" class="ghost" type="button" disabled>카카오맵 열기</button>
+      </div>
+
+      <canvas id="routeCanvas" width="720" height="320" aria-label="경로 미리보기"></canvas>
+
+      <div class="route-stats">
+        <div><span>다음 안내</span><strong id="turnDistance">--</strong></div>
+        <div><span>남은 거리</span><strong id="remainingDistance">--</strong></div>
+        <div><span>예상 시간</span><strong id="remainingTime">--</strong></div>
+      </div>
+
+      <div class="guidance-card">
+        <div id="maneuverIcon" class="maneuver">↑</div>
+        <div>
+          <strong id="guidanceText">길 안내 준비 중</strong>
+          <p id="nextGuidanceText">목적지를 선택하면 스마트 글라스 HUD가 시작됩니다.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="startButton" class="primary wide" type="button" disabled>도보 길 안내 시작</button>
+        <button id="stopButton" class="danger" type="button" disabled>종료</button>
+      </div>
+      <button id="demoButton" class="ghost wide" type="button">API 키 없이 데모 경로 실행</button>
+      <p id="statusText" class="status">플러그인 초기화 중…</p>
+    </section>
+
+    <details class="panel settings-panel">
+      <summary>카카오 API 연결 설정</summary>
+      <div class="settings-grid">
+        <label>
+          <span>연결 방식</span>
+          <select id="apiMode">
+            <option value="direct">REST API 키 직접 사용 (개발용)</option>
+            <option value="proxy">프록시 서버 사용 (배포 권장)</option>
+          </select>
+        </label>
+        <label id="restKeyField">
+          <span>카카오 REST API 키</span>
+          <input id="restKey" type="password" placeholder="Kakao Developers REST API 키" />
+        </label>
+        <label id="proxyField" hidden>
+          <span>프록시 주소</span>
+          <input id="proxyBase" type="url" placeholder="http://127.0.0.1:8787" />
+        </label>
+      </div>
+      <div class="actions">
+        <button id="saveSettingsButton" class="primary" type="button">설정 저장</button>
+        <button id="testSettingsButton" class="ghost" type="button">API 연결 테스트</button>
+      </div>
+      <p class="hint">배포 시에는 REST API 키를 플러그인 안에 넣지 말고 proxy 폴더의 서버를 사용하세요.</p>
+    </details>
+
+    <canvas id="hudCanvas" width="560" height="272" hidden></canvas>
+  </main>
+  <script type="module" src="./plugin.js"></script>
+</body>
+</html>

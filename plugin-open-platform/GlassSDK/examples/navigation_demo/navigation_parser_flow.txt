@@ -1,0 +1,25 @@
+Navigation HUD V16
+
+Added Kakao route data conversion layer.
+
+Flow:
+
+Kakao Route JSON
+        |
+        v
+Kakao Parser
+        |
+        v
+route_data_t
+        |
+        v
+Navigation Callback
+        |
+        v
+HUD Manager
+        |
+        v
+Glass HUD
+
+Next:
+Connect real Kakao API response fields.

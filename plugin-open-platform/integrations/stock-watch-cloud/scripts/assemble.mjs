@@ -1,0 +1,11 @@
+import {readFile,mkdir,writeFile,copyFile} from 'node:fs/promises';
+const root=new URL('../',import.meta.url);
+const core=await readFile(new URL('worker/naver-core.mjs',root),'utf8');
+const relay=await readFile(new URL('worker/relay.mjs',root),'utf8');
+const worker=core+'\n'+relay;
+await writeFile(new URL('worker/index.js',root),worker);
+await mkdir(new URL('dist/server/',root),{recursive:true});
+await mkdir(new URL('dist/.openai/',root),{recursive:true});
+await writeFile(new URL('dist/server/index.js',root),worker);
+await copyFile(new URL('.openai/hosting.json',root),new URL('dist/.openai/hosting.json',root));
+console.log('Built HTTPS stock relay Worker');

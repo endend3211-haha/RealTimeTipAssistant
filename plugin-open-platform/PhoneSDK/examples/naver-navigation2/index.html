@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>네이버 지도 스마트 안경 네비게이션 (도보 ⇄ 차량 선택 최적화)</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-container">
+<header class="app-header">
+<div class="header-left">
+<span class="logo-icon">👓</span>
+<div>
+<h1 class="app-title">네이버 지도 HUD 네비</h1>
+<p class="app-subtitle">MemoMind Dual-Mode Navigation</p>
+</div>
+</div>
+<div class="header-right">
+<button id="btn-open-settings" class="btn-icon" title="네이버 지도 API 설정">⚙️</button>
+<span class="badge" id="nav-mode-badge">대기 중</span>
+</div>
+</header>
+<section class="mode-selector-section">
+<div class="mode-toggle-container">
+<button class="mode-btn active" id="btn-mode-walk" data-mode="walk">
+<div class="mode-btn-content">
+<span class="mode-icon">🚶</span>
+<div class="mode-text">
+<span class="mode-title">도보 최적화</span>
+<span class="mode-desc">횡단보도 · 골목길 · 걸음수</span>
+</div>
+</div>
+</button>
+<button class="mode-btn" id="btn-mode-drive" data-mode="drive">
+<div class="mode-btn-content">
+<span class="mode-icon">🚗</span>
+<div class="mode-text">
+<span class="mode-title">차량 최적화</span>
+<span class="mode-desc">과속카메라 · 차선 · 속도계</span>
+</div>
+</div>
+</button>
+</div>
+</section>
+<section class="section glass-viewport-card">
+<div class="card-header">
+<span class="tag" id="hud-mode-tag">🚶 도보 HUD 최적화</span>
+<span class="hud-status" id="hud-connection-status">Micro-OLED 시야 투사</span>
+</div>
+<div class="hud-screen" id="hud-screen">
+<div class="hud-top-bar">
+<div class="hud-road-name" id="hud-road-name">강남대로 보도</div>
+<div class="hud-alert-badge" id="hud-alert-badge">
+<span id="hud-alert-icon">🚸</span> <span id="hud-alert-text">횡단보도 30m</span>
+</div>
+</div>
+<div class="hud-center-tbt">
+<div class="hud-arrow-box" id="hud-arrow-box">
+<svg id="hud-arrow-svg" class="arrow-svg" viewBox="0 0 100 100">
+<path d="M 50 12 L 82 44 L 62 44 L 62 88 L 38 88 L 38 44 L 18 44 Z" fill="#22c55e" />
+</svg>
+</div>
+<div class="hud-turn-info">
+<div class="hud-distance" id="hud-dist-to-turn">65m</div>
+<div class="hud-instruction" id="hud-instruction">올리브영 끼고 우회전</div>
+<div class="hud-sub-hint" id="hud-sub-hint">📍 랜드마크: 스타벅스 옆 골목</div>
+</div>
+</div>
+<div class="hud-bottom-bar">
+<div class="hud-speed-gauge">
+<span class="speed-num" id="hud-speed">3.8</span>
+<span class="speed-unit" id="hud-speed-unit">km/h</span>
+<span class="step-counter" id="hud-step-counter">· 420보</span>
+</div>
+<div class="hud-eta-info">
+<span id="hud-total-dist">550 m</span> · <span id="hud-eta-time">약 8분</span>
+</div>
+</div>
+</div>
+</section>
+<section class="section map-controller-card">
+<div class="route-search-box">
+<div class="input-group">
+<span class="point-dot start"></span>
+<input type="text" id="input-start" value="강남역 2번 출구" readonly />
+</div>
+<div class="input-group">
+<span class="point-dot end"></span>
+<input type="text" id="input-dest" value="교보문고 강남점" />
+<button id="btn-search-dest" class="btn-sm">경로 탐색</button>
+</div>
+</div>
+<div class="quick-routes" id="quick-routes-container">
+</div>
+<div class="minimap-container">
+<canvas id="minimap-canvas" width="440" height="180"></canvas>
+<div class="map-overlay-info">
+<span id="map-step-label">보행자 인도 직진 중</span>
+</div>
+</div>
+<div class="nav-actions">
+<button id="btn-toggle-sim" class="btn btn-primary">
+<span class="btn-icon" id="sim-btn-icon">🚶</span> <span id="sim-btn-text">모의 산책 시작</span>
+</button>
+<button id="btn-real-gps" class="btn btn-secondary">
+<span class="btn-icon">📡</span> 실시간 스마트폰 GPS 주행
+</button>
+</div>
+</section>
+<section class="section steps-card">
+<div class="card-header">
+<h3 id="steps-card-title">도보 최적화 경로 안내 (TBT Steps)</h3>
+<span class="step-count" id="step-count-label">총 5개 구간</span>
+</div>
+<div class="steps-list" id="steps-list">
+</div>
+</section>
+</div>
+<div class="modal-backdrop" id="settings-modal" style="display: none;">
+<div class="modal-content">
+<div class="modal-header">
+<h3>네이버 클라우드 플랫폼 Maps 설정</h3>
+<button id="btn-close-modal" class="btn-close">✕</button>
+</div>
+<div class="modal-body">
+<p class="modal-desc">
+네이버 지도 API(Directions 5) 연동을 위한 Client ID를 입력하세요.
+(키가 없어도 자체 내장된 한국 도보/차량 최적화 시뮬레이터로 즉시 테스트 가능합니다!)
+</p>
+<div class="form-group">
+<label for="naver-client-id">NCP Client ID (X-NCP-APIGW-API-KEY-ID)</label>
+<input type="text" id="naver-client-id" placeholder="예: ncp_client_id_here" />
+</div>
+<div class="form-group">
+<label for="naver-client-secret">NCP Client Secret (선택)</label>
+<input type="password" id="naver-client-secret" placeholder="Client Secret" />
+</div>
+</div>
+<div class="modal-footer">
+<button id="btn-save-settings" class="btn btn-primary">설정 저장</button>
+</div>
+</div>
+</div>
+<script type="module" src="main.js"></script>
+<footer class="newtype-signature-bar">
+<span class="nt-badge">MEMOMIND ONE</span>
+<span class="nt-author">Crafted by <b>Newtype(잘생긴아)</b></span>
+</footer>
+</body>
+</html>

@@ -1,0 +1,5 @@
+plugins { id 'com.android.application' version '8.12.1' }
+android { namespace 'com.mcnex.conversation'; compileSdk 36
+defaultConfig { applicationId 'com.mcnex.gemmaprobe'; minSdk 33; targetSdk 35 }
+packaging { jniLibs { useLegacyPackaging = true } } }
+tasks.withType(JavaCompile).configureEach { options.encoding = "UTF-8" }

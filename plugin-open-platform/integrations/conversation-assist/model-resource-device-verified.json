@@ -1,0 +1,108 @@
+{
+  "cores": 8,
+  "rows": [
+    {
+      "model": "Qwen3-0.6B LiteRT GPU",
+      "before": {
+        "temperatureC": 35.1,
+        "plugged": 2,
+        "thermalStatus": 0
+      },
+      "baselinePssKb": 30209,
+      "loadMs": 6795,
+      "loadedPssKb": 2895009,
+      "generateWallMs": 2758,
+      "processCpuMs": 1647,
+      "singleCoreCpuPercent": 59.71718636693256,
+      "peakPssKb": 2895009,
+      "samples": [
+        {
+          "elapsedMs": 1315,
+          "characters": 88
+        },
+        {
+          "elapsedMs": 730,
+          "characters": 88
+        },
+        {
+          "elapsedMs": 713,
+          "characters": 88
+        }
+      ],
+      "after": {
+        "temperatureC": 35.1,
+        "plugged": 2,
+        "thermalStatus": 0
+      }
+    },
+    {
+      "model": "Gemma E2B LiteRT GPU",
+      "before": {
+        "temperatureC": 35.1,
+        "plugged": 2,
+        "thermalStatus": 0
+      },
+      "baselinePssKb": 114761,
+      "loadMs": 11674,
+      "loadedPssKb": 2096405,
+      "generateWallMs": 5978,
+      "processCpuMs": 1909,
+      "singleCoreCpuPercent": 31.93375710940114,
+      "peakPssKb": 2264400,
+      "samples": [
+        {
+          "elapsedMs": 2805,
+          "characters": 119
+        },
+        {
+          "elapsedMs": 1684,
+          "characters": 119
+        },
+        {
+          "elapsedMs": 1489,
+          "characters": 119
+        }
+      ],
+      "after": {
+        "temperatureC": 36.6,
+        "plugged": 2,
+        "thermalStatus": 0
+      }
+    },
+    {
+      "model": "EXAONE 2.4B OpenCL GPU",
+      "before": {
+        "temperatureC": 36.6,
+        "plugged": 2,
+        "thermalStatus": 0
+      },
+      "baselinePssKb": 126342,
+      "loadMs": 6158,
+      "loadedPssKb": 2548010,
+      "generateWallMs": 12142,
+      "processCpuMs": 6578,
+      "singleCoreCpuPercent": 54.17558886509636,
+      "peakPssKb": 2624293,
+      "samples": [
+        {
+          "elapsedMs": 6249,
+          "characters": 119
+        },
+        {
+          "elapsedMs": 2940,
+          "characters": 119
+        },
+        {
+          "elapsedMs": 2953,
+          "characters": 119
+        }
+      ],
+      "after": {
+        "temperatureC": 38.5,
+        "plugged": 2,
+        "thermalStatus": 0
+      }
+    }
+  ],
+  "ok": true
+}

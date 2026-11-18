@@ -1,0 +1,10 @@
+node_modules/
+.build/
+.gradle/
+build/
+.env
+.env.*
+local.properties
+*.log
+*.db
+*.sqlite

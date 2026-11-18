@@ -1,0 +1,31 @@
+Navigation HUD V30 Final
+
+Modules:
+
+- SDK Navigation Adapter
+- Event Mapper
+- Navigation View Model
+- HUD Binding
+- LVGL HUD View
+- Runtime Controller
+
+
+Runtime Flow:
+
+Glass SDK
+ |
+ v
+Navigation Plugin
+ |
+ v
+HUD Runtime
+ |
+ v
+LVGL Renderer
+ |
+ v
+Glass Display
+
+
+Status:
+Final Integration Layer

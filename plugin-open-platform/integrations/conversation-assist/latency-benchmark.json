@@ -1,0 +1,38 @@
+[
+  {
+    "term": "HDR",
+    "status": 200,
+    "wallMs": 73,
+    "timing": {
+      "cold": false,
+      "loadMs": 0,
+      "generateMs": 0
+    },
+    "text": "HDR · High Dynamic Range. 밝은 부분과 어두운 부분의 정보를 함께 표현하는 기술. 역광에서 얼굴과 배경의 세부를 살리는 데 활용한다.",
+    "source": "로컬 용어 사전"
+  },
+  {
+    "term": "CMOS",
+    "status": 200,
+    "wallMs": 6509,
+    "timing": {
+      "cold": true,
+      "loadMs": 4364,
+      "generateMs": 2133
+    },
+    "text": "CMOS는 이미지 센서의 한 종류로, 빛을 받아들여 디지털 신호로 변환하는 역할을 합니다. 특히 밝은 부분과 어두운 부분의 정보를 동시에 담아낼 수 있어 HDR 기술과 함께 사용됩니다.",
+    "source": "Gemma 로컬 AI · 사실 확인 필요"
+  },
+  {
+    "term": "CMOS",
+    "status": 200,
+    "wallMs": 1188,
+    "timing": {
+      "cold": false,
+      "loadMs": 0,
+      "generateMs": 1168
+    },
+    "text": "CMOS는 이미지 센서의 한 종류로, 빛을 받아들여 디지털 신호로 변환하는 역할을 합니다. 특히 밝은 부분과 어두운 부분의 정보를 동시에 담아낼 수 있어 HDR 기술과 함께 사용됩니다.",
+    "source": "Gemma 로컬 AI · 사실 확인 필요"
+  }
+]

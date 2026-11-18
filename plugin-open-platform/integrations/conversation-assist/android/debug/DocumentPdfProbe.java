@@ -1,0 +1,6 @@
+package com.mcnex.conversation;
+import android.app.*;import android.os.*;import android.webkit.*;import android.print.*;
+public class DocumentPdfProbe extends Instrumentation {
+ public void onCreate(Bundle b){super.onCreate(b);start();}
+ public void onStart(){try{MainActivity a=(MainActivity)startActivitySync(new android.content.Intent(getTargetContext(),MainActivity.class).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK));runOnMainSync(()->{WebView web=a.minutesBrowser();a.setContentView(web);web.setWebViewClient(new WebViewClient(){public void onPageFinished(WebView v,String url){((PrintManager)a.getSystemService(android.content.Context.PRINT_SERVICE)).print("회의록 예제",web.createPrintDocumentAdapter("회의록 예제"),new PrintAttributes.Builder().setMediaSize(PrintAttributes.MediaSize.ISO_A4).build());}});web.loadDataWithBaseURL(null,MinutesDocument.html("카메라 화질 개선 검토","2026년 11월 3일 · 15:00–16:00 · 60분","## 핵심 요약\n- 역광 촬영 시 얼굴 밝기 개선 방안을 검토했습니다.\n## 결정 사항\n- 다음 시제품에서 비교 시험을 진행합니다.\n## 실행 과제\nHDR 비교 시험 | 김민수 | 11월 6일\n전력 측정 | 이서연 | 미정\n## 확인 필요 사항\n- 최종 적용 일정은 미정입니다."),"text/html","UTF-8",null);});Thread.sleep(30000);finish(-1,new Bundle());}catch(Exception e){Bundle b=new Bundle();b.putString("error",e.toString());finish(0,b);}}
+}

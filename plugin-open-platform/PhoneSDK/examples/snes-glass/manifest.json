@@ -1,0 +1,5 @@
+{"id":"com.memomind.demo.snes-glass","name":"SNES Glass Bridge","version":"0.4.7","entry":"index.html","schemaVersion":2,"permissionPolicyVersion":1,"bridgeVersion":"2.0","permissions":[{"name":"storage","required":true},{"name":"files.user-selected","required":true},{"name":"display","required":true},{"name":"device.info","required":true},{"name":"audio.playback","required":true}],"deviceRequirements":{"protocols":[{"id":"gm.scene","minVersion":"1.0"}]}}
+
+
+
+

@@ -1,0 +1,9 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';import vm from 'node:vm';import {readFile} from 'node:fs/promises';
+test('first use waits for explicit approval, saves token, then reconnects without sending a message',async()=>{
+ const elements=new Map(),calls=[],saved=[];let approved=false;
+ const element=id=>{if(!elements.has(id))elements.set(id,{value:'',hidden:false,open:false,textContent:'',replaceChildren(){},scrollIntoView(){}});return elements.get(id);};
+ let source=await readFile(new URL('../../examples/memo-messenger-companion/plugin.js',import.meta.url),'utf8');source=source.replace(/^import[^\n]+\n/gm,'');source=source.slice(0,source.indexOf('await gm.ready();'))+'\nglobalThis.api={automaticPair,tick,getToken:()=>token};';
+ const context=vm.createContext({AbortSignal,Date,console,document:{getElementById:element,activeElement:null},createGMPlugin:()=>({storage:{set:async(k,v)=>saved.push([k,v])}}),createMessengerBridge:(_gm,request)=>({poll:()=>request('/host',{hostId:'test-host'}),networkLost(){}}),fetch:async(url,options={})=>{calls.push([url,options]);return {ok:true,json:async()=>url.endsWith('/pair/request')?{requestId:'request-id',check:'ABCD'}:url.includes('/pair/result')?{approved,token:approved?'test-secret':''}:{messages:[],activeId:'',draft:'',connected:false,recording:false,status:'대기'}};}});
+ vm.runInContext(source,context);await context.api.automaticPair();assert.equal(context.api.getToken(),'');assert.equal(saved.length,0);assert.match(element('status').textContent,/연결 허용/);
+ approved=true;await context.api.automaticPair();assert.equal(context.api.getToken(),'test-secret');assert.equal(saved.length,1);await context.api.tick();assert.equal(calls.filter(([url])=>url.endsWith('/pair/request')).length,1);assert.equal(calls.filter(([url])=>url.endsWith('/host')).length,2);assert.equal(calls.filter(([url])=>url.endsWith('/action')).length,0);
+});

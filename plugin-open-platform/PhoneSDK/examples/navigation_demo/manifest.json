@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "id": "com.example.navigationdemo",
+  "name": "길찾기 데모 (폰)",
+  "version": "0.1.0",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    {
+      "name": "display",
+      "required": true
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "scope": { "channels": [20054] }
+    },
+    {
+      "name": "location.foreground",
+      "required": true
+    },
+    {
+      "name": "network",
+      "required": true
+    }
+  ]
+}

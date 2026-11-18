@@ -1,0 +1,15 @@
+{
+  "id": "com.memomind.cartridge.mirror",
+  "name": "Pocket Framebuffer Mirror",
+  "version": 2,
+  "abi_version": 256,
+  "provides": {
+    "protocols": [
+      { "id": "gm.pocket-fast-frame", "version": "1.0" },
+      { "id": "gm.scene", "version": "1.0" },
+      { "id": "gm.scene-lz4", "version": "1.0" },
+      { "id": "gm.scene-atomic-frame", "version": "1.0" },
+      { "id": "gm.device-events", "version": "1.0" }
+    ]
+  }
+}

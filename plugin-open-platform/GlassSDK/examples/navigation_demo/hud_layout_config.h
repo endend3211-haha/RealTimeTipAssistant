@@ -1,0 +1,13 @@
+#ifndef HUD_LAYOUT_CONFIG_H
+#define HUD_LAYOUT_CONFIG_H
+
+#define HUD_ARROW_X 100
+#define HUD_ARROW_Y 50
+
+#define HUD_DISTANCE_X 100
+#define HUD_DISTANCE_Y 120
+
+#define HUD_TEXT_X 100
+#define HUD_TEXT_Y 180
+
+#endif

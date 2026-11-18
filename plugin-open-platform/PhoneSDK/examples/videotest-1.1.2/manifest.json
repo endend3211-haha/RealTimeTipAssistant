@@ -1,0 +1,52 @@
+{
+  "id": "local.mmkit.videotest",
+  "name": "MM Video",
+  "version": "1.1.2",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1,
+  "permissions": [
+    {
+      "name": "audio.playback",
+      "required": false,
+      "reason": "YouTube and NAS video: plays the video's sound on the phone while the stills play on the glasses."
+    },
+    {
+      "name": "device.messaging",
+      "required": true,
+      "reason": "Sends test pictures to the glasses as fast as the link allows and reads back how many they drew.",
+      "scope": {
+        "channels": [
+          21015
+        ]
+      }
+    },
+    {
+      "name": "files.user-selected",
+      "required": false,
+      "reason": "Lets the optional Clip content read a .mmv file you pick (a video preconverted on the PC into grey test frames)."
+    },
+    {
+      "name": "network",
+      "required": true,
+      "reason": "Asks the MM Video engine on this phone (Termux) for the video stills and the sound track."
+    },
+    {
+      "name": "storage",
+      "required": true,
+      "reason": "Keeps the results table (one row per run) on the phone so you can compare sizes and compression across runs."
+    }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "local.mmkit.videotest",
+    "requiredPluginId": "local.mmkit.videotest",
+    "minPluginVersion": "1",
+    "protocols": [
+      {
+        "id": "mm.videotest",
+        "minVersion": "1.0"
+      }
+    ]
+  }
+}

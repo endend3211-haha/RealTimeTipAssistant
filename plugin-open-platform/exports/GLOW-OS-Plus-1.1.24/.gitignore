@@ -1,0 +1,12 @@
+node_modules/
+.build/
+.env
+.env.*
+*.log
+
+*.rom
+*.bin
+*.nes
+*.sfc
+*.smc
+**/street-fighter-ii-plus.md

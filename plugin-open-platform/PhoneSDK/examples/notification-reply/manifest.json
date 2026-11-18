@@ -1,0 +1,19 @@
+{
+  "id": "com.memomind.demo.notification-reply",
+  "name": "Notification Reply",
+  "version": "0.1.1",
+  "entry": "index.html",
+  "bridgeVersion": "2.0",
+  "permissions": [
+    { "name": "audio.capture", "required": false },
+    { "name": "device.events", "required": true, "scope": { "types": ["connection"] } },
+    { "name": "device.messaging", "required": true, "scope": { "channels": [20050] } }
+  ],
+  "deviceRequirements": {
+    "preferredPluginId": "com.memomind.demo.notification-reply-glass",
+    "requiredPluginId": "com.memomind.demo.notification-reply-glass",
+    "protocols": [{ "id": "gm.notification-reply", "minVersion": "1.0" }]
+  },
+  "schemaVersion": 2,
+  "permissionPolicyVersion": 1
+}

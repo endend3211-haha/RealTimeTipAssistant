@@ -1,0 +1,1 @@
+-keepclassmembers class com.memomind.webtoon.WebtoonRuntime { @android.webkit.JavascriptInterface <methods>; }
